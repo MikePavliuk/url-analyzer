@@ -1,22 +1,22 @@
 package com.mykhailopavliuk.controller;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
 public class SignInController {
 
     @FXML
-    private Button goToSignUpButton;
+    private JFXTextField inputEmail;
 
     @FXML
-    private TextField inputEmail;
+    private JFXPasswordField inputPassword;
 
     @FXML
-    private PasswordField inputPassword;
+    private JFXButton signInButton;
 
     @FXML
-    private Button signInButton;
+    private JFXButton goToSignUpButton;
 
 }
