@@ -2,6 +2,8 @@
 
 out/
 
+*.csv
+
 ### Java ###
 # Compiled class file
 *.class
