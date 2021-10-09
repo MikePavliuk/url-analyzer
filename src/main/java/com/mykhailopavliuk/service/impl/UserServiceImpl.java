@@ -4,13 +4,17 @@ import com.mykhailopavliuk.exception.NullEntityReferenceException;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.repository.UserRepository;
 import com.mykhailopavliuk.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

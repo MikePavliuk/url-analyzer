@@ -2,10 +2,14 @@ package com.mykhailopavliuk.repository.impl;
 
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.repository.UserRepository;
+import org.springframework.stereotype.Repository;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Optional;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
     @Override

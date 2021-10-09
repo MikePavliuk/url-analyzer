@@ -10,12 +10,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@Component
+@FxmlView("/view/sign-up.fxml")
 public class SignUpController {
 
-    private UserService userService;
+    private final UserService userService;
+
+    private final FxWeaver fxWeaver;
 
     @FXML
     private JFXTextField inputEmail;
@@ -32,14 +40,16 @@ public class SignUpController {
     @FXML
     private JFXPasswordField inputConfirmPassword;
 
-    public void setUserService(UserService userService) {
+    @Autowired
+    public SignUpController(UserService userService, FxWeaver fxWeaver) {
         this.userService = userService;
+        this.fxWeaver = fxWeaver;
     }
 
     @FXML
-    void handleSignInButton(ActionEvent event) throws IOException {
+    void handleSignInButton(ActionEvent event) {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/sign-in.fxml"))));
+        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
     }
 
 }
