@@ -17,9 +17,5 @@ public interface CrudRepository<T, ID> extends Repository<T, ID> {
 
     void deleteById(ID id);
 
-    void delete(T entity);
-
-    void deleteAll(Iterable<? extends T> entities);
-
     void deleteAll();
 }
