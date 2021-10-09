@@ -1,5 +1,6 @@
 package com.mykhailopavliuk.service.impl;
 
+import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.exception.NullEntityReferenceException;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.repository.UserRepository;
@@ -12,7 +13,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -29,21 +30,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User readById(Long id) {
-        return null;
+        return userRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 
     @Override
     public User update(User user) {
-        return null;
+        if (user != null) {
+            return userRepository.save(user);
+        }
+        throw new NullEntityReferenceException("User cannot be 'null'");
     }
 
     @Override
-    public void delete(Long id) {
-
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        return userRepository.findAll();
+    }
+
+    @Override
+    public long getAvailableId() {
+        return userRepository.getAvailableId();
     }
 }
