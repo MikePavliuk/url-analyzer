@@ -3,25 +3,23 @@ package com.mykhailopavliuk.repository;
 import java.util.Optional;
 
 public interface CrudRepository<T, ID> extends Repository<T, ID> {
-    <S extends T> S save(S var1);
+    <S extends T> S save(S entity);
 
-    <S extends T> Iterable<S> saveAll(Iterable<S> var1);
+    <S extends T> Iterable<S> saveAll(Iterable<S> entities);
 
-    Optional<T> findById(ID var1);
+    Optional<T> findById(ID id);
 
-    boolean existsById(ID var1);
+    boolean existsById(ID id);
 
     Iterable<T> findAll();
 
-    Iterable<T> findAllById(Iterable<ID> var1);
-
     long count();
 
-    void deleteById(ID var1);
+    void deleteById(ID id);
 
-    void delete(T var1);
+    void delete(T entity);
 
-    void deleteAll(Iterable<? extends T> var1);
+    void deleteAll(Iterable<? extends T> entities);
 
     void deleteAll();
 }

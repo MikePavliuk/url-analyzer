@@ -30,17 +30,17 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public <S extends User> Iterable<S> saveAll(Iterable<S> users) {
+    public <S extends User> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
     @Override
-    public Optional<User> findById(Long id) {
+    public Optional<User> findById(Long aLong) {
         return Optional.empty();
     }
 
     @Override
-    public boolean existsById(Long id) {
+    public boolean existsById(Long aLong) {
         return false;
     }
 
@@ -50,27 +50,22 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Iterable<User> findAllById(Iterable<Long> users) {
-        return null;
-    }
-
-    @Override
     public long count() {
         return 0;
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Long aLong) {
 
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(User entity) {
 
     }
 
     @Override
-    public void deleteAll(Iterable<? extends User> users) {
+    public void deleteAll(Iterable<? extends User> entities) {
 
     }
 
