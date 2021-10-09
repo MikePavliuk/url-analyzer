@@ -14,13 +14,45 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public <S extends User> S save(S user) {
-        writeToDatabase(user);
+        Long userId = user.getId();
+        if (findById(userId).isEmpty()) {
+            writeToDatabase(user);
+        } else {
+            String line;
+            String[] userData;
+            StringBuilder updatedFile = new StringBuilder();
+
+            try (var reader = new BufferedReader(new FileReader("database.csv"))) {
+                while ((line = reader.readLine()) != null) {
+                    userData = line.split(",");
+
+                    if (userData[0].equals(userId.toString())) {
+                        updatedFile.append(userId);
+                        updatedFile.append(",");
+                        updatedFile.append(user.getEmail());
+                        updatedFile.append(",");
+                        updatedFile.append(String.valueOf(user.getPassword()));
+                        updatedFile.append("\n");
+                    } else {
+                        updatedFile.append(line);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try (var writer = new BufferedWriter(new FileWriter("database.csv"))) {
+                writer.write(updatedFile.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         return user;
     }
 
     @Override
-    public <S extends User> Iterable<S> saveAll(Iterable<S> users) {
+    public <S extends User> List<S> saveAll(Iterable<S> users) {
         for (User user : users) {
             writeToDatabase(user);
         }
@@ -82,7 +114,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Iterable<User> findAll() {
+    public List<User> findAll() {
         String line;
         String[] userData;
         List<User> users = new ArrayList<>();
