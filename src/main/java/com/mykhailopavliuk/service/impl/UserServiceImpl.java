@@ -53,6 +53,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User readByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new EntityNotFoundException("User with email '" + email + "' not found"));
+    }
+
+    @Override
     public long getAvailableId() {
         return userRepository.getAvailableId();
     }
