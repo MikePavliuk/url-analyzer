@@ -1,7 +1,9 @@
 package com.mykhailopavliuk.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class User {
     private long id;
@@ -10,6 +12,21 @@ public class User {
     private List<?> urls = new ArrayList<>();
 
     public User() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(email, user.email) && Arrays.equals(password, user.password) && Objects.equals(urls, user.urls);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(id, email, urls);
+        result = 31 * result + Arrays.hashCode(password);
+        return result;
     }
 
     public User(long id, String email, char[] password, List<?> urls) {

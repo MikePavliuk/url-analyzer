@@ -2,6 +2,7 @@ package com.mykhailopavliuk.repository.impl;
 
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
@@ -11,6 +12,13 @@ import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+
+    private final File databaseFile;
+
+    @Autowired
+    public UserRepositoryImpl(File databaseFile) {
+        this.databaseFile = databaseFile;
+    }
 
     @Override
     public <S extends User> S save(S user) {
@@ -22,7 +30,7 @@ public class UserRepositoryImpl implements UserRepository {
             String[] userData;
             StringBuilder updatedFile = new StringBuilder();
 
-            try (var reader = new BufferedReader(new FileReader("database.csv"))) {
+            try (var reader = new BufferedReader(new FileReader(databaseFile))) {
                 while ((line = reader.readLine()) != null) {
                     userData = line.split(",");
 
@@ -41,7 +49,7 @@ public class UserRepositoryImpl implements UserRepository {
                 e.printStackTrace();
             }
 
-            try (var writer = new BufferedWriter(new FileWriter("database.csv"))) {
+            try (var writer = new BufferedWriter(new FileWriter(databaseFile))) {
                 writer.write(updatedFile.toString());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -60,7 +68,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     private void writeToDatabase(User user) {
-        try (var writer = new BufferedWriter(new FileWriter("database.csv", true))) {
+        try (var writer = new BufferedWriter(new FileWriter(databaseFile, true))) {
             writer.append(String.valueOf(user.getId()));
             writer.append(",");
             writer.append(user.getEmail());
@@ -78,7 +86,7 @@ public class UserRepositoryImpl implements UserRepository {
         String line;
         String[] userData;
 
-        try (var reader = new BufferedReader(new FileReader("database.csv"))) {
+        try (var reader = new BufferedReader(new FileReader(databaseFile))) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
@@ -98,7 +106,7 @@ public class UserRepositoryImpl implements UserRepository {
         String line;
         String[] userData;
 
-        try (var reader = new BufferedReader(new FileReader("database.csv"))) {
+        try (var reader = new BufferedReader(new FileReader(databaseFile))) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
@@ -119,7 +127,7 @@ public class UserRepositoryImpl implements UserRepository {
         String[] userData;
         List<User> users = new ArrayList<>();
 
-        try (var reader = new BufferedReader(new FileReader("database.csv"))) {
+        try (var reader = new BufferedReader(new FileReader(databaseFile))) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
                 users.add(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), null));
@@ -135,7 +143,7 @@ public class UserRepositoryImpl implements UserRepository {
     public long count() {
         long count = 0;
 
-        try (var reader = new BufferedReader(new FileReader("database.csv"))) {
+        try (var reader = new BufferedReader(new FileReader(databaseFile))) {
             while (reader.readLine() != null) {
                 count++;
             }
@@ -152,7 +160,7 @@ public class UserRepositoryImpl implements UserRepository {
         String[] userData;
         StringBuilder updatedFile = new StringBuilder();
 
-        try (var reader = new BufferedReader(new FileReader("database.csv"))) {
+        try (var reader = new BufferedReader(new FileReader(databaseFile))) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
@@ -164,7 +172,7 @@ public class UserRepositoryImpl implements UserRepository {
             e.printStackTrace();
         }
 
-        try (var writer = new BufferedWriter(new FileWriter("database.csv"))) {
+        try (var writer = new BufferedWriter(new FileWriter(databaseFile))) {
             writer.write(updatedFile.toString());
         } catch (IOException e) {
             e.printStackTrace();
@@ -173,7 +181,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteAll() {
-        try (var writer = new BufferedWriter(new FileWriter("database.csv"))) {
+        try (var writer = new BufferedWriter(new FileWriter(databaseFile))) {
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -184,7 +192,7 @@ public class UserRepositoryImpl implements UserRepository {
         String line;
         String[] userData;
 
-        try (var reader = new BufferedReader(new FileReader("database.csv"))) {
+        try (var reader = new BufferedReader(new FileReader(databaseFile))) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
@@ -204,7 +212,7 @@ public class UserRepositoryImpl implements UserRepository {
         String line;
         String[] userData = null;
 
-        try (var reader = new BufferedReader(new FileReader("database.csv"))) {
+        try (var reader = new BufferedReader(new FileReader(databaseFile))) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
             }
