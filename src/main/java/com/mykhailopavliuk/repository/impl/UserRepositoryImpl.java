@@ -1,5 +1,6 @@
 package com.mykhailopavliuk.repository.impl;
 
+import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,17 @@ public class UserRepositoryImpl implements UserRepository {
     public <S extends User> S save(S user) {
         Long userId = user.getId();
         if (!existsById(userId)) {
-            writeToDatabase(user);
+            try (var writer = new BufferedWriter(new FileWriter(databaseFile, true))) {
+                writer.append(String.valueOf(user.getId()));
+                writer.append(",");
+                writer.append(user.getEmail());
+                writer.append(",");
+                writer.append(String.valueOf(user.getPassword()));
+                writer.append("\n");
+
+            } catch (IOException e) {
+                throw new DatabaseOperationException("Exception has occurred while writing to the database");
+            }
         } else {
             String line;
             String[] userData;
@@ -46,13 +57,13 @@ public class UserRepositoryImpl implements UserRepository {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new DatabaseOperationException("Exception has occurred while reading from the database");
             }
 
             try (var writer = new BufferedWriter(new FileWriter(databaseFile))) {
                 writer.write(updatedFile.toString());
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new DatabaseOperationException("Exception has while writing to the database");
             }
         }
 
@@ -60,25 +71,11 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public <S extends User> List<S> saveAll(Iterable<S> users) {
+    public <S extends User> List<S> saveAll(List<S> users) {
         for (User user : users) {
-            writeToDatabase(user);
+            save(user);
         }
-        return null;
-    }
-
-    private void writeToDatabase(User user) {
-        try (var writer = new BufferedWriter(new FileWriter(databaseFile, true))) {
-            writer.append(String.valueOf(user.getId()));
-            writer.append(",");
-            writer.append(user.getEmail());
-            writer.append(",");
-            writer.append(String.valueOf(user.getPassword()));
-            writer.append("\n");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return users;
     }
 
     @Override
@@ -95,7 +92,7 @@ public class UserRepositoryImpl implements UserRepository {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DatabaseOperationException("Exception has occurred while reading from the database");
         }
 
         return Optional.empty();
@@ -115,7 +112,7 @@ public class UserRepositoryImpl implements UserRepository {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DatabaseOperationException("Exception has occurred while reading from the database");
         }
 
         return false;
@@ -133,7 +130,7 @@ public class UserRepositoryImpl implements UserRepository {
                 users.add(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), null));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DatabaseOperationException("Exception has occurred while reading from the database");
         }
 
         return users;
@@ -148,7 +145,7 @@ public class UserRepositoryImpl implements UserRepository {
                 count++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DatabaseOperationException("Exception has occurred while reading from the database");
         }
 
         return count;
@@ -169,13 +166,13 @@ public class UserRepositoryImpl implements UserRepository {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DatabaseOperationException("Exception has occurred while reading from the database");
         }
 
         try (var writer = new BufferedWriter(new FileWriter(databaseFile))) {
             writer.write(updatedFile.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DatabaseOperationException("Exception has occurred while writing to the database");
         }
     }
 
@@ -183,7 +180,7 @@ public class UserRepositoryImpl implements UserRepository {
     public void deleteAll() {
         try (var writer = new BufferedWriter(new FileWriter(databaseFile))) {
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DatabaseOperationException("Exception has occurred while writing to the database");
         }
     }
 
@@ -201,7 +198,7 @@ public class UserRepositoryImpl implements UserRepository {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DatabaseOperationException("Exception has occurred while reading from the database");
         }
 
         return Optional.empty();
@@ -217,7 +214,7 @@ public class UserRepositoryImpl implements UserRepository {
                 userData = line.split(",");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DatabaseOperationException("Exception has occurred while reading from the database");
         }
 
         return userData != null ? (Long.parseLong(userData[0]) + 1) : 1;
