@@ -23,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public <S extends User> S save(S user) {
         Long userId = user.getId();
-        if (findById(userId).isEmpty()) {
+        if (!existsById(userId)) {
             writeToDatabase(user);
         } else {
             String line;
@@ -42,7 +42,7 @@ public class UserRepositoryImpl implements UserRepository {
                         updatedFile.append(String.valueOf(user.getPassword()));
                         updatedFile.append("\n");
                     } else {
-                        updatedFile.append(line);
+                        updatedFile.append(line).append("\n");
                     }
                 }
             } catch (IOException e) {
