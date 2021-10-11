@@ -84,6 +84,7 @@ public class SignInController implements Initializable {
                 DashboardMainController dashboardMainController = fxWeaver.loadController(DashboardMainController.class);
                 dashboardMainController.setUser(user);
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(DashboardMainController.class)));
+                stageTheEventSourceNodeBelongs.centerOnScreen();
             } else {
                 throw new EntityNotFoundException();
             }
@@ -113,5 +114,6 @@ public class SignInController implements Initializable {
     void handleGoToSignUpButton(ActionEvent event) {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignUpController.class)));
+        stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 }

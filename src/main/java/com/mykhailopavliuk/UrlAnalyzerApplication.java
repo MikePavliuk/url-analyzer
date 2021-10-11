@@ -29,6 +29,7 @@ public class UrlAnalyzerApplication extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.centerOnScreen();
         //context.publishEvent(new StageReadyEvent(primaryStage));
     }
 
