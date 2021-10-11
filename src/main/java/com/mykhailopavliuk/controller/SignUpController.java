@@ -103,6 +103,7 @@ public class SignUpController implements Initializable {
     public void handleSignInButton(ActionEvent event) {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
+        stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
     @FXML
