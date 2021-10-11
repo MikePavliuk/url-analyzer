@@ -46,8 +46,9 @@
                                 </Label>
                                 <JFXTextField fx:id="inputEmail" focusColor="#4883db" labelFloat="true" layoutX="77.0" layoutY="109.0" prefHeight="40.0" prefWidth="249.0" promptText="Email" />
                                 <JFXPasswordField fx:id="inputPassword" focusColor="#4883db" labelFloat="true" layoutX="76.0" layoutY="180.0" prefHeight="40.0" prefWidth="250.0" promptText="Password" />
-                                <JFXButton fx:id="signInButton" buttonType="RAISED" layoutX="141.0" layoutY="257.0" prefHeight="35.0" prefWidth="120.0" ripplerFill="#cdd7f5" style="-fx-background-color: #4883db;" text="Sign In" textFill="WHITE" />
-                                <JFXButton fx:id="goToSignUpButton" buttonType="RAISED" layoutX="76.0" layoutY="327.0" onAction="#handleSignUpButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #d7e4f7; -fx-text-fill: #4883db; -fx-border-color: #4883db; -fx-border-radius: 5;" text="Don't have an account? Sign Up" />
+                                <JFXButton buttonType="RAISED" layoutX="140.0" layoutY="284.0" onAction="#handleSignInButton" prefHeight="35.0" prefWidth="120.0" ripplerFill="#cdd7f5" style="-fx-background-color: #4883db;" text="Sign In" textFill="WHITE" />
+                                <JFXButton buttonType="RAISED" layoutX="76.0" layoutY="336.0" onAction="#handleGoToSignUpButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #d7e4f7; -fx-text-fill: #4883db; -fx-border-color: #4883db; -fx-border-radius: 5;" text="Don't have an account? Sign Up" />
+                        <Label fx:id="singInFailedLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="233.0" prefHeight="44.0" prefWidth="248.0" text="Email or password is invalid" textFill="#fc5b5b" wrapText="true" />
                             </children>
                         </Pane>
                     </children>
