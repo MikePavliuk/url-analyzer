@@ -1,4 +1,4 @@
-package com.mykhailopavliuk;
+package com.mykhailopavliuk.configuration;
 
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationEvent;

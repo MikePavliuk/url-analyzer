@@ -1,4 +1,4 @@
-package com.mykhailopavliuk;
+package com.mykhailopavliuk.configuration;
 
 import com.mykhailopavliuk.controller.SignInController;
 import javafx.scene.Scene;
