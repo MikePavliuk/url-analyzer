@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mykhailopavliuk.controller.SignUpController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mykhailopavliuk.controller.SignUpController">
    <children>
-      <BorderPane prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #fff;">
+      <BorderPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #fff;">
          <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <StackPane prefHeight="150.0" prefWidth="437.0" BorderPane.alignment="CENTER">
                <children>
                   <Pane prefHeight="200.0" prefWidth="200.0" />
                   <Pane prefHeight="200.0" prefWidth="200.0">
@@ -27,11 +27,14 @@
                               <Font name="Arial Black" size="21.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="inputEmail" focusColor="#4883db" labelFloat="true" layoutX="95.0" layoutY="84.0" prefHeight="40.0" prefWidth="247.0" promptText="Email" />
-                        <JFXPasswordField fx:id="inputPassword" focusColor="#4883db" labelFloat="true" layoutX="94.0" layoutY="144.0" prefHeight="40.0" prefWidth="250.0" promptText="Password" />
-                        <JFXButton fx:id="signUpButton" buttonType="RAISED" layoutX="159.0" layoutY="282.0" prefHeight="35.0" prefWidth="120.0" ripplerFill="#cdd7f5" style="-fx-background-color: #4883db;" text="Sign Up" textFill="WHITE" />
-                        <JFXButton fx:id="goToSignInButton" buttonType="RAISED" layoutX="94.0" layoutY="330.0" onAction="#handleSignInButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #d7e4f7; -fx-text-fill: #4883db; -fx-border-color: #4883db; -fx-border-radius: 5;" text="Already have an account? Sign In" />
-                        <JFXPasswordField fx:id="inputConfirmPassword" focusColor="#4883db" labelFloat="true" layoutX="94.0" layoutY="204.0" prefHeight="40.0" prefWidth="250.0" promptText="Confirm password" />
+                        <JFXTextField fx:id="inputEmail" focusColor="#4883db" labelFloat="true" layoutX="69.0" layoutY="90.0" prefHeight="40.0" prefWidth="300.0" promptText="Email" />
+                        <JFXPasswordField fx:id="inputPassword" focusColor="#4883db" labelFloat="true" layoutX="69.0" layoutY="180.0" prefHeight="40.0" prefWidth="300.0" promptText="Password" />
+                        <JFXPasswordField fx:id="inputConfirmPassword" focusColor="#4883db" labelFloat="true" layoutX="69.0" layoutY="270.0" prefHeight="40.0" prefWidth="300.0" promptText="Confirm password" />
+                        <JFXButton buttonType="RAISED" layoutX="144.0" layoutY="356.0" onAction="#handleSignUpButton" prefHeight="42.0" prefWidth="149.0" ripplerFill="#cdd7f5" style="-fx-background-color: #4883db;" text="Sign Up" textFill="WHITE" />
+                        <JFXButton buttonType="RAISED" layoutX="94.0" layoutY="436.0" onAction="#handleSignInButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #d7e4f7; -fx-text-fill: #4883db; -fx-border-color: #4883db; -fx-border-radius: 5;" text="Already have an account? Sign In" />
+                        <Label fx:id="emailValidationLabel" layoutX="68.0" layoutY="130.0" prefHeight="17.0" prefWidth="302.0" text="Email is not valid" textFill="#fc5b5b" />
+                        <Label fx:id="confirmPasswordValidationLabel" layoutX="68.0" layoutY="310.0" prefHeight="17.0" prefWidth="302.0" text="Passwords do not match" textFill="#fc5b5b" />
+                        <Label fx:id="passwordValidationLabel" layoutX="68.0" layoutY="220.0" prefHeight="17.0" prefWidth="302.0" text="Must have at least 1 digit and min length of 8" textFill="#fc5b5b" />
                      </children>
                   </Pane>
                </children>
