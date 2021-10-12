@@ -1,11 +1,18 @@
 package com.mykhailopavliuk.controller;
 
 import com.mykhailopavliuk.model.User;
+import com.mykhailopavliuk.service.UserService;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -17,13 +24,12 @@ public class DashboardMainController implements Initializable {
 
     private User user;
 
-    @FXML
-    private Label label;
+    private final UserService userService;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        Platform.runLater(() -> label.setText("Hello, " + user.getEmail()));
-    }
+    private final FxWeaver fxWeaver;
+
+    @FXML
+    private Label userEmailLabel;
 
     public User getUser() {
         return user;
@@ -31,5 +37,24 @@ public class DashboardMainController implements Initializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Autowired
+    public DashboardMainController(UserService userService, FxWeaver fxWeaver) {
+        this.userService = userService;
+        this.fxWeaver = fxWeaver;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(() -> userEmailLabel.setText(user.getEmail()));
+    }
+
+    @FXML
+    public void signOut(ActionEvent event) {
+        user = null;
+        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
+        stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 }
