@@ -1,5 +1,6 @@
-package com.mykhailopavliuk.controller;
+package com.mykhailopavliuk.controller.dashboard;
 
+import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.UserService;
 import javafx.application.Platform;
@@ -18,9 +19,7 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-@Component
-@FxmlView("/view/dashboard-main.fxml")
-public class DashboardMainController implements Initializable {
+public abstract class DashboardMainController implements Initializable {
 
     private User user;
 
@@ -39,7 +38,7 @@ public class DashboardMainController implements Initializable {
         this.user = user;
     }
 
-    @Autowired
+
     public DashboardMainController(UserService userService, FxWeaver fxWeaver) {
         this.userService = userService;
         this.fxWeaver = fxWeaver;

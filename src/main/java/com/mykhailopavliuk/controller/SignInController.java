@@ -2,9 +2,12 @@ package com.mykhailopavliuk.controller;
 
 import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.mykhailopavliuk.controller.dashboard.DashboardMainController;
+import com.mykhailopavliuk.controller.dashboard.LargeDashboardMainController;
+import com.mykhailopavliuk.controller.dashboard.MediumDashboardMainController;
+import com.mykhailopavliuk.controller.dashboard.SmallDashboardMainController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.model.User;
@@ -14,10 +17,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
@@ -28,7 +29,6 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -81,9 +81,9 @@ public class SignInController implements Initializable {
                         Duration.seconds(5)
                 );
                 Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                DashboardMainController dashboardMainController = fxWeaver.loadController(DashboardMainController.class);
+                DashboardMainController dashboardMainController = fxWeaver.loadController(MediumDashboardMainController.class);
                 dashboardMainController.setUser(user);
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(DashboardMainController.class)));
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumDashboardMainController.class)));
                 stageTheEventSourceNodeBelongs.centerOnScreen();
             } else {
                 throw new EntityNotFoundException();
