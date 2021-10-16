@@ -23,18 +23,18 @@ public class UrlAnalyzerApplication extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         FxWeaver fxWeaver = context.getBean(FxWeaver.class);
         Parent root = fxWeaver.loadView(SignInController.class);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.centerOnScreen();
-        //context.publishEvent(new StageReadyEvent(primaryStage));
+        primaryStage.setResizable(false);
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         this.context.close();
         Platform.exit();
     }
