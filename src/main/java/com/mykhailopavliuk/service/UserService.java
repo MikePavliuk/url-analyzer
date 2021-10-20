@@ -4,5 +4,4 @@ import com.mykhailopavliuk.model.User;
 
 public interface UserService extends CrudService<User, Long> {
     User readByEmail(String email);
-    long getAvailableId();
 }
