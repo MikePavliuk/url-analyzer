@@ -23,4 +23,10 @@ public class UrlAnalyzerConfiguration {
     public File getUrlsDatabaseFile() {
         return Paths.get("src/main/resources/database/urls.csv").toFile();
     }
+
+    @Bean
+    @Qualifier("user_urlDatabase")
+    public File getUserUrlDatabaseFile() {
+        return Paths.get("src/main/resources/database/user-url.csv").toFile();
+    }
 }

@@ -24,4 +24,10 @@ public class TestConfig {
     public File getUrlsDatabaseFile() {
         return Paths.get("src/test/resources/database/urls.csv").toFile();
     }
+
+    @Bean
+    @Qualifier("user_urlDatabase")
+    public File getUserUrlDatabaseFile() {
+        return Paths.get("src/test/resources/database/user-url.csv").toFile();
+    }
 }
