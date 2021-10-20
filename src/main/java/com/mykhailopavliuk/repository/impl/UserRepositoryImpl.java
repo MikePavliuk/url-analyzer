@@ -2,7 +2,9 @@ package com.mykhailopavliuk.repository.impl;
 
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.model.User;
+import com.mykhailopavliuk.model.UserUrl;
 import com.mykhailopavliuk.repository.UserRepository;
+import com.mykhailopavliuk.repository.UserUrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -17,9 +19,12 @@ public class UserRepositoryImpl implements UserRepository {
 
     private final File usersDatabase;
 
+    private final UserUrlRepository userUrlRepository;
+
     @Autowired
-    public UserRepositoryImpl(@Qualifier("usersDatabase") File usersDatabase) {
+    public UserRepositoryImpl(@Qualifier("usersDatabase") File usersDatabase, UserUrlRepository userUrlRepository) {
         this.usersDatabase = usersDatabase;
+        this.userUrlRepository = userUrlRepository;
     }
 
     @Override
@@ -46,7 +51,7 @@ public class UserRepositoryImpl implements UserRepository {
                 while ((line = reader.readLine()) != null) {
                     userData = line.split(",");
 
-                    if (userData[0].equals(userId.toString())) {
+                    if (userData[0].equals(String.valueOf(userId))) {
                         updatedFile.append(userId);
                         updatedFile.append(",");
                         updatedFile.append(user.getEmail());
@@ -88,7 +93,7 @@ public class UserRepositoryImpl implements UserRepository {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
-                if (userData[0].equals(id.toString())) {
+                if (userData[0].equals(String.valueOf(id))) {
                     return Optional.of(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), null));
                 }
             }
@@ -108,7 +113,7 @@ public class UserRepositoryImpl implements UserRepository {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
-                if (userData[0].equals(id.toString())) {
+                if (userData[0].equals(String.valueOf(id))) {
                     return true;
                 }
             }
@@ -162,7 +167,7 @@ public class UserRepositoryImpl implements UserRepository {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
-                if (!userData[0].equals(id.toString())) {
+                if (!userData[0].equals(String.valueOf(id))) {
                     updatedFile.append(line);
                 }
             }
@@ -175,6 +180,8 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (IOException e) {
             throw new DatabaseOperationException("Exception has occurred while writing to the database");
         }
+
+        userUrlRepository.deleteAllByFirstEntityId(id);
     }
 
     @Override
