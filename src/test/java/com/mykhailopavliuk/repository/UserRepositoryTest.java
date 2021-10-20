@@ -1,20 +1,17 @@
 package com.mykhailopavliuk.repository;
 
 import com.mykhailopavliuk.TestConfig;
+import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,18 +25,34 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    private User user1, user2;
+
     @BeforeEach
     void clearDB() {
         userRepository.deleteAll();
     }
 
+    @BeforeEach
+    public void setUp() {
+        user1 = new User();
+        user1.setId(1);
+        user1.setEmail("user1@gmail.com");
+        user1.setPassword("password1".toCharArray());
+
+        user2 = new User();
+        user2.setId(2);
+        user2.setEmail("user2@gmail.com");
+        user2.setPassword("password2".toCharArray());
+    }
+
+    @AfterEach
+    public void tearDown() {
+        user1 = null;
+        user2 = null;
+    }
+
     @Test
     public void testSaveNewUser() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user@gmail.com");
-        user1.setPassword("password".toCharArray());
-
         User expected = userRepository.save(user1);
         User actual = userRepository.findById(1L).orElse(null);
 
@@ -48,35 +61,21 @@ public class UserRepositoryTest {
 
     @Test
     public void testSaveUpdatedUser() {
-        User user1 = new User();
-        user1.setId(2);
-        user1.setEmail("oldUser@gmail.com");
-        user1.setPassword("password".toCharArray());
-
         userRepository.save(user1);
 
-        User user2 = new User();
-        user2.setId(2);
-        user2.setEmail("newUser@gmail.com");
-        user2.setPassword("newPassword".toCharArray());
+        user1.setEmail("newUser@gmail.com");
+        user1.setPassword("newPassword".toCharArray());
 
-        User updatedUser = userRepository.save(user2);
+        User updatedUser = userRepository.save(user1);
 
-        assertEquals(updatedUser, userRepository.findByEmail("newUser@gmail.com").orElse(null));
+        assertTrue(
+                userRepository.count() == 1 &&
+                        updatedUser.equals(userRepository.findByEmail("newUser@gmail.com").orElse(null))
+        );
     }
 
     @Test
     public void testSaveAllNewUsers() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user1@gmail.com");
-        user1.setPassword("password1".toCharArray());
-
-        User user2 = new User();
-        user2.setId(2);
-        user2.setEmail("user2@gmail.com");
-        user2.setPassword("password2".toCharArray());
-
         List<User> users = new ArrayList<>();
         users.add(user1);
         users.add(user2);
@@ -88,49 +87,31 @@ public class UserRepositoryTest {
 
     @Test
     public void testSaveAllWithUpdatedUsers() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user1@gmail.com");
-        user1.setPassword("password1".toCharArray());
-
         userRepository.save(user1);
-
-        User user2 = new User();
-        user2.setId(2);
-        user2.setEmail("user2@gmail.com");
-        user2.setPassword("password2".toCharArray());
-
         userRepository.save(user2);
+
+        user1.setEmail("user1updated@gmail.com");
+        user1.setPassword("password1updated".toCharArray());
 
         User user3 = new User();
         user3.setId(3);
         user3.setEmail("user3@gmail.com");
         user3.setPassword("password3".toCharArray());
 
-        User user4 = new User();
-        user4.setId(1);
-        user4.setEmail("user1updated@gmail.com");
-        user4.setPassword("password1updated".toCharArray());
-
         List<User> users = new ArrayList<>();
         users.add(user3);
-        users.add(user4);
+        users.add(user1);
 
         userRepository.saveAll(users);
 
         assertTrue(
                 3 == userRepository.count() &&
-                        user4.equals(userRepository.findByEmail("user1updated@gmail.com").orElse(null))
+                        user1.equals(userRepository.findByEmail("user1updated@gmail.com").orElse(null))
                 );
     }
 
     @Test
     public void testFindByIdExistedUser() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user@gmail.com");
-        user1.setPassword("password".toCharArray());
-
         User expected = userRepository.save(user1);
         User actual = userRepository.findById(1L).orElse(null);
 
@@ -144,10 +125,6 @@ public class UserRepositoryTest {
 
     @Test
     public void testExistsByIdExistedUser() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user1@gmail.com");
-        user1.setPassword("password1".toCharArray());
         userRepository.save(user1);
 
         assertTrue(userRepository.existsById(1L));
@@ -160,16 +137,6 @@ public class UserRepositoryTest {
 
     @Test
     public void testFindAll() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user@gmail1.com");
-        user1.setPassword("password1".toCharArray());
-
-        User user2 = new User();
-        user2.setId(2);
-        user2.setEmail("user2@gmail.com");
-        user2.setPassword("password2".toCharArray());
-
         List<User> expected = new ArrayList<>();
         expected.add(user1);
         expected.add(user2);
@@ -182,16 +149,6 @@ public class UserRepositoryTest {
 
     @Test
     public void testCount() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user@gmail1.com");
-        user1.setPassword("password1".toCharArray());
-
-        User user2 = new User();
-        user2.setId(2);
-        user2.setEmail("user2@gmail.com");
-        user2.setPassword("password2".toCharArray());
-
         userRepository.save(user1);
         userRepository.save(user2);
 
@@ -200,10 +157,6 @@ public class UserRepositoryTest {
 
     @Test
     public void testDeleteByIdExistedUser() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user@gmail1.com");
-        user1.setPassword("password1".toCharArray());
         userRepository.save(user1);
 
         userRepository.deleteById(1L);
@@ -213,10 +166,6 @@ public class UserRepositoryTest {
 
     @Test
     public void testDeleteByIdNotExistedUser() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user@gmail1.com");
-        user1.setPassword("password1".toCharArray());
         userRepository.save(user1);
 
         userRepository.deleteById(2L);
@@ -226,16 +175,6 @@ public class UserRepositoryTest {
 
     @Test
     public void testDeleteAll() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user@gmail1.com");
-        user1.setPassword("password1".toCharArray());
-
-        User user2 = new User();
-        user2.setId(2);
-        user2.setEmail("user2@gmail.com");
-        user2.setPassword("password2".toCharArray());
-
         userRepository.save(user1);
         userRepository.save(user2);
 
@@ -246,14 +185,9 @@ public class UserRepositoryTest {
 
     @Test
     public void testFindByEmailExistedUser() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user@gmail1.com");
-        user1.setPassword("password1".toCharArray());
-
         userRepository.save(user1);
 
-        assertEquals(user1, userRepository.findByEmail("user@gmail1.com").orElse(null));
+        assertEquals(user1, userRepository.findByEmail("user1@gmail.com").orElse(null));
     }
 
     @Test
@@ -263,11 +197,6 @@ public class UserRepositoryTest {
 
     @Test
     public void testGetAvailableId() {
-        User user1 = new User();
-        user1.setId(1);
-        user1.setEmail("user@gmail1.com");
-        user1.setPassword("password1".toCharArray());
-
         userRepository.save(user1);
 
         assertEquals(2, userRepository.getAvailableId());
