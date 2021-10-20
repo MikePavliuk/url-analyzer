@@ -1,20 +1,18 @@
 package com.mykhailopavliuk.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class User {
     private long id;
     private String email;
     private char[] password;
-    private List<?> urls = new ArrayList<>();
+    private List<Url> urls = new ArrayList<>();
 
     public User() {
     }
 
-    public User(long id, String email, char[] password, List<?> urls) {
+    public User(long id, String email, char[] password, List<Url> urls) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -49,7 +47,7 @@ public class User {
         return urls;
     }
 
-    public void setUrls(List<?> urls) {
+    public void setUrls(List<Url> urls) {
         this.urls = urls;
     }
 
