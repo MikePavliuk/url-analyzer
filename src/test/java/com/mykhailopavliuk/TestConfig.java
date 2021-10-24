@@ -3,10 +3,11 @@ package com.mykhailopavliuk;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @TestConfiguration
@@ -15,19 +16,37 @@ public class TestConfig {
 
     @Bean
     @Qualifier("usersDatabase")
-    public File getUsersDatabaseFile() {
-        return Paths.get("src/test/resources/database/users.csv").toFile();
+    public Path getUsersDatabaseFile() throws IOException {
+        Path userDatabase = Paths.get("src/test/resources/database/users.csv");
+
+        if (!Files.exists(userDatabase)) {
+            Files.createFile(userDatabase);
+        }
+
+        return userDatabase;
     }
 
     @Bean
     @Qualifier("urlsDatabase")
-    public File getUrlsDatabaseFile() {
-        return Paths.get("src/test/resources/database/urls.csv").toFile();
+    public Path getUrlsDatabaseFile() throws IOException {
+        Path urlsDatabase = Paths.get("src/test/resources/database/urls.csv");
+
+        if (!Files.exists(urlsDatabase)) {
+            Files.createFile(urlsDatabase);
+        }
+
+        return urlsDatabase;
     }
 
     @Bean
     @Qualifier("user_urlDatabase")
-    public File getUserUrlDatabaseFile() {
-        return Paths.get("src/test/resources/database/user-url.csv").toFile();
+    public Path getUserUrlDatabaseFile() throws IOException {
+        Path user_urlDatabase = Paths.get("src/test/resources/database/user-url.csv");
+
+        if (!Files.exists(user_urlDatabase)) {
+            Files.createFile(user_urlDatabase);
+        }
+
+        return user_urlDatabase;
     }
 }

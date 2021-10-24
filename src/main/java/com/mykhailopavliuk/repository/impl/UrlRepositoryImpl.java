@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,13 +20,13 @@ import java.util.Optional;
 @Repository
 public class UrlRepositoryImpl implements UrlRepository {
 
-    private final File urlsDatabase;
+    private final Path urlsDatabase;
 
     private final UserUrlRepository userUrlRepository;
 
 
     @Autowired
-    public UrlRepositoryImpl(@Qualifier("urlsDatabase") File urlsDatabase, UserUrlRepository userUrlRepository) {
+    public UrlRepositoryImpl(@Qualifier("urlsDatabase") Path urlsDatabase, UserUrlRepository userUrlRepository) {
         this.urlsDatabase = urlsDatabase;
         this.userUrlRepository = userUrlRepository;
     }
@@ -46,7 +49,7 @@ public class UrlRepositoryImpl implements UrlRepository {
                 String[] urlData;
                 StringBuilder updatedFile = new StringBuilder();
 
-                try (var reader = new BufferedReader(new FileReader(urlsDatabase))) {
+                try (var reader = Files.newBufferedReader(urlsDatabase)) {
                     while ((line = reader.readLine()) != null) {
                         urlData = line.split(",");
 
@@ -63,7 +66,7 @@ public class UrlRepositoryImpl implements UrlRepository {
                     throw new DatabaseOperationException("Exception has occurred while reading from the Url database");
                 }
 
-                try (var writer = new BufferedWriter(new FileWriter(urlsDatabase))) {
+                try (var writer = Files.newBufferedWriter(urlsDatabase)) {
                     writer.write(updatedFile.toString());
                 } catch (IOException e) {
                     throw new DatabaseOperationException("Exception has while writing to the Url database");
@@ -75,7 +78,7 @@ public class UrlRepositoryImpl implements UrlRepository {
     }
 
     private <S extends Url> void writeUrlToDatabase(S url) {
-        try (var writer = new BufferedWriter(new FileWriter(urlsDatabase, true))) {
+        try (var writer = Files.newBufferedWriter(urlsDatabase, StandardOpenOption.APPEND)) {
             writer.append(String.valueOf(url.getId()));
             writer.append(",");
             writer.append(url.getPath());
@@ -101,7 +104,7 @@ public class UrlRepositoryImpl implements UrlRepository {
         String line;
         String[] urlData;
 
-        try (var reader = new BufferedReader(new FileReader(urlsDatabase))) {
+        try (var reader = Files.newBufferedReader(urlsDatabase)) {
             while ((line = reader.readLine()) != null) {
                 urlData = line.split(",");
 
@@ -121,7 +124,7 @@ public class UrlRepositoryImpl implements UrlRepository {
         String line;
         String[] urlData;
 
-        try (var reader = new BufferedReader(new FileReader(urlsDatabase))) {
+        try (var reader = Files.newBufferedReader(urlsDatabase)) {
             while ((line = reader.readLine()) != null) {
                 urlData = line.split(",");
 
@@ -142,7 +145,7 @@ public class UrlRepositoryImpl implements UrlRepository {
         String[] urlData;
         List<Url> urls = new ArrayList<>();
 
-        try (var reader = new BufferedReader(new FileReader(urlsDatabase))) {
+        try (var reader = Files.newBufferedReader(urlsDatabase)) {
             while ((line = reader.readLine()) != null) {
                 urlData = line.split(",");
                 urls.add(new Url(Long.parseLong(urlData[0]), urlData[1]));
@@ -158,7 +161,7 @@ public class UrlRepositoryImpl implements UrlRepository {
     public long count() {
         long count = 0;
 
-        try(var reader = new BufferedReader(new FileReader(urlsDatabase))) {
+        try(var reader = Files.newBufferedReader(urlsDatabase)) {
             while (reader.readLine() != null) {
                 count++;
             }
@@ -179,7 +182,7 @@ public class UrlRepositoryImpl implements UrlRepository {
             String[] urlData;
             StringBuilder updatedFile = new StringBuilder();
 
-            try (var reader = new BufferedReader(new FileReader(urlsDatabase))) {
+            try (var reader = Files.newBufferedReader(urlsDatabase)) {
                 while ((line = reader.readLine()) != null) {
                     urlData = line.split(",");
 
@@ -191,7 +194,7 @@ public class UrlRepositoryImpl implements UrlRepository {
                 throw new DatabaseOperationException("Exception has occurred while reading from the Url database");
             }
 
-            try (var writer = new BufferedWriter(new FileWriter(urlsDatabase))) {
+            try (var writer = Files.newBufferedWriter(urlsDatabase)) {
                 writer.write(updatedFile.toString());
             } catch (IOException e) {
                 throw new DatabaseOperationException("Exception has occurred while writing to the Url database");
@@ -201,7 +204,7 @@ public class UrlRepositoryImpl implements UrlRepository {
 
     @Override
     public void deleteAll() {
-        try (var writer = new BufferedWriter(new FileWriter(urlsDatabase))) {
+        try (var writer = Files.newBufferedWriter(urlsDatabase)) {
         } catch (IOException e) {
             throw new DatabaseOperationException("Exception has occurred while writing to the Url database");
         }
@@ -214,7 +217,7 @@ public class UrlRepositoryImpl implements UrlRepository {
         String line;
         String[] urlData = null;
 
-        try (var reader = new BufferedReader(new FileReader(urlsDatabase))) {
+        try (var reader = Files.newBufferedReader(urlsDatabase)) {
             while ((line = reader.readLine()) != null) {
                 urlData = line.split(",");
             }
@@ -230,7 +233,7 @@ public class UrlRepositoryImpl implements UrlRepository {
         String line;
         String[] urlData;
 
-        try (var reader = new BufferedReader(new FileReader(urlsDatabase))) {
+        try (var reader = Files.newBufferedReader(urlsDatabase)) {
             while ((line = reader.readLine()) != null) {
                 urlData = line.split(",");
 

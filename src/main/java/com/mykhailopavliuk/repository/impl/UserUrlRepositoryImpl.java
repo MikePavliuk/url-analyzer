@@ -1,8 +1,6 @@
 package com.mykhailopavliuk.repository.impl;
 
 import com.mykhailopavliuk.exception.DatabaseOperationException;
-import com.mykhailopavliuk.model.Url;
-import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.model.UserUrl;
 import com.mykhailopavliuk.repository.UserUrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +18,16 @@ import java.util.Optional;
 @Repository
 public class UserUrlRepositoryImpl implements UserUrlRepository {
 
-    private final File user_urlDatabase;
+    private final Path user_urlDatabase;
 
     @Autowired
-    public UserUrlRepositoryImpl(@Qualifier("user_urlDatabase") File user_urlDatabase) {
+    public UserUrlRepositoryImpl(@Qualifier("user_urlDatabase") Path user_urlDatabase) {
         this.user_urlDatabase = user_urlDatabase;
     }
 
     @Override
-    public UserUrl save(UserUrl userUrl) {
-        try (var writer = new BufferedWriter(new FileWriter(user_urlDatabase, true))) {
+    public <S extends UserUrl> S save(S userUrl) {
+        try (var writer = Files.newBufferedWriter(user_urlDatabase, StandardOpenOption.APPEND)) {
             writer.append(String.valueOf(userUrl.getId()));
             writer.append(",");
             writer.append(String.valueOf(userUrl.getUserId()));
@@ -54,7 +55,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String line;
         String[] recordData;
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
 
@@ -74,7 +75,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String line;
         String[] recordData;
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
 
@@ -95,7 +96,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String[] recordData;
         List<UserUrl> userUrlList = new ArrayList<>();
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
                 userUrlList.add(new UserUrl(Long.parseLong(recordData[0]), Long.parseLong(recordData[1]), Long.parseLong(recordData[2])));
@@ -111,7 +112,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
     public long count() {
         long count = 0;
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while (reader.readLine() != null) {
                 count++;
             }
@@ -128,7 +129,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String[] recordData;
         StringBuilder updatedFile = new StringBuilder();
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
 
@@ -140,7 +141,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
             throw new DatabaseOperationException("Exception has occurred while reading from the User-Url database");
         }
 
-        try (var writer = new BufferedWriter(new FileWriter(user_urlDatabase))) {
+        try (var writer = Files.newBufferedWriter(user_urlDatabase)) {
             writer.write(updatedFile.toString());
         } catch (IOException e) {
             throw new DatabaseOperationException("Exception has occurred while writing to the User-Url database");
@@ -149,7 +150,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
 
     @Override
     public void deleteAll() {
-        try (var writer = new BufferedWriter(new FileWriter(user_urlDatabase))) {
+        try (var writer = Files.newBufferedWriter(user_urlDatabase)) {
         } catch (IOException e) {
             throw new DatabaseOperationException("Exception has occurred while writing to the User-Url database");
         }
@@ -160,7 +161,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String line;
         String[] recordData = null;
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
             }
@@ -177,7 +178,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String[] recordData;
         List<Long> usersIds = new ArrayList<>();
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
 
@@ -198,7 +199,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String[] recordData;
         List<Long> urlsIds = new ArrayList<>();
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
 
@@ -219,7 +220,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String[] recordData;
         StringBuilder updatedFile = new StringBuilder();
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
 
@@ -231,7 +232,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
             throw new DatabaseOperationException("Exception has occurred while reading from the User-Url database");
         }
 
-        try (var writer = new BufferedWriter(new FileWriter(user_urlDatabase))) {
+        try (var writer = Files.newBufferedWriter(user_urlDatabase)) {
             writer.write(updatedFile.toString());
         } catch (IOException e) {
             throw new DatabaseOperationException("Exception has occurred while writing to the User-Url database");
@@ -244,7 +245,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String[] recordData;
         StringBuilder updatedFile = new StringBuilder();
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
 
@@ -256,7 +257,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
             throw new DatabaseOperationException("Exception has occurred while reading from the User-Url database");
         }
 
-        try (var writer = new BufferedWriter(new FileWriter(user_urlDatabase))) {
+        try (var writer = Files.newBufferedWriter(user_urlDatabase)) {
             writer.write(updatedFile.toString());
         } catch (IOException e) {
             throw new DatabaseOperationException("Exception has occurred while writing to the User-Url database");
@@ -268,7 +269,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
         String line;
         String[] recordData;
 
-        try (var reader = new BufferedReader(new FileReader(user_urlDatabase))) {
+        try (var reader = Files.newBufferedReader(user_urlDatabase)) {
             while ((line = reader.readLine()) != null) {
                 recordData = line.split(",");
 

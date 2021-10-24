@@ -2,7 +2,6 @@ package com.mykhailopavliuk.repository.impl;
 
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.model.User;
-import com.mykhailopavliuk.model.UserUrl;
 import com.mykhailopavliuk.repository.UserRepository;
 import com.mykhailopavliuk.repository.UserUrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +19,12 @@ import java.util.Optional;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
-    private final File usersDatabase;
+    private final Path usersDatabase;
 
     private final UserUrlRepository userUrlRepository;
 
     @Autowired
-    public UserRepositoryImpl(@Qualifier("usersDatabase") File usersDatabase, UserUrlRepository userUrlRepository) {
+    public UserRepositoryImpl(@Qualifier("usersDatabase") Path usersDatabase, UserUrlRepository userUrlRepository) {
         this.usersDatabase = usersDatabase;
         this.userUrlRepository = userUrlRepository;
     }
@@ -31,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
     public <S extends User> S save(S user) {
         Long userId = user.getId();
         if (!existsById(userId)) {
-            try (var writer = new BufferedWriter(new FileWriter(usersDatabase, true))) {
+            try (var writer = Files.newBufferedWriter(usersDatabase, StandardOpenOption.APPEND)) {
                 writer.append(String.valueOf(user.getId()));
                 writer.append(",");
                 writer.append(user.getEmail());
@@ -47,7 +49,7 @@ public class UserRepositoryImpl implements UserRepository {
             String[] userData;
             StringBuilder updatedFile = new StringBuilder();
 
-            try (var reader = new BufferedReader(new FileReader(usersDatabase))) {
+            try (var reader = Files.newBufferedReader(usersDatabase)) {
                 while ((line = reader.readLine()) != null) {
                     userData = line.split(",");
 
@@ -66,7 +68,7 @@ public class UserRepositoryImpl implements UserRepository {
                 throw new DatabaseOperationException("Exception has occurred while reading from the database");
             }
 
-            try (var writer = new BufferedWriter(new FileWriter(usersDatabase))) {
+            try (var writer = Files.newBufferedWriter(usersDatabase)) {
                 writer.write(updatedFile.toString());
             } catch (IOException e) {
                 throw new DatabaseOperationException("Exception has while writing to the database");
@@ -89,7 +91,7 @@ public class UserRepositoryImpl implements UserRepository {
         String line;
         String[] userData;
 
-        try (var reader = new BufferedReader(new FileReader(usersDatabase))) {
+        try (var reader = Files.newBufferedReader(usersDatabase)) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
@@ -109,7 +111,7 @@ public class UserRepositoryImpl implements UserRepository {
         String line;
         String[] userData;
 
-        try (var reader = new BufferedReader(new FileReader(usersDatabase))) {
+        try (var reader = Files.newBufferedReader(usersDatabase)) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
@@ -130,7 +132,7 @@ public class UserRepositoryImpl implements UserRepository {
         String[] userData;
         List<User> users = new ArrayList<>();
 
-        try (var reader = new BufferedReader(new FileReader(usersDatabase))) {
+        try (var reader = Files.newBufferedReader(usersDatabase)) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
                 users.add(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), null));
@@ -146,7 +148,7 @@ public class UserRepositoryImpl implements UserRepository {
     public long count() {
         long count = 0;
 
-        try (var reader = new BufferedReader(new FileReader(usersDatabase))) {
+        try (var reader = Files.newBufferedReader(usersDatabase)) {
             while (reader.readLine() != null) {
                 count++;
             }
@@ -163,7 +165,7 @@ public class UserRepositoryImpl implements UserRepository {
         String[] userData;
         StringBuilder updatedFile = new StringBuilder();
 
-        try (var reader = new BufferedReader(new FileReader(usersDatabase))) {
+        try (var reader = Files.newBufferedReader(usersDatabase)) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
@@ -175,7 +177,7 @@ public class UserRepositoryImpl implements UserRepository {
             throw new DatabaseOperationException("Exception has occurred while reading from the database");
         }
 
-        try (var writer = new BufferedWriter(new FileWriter(usersDatabase))) {
+        try (var writer = Files.newBufferedWriter(usersDatabase)) {
             writer.write(updatedFile.toString());
         } catch (IOException e) {
             throw new DatabaseOperationException("Exception has occurred while writing to the database");
@@ -186,7 +188,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void deleteAll() {
-        try (var writer = new BufferedWriter(new FileWriter(usersDatabase))) {
+        try (var writer = Files.newBufferedWriter(usersDatabase)) {
         } catch (IOException e) {
             throw new DatabaseOperationException("Exception has occurred while writing to the database");
         }
@@ -197,7 +199,7 @@ public class UserRepositoryImpl implements UserRepository {
         String line;
         String[] userData;
 
-        try (var reader = new BufferedReader(new FileReader(usersDatabase))) {
+        try (var reader = Files.newBufferedReader(usersDatabase)) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
 
@@ -217,7 +219,7 @@ public class UserRepositoryImpl implements UserRepository {
         String line;
         String[] userData = null;
 
-        try (var reader = new BufferedReader(new FileReader(usersDatabase))) {
+        try (var reader = Files.newBufferedReader(usersDatabase)) {
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
             }
