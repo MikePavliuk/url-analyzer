@@ -5,6 +5,7 @@ import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.model.UserUrl;
 import com.mykhailopavliuk.repository.impl.UrlRepositoryImpl;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,12 +40,9 @@ public class UrlRepositoryTest {
     private Url url1, url2;
 
     @BeforeEach
-    void clearDB() {
-        urlRepository.deleteAll();
-    }
-
-    @BeforeEach
     public void setUp() {
+        urlRepository.deleteAll();
+
         user = new User();
         user.setId(1L);
 
@@ -64,6 +62,8 @@ public class UrlRepositoryTest {
         user = null;
         url1 = null;
         url2 = null;
+
+        urlRepository.deleteAll();
     }
 
     @Test
@@ -82,7 +82,7 @@ public class UrlRepositoryTest {
 
     @Test
     public void testSaveUpdatedUrlWhileSomeoneElseUsesOldOne() {
-        when(userUrlRepository.findAllFirstEntityIdsBySecondEntityId(anyLong())).thenReturn(new ArrayList<>() {{
+        when(userUrlRepository.findAllUserIdsByUrlId(anyLong())).thenReturn(new ArrayList<>() {{
             add(1L);
             add(2L);
         }});
@@ -102,7 +102,7 @@ public class UrlRepositoryTest {
                         expected.equals(urlRepository.findById(2L).orElse(null))
         );
 
-        verify(userUrlRepository, times(1)).findAllFirstEntityIdsBySecondEntityId(1L);
+        verify(userUrlRepository, times(1)).findAllUserIdsByUrlId(1L);
         verify(userUrlRepository, times(1)).getIdByPair(new UserUrl(1L, 1L));
         verify(userUrlRepository, times(1)).deleteById(1L);
         verify(userUrlRepository, times(1)).save(new UserUrl(2L, 1L, 2L));
@@ -110,7 +110,7 @@ public class UrlRepositoryTest {
 
     @Test
     public void testSaveUpdatedUrlWhileNoOneUsesOldOne() {
-        when(userUrlRepository.findAllFirstEntityIdsBySecondEntityId(anyLong())).thenReturn(new ArrayList<>() {{
+        when(userUrlRepository.findAllUserIdsByUrlId(anyLong())).thenReturn(new ArrayList<>() {{
             add(1L);
         }});
 
@@ -126,7 +126,7 @@ public class UrlRepositoryTest {
         );
 
         verify(userUrlRepository, times(1)).save(any(UserUrl.class));
-        verify(userUrlRepository, times(1)).findAllFirstEntityIdsBySecondEntityId(1L);
+        verify(userUrlRepository, times(1)).findAllUserIdsByUrlId(1L);
     }
 
     @Test
@@ -193,6 +193,8 @@ public class UrlRepositoryTest {
         urlRepository.deleteById(1L);
 
         assertEquals(0, urlRepository.count());
+
+        verify(userUrlRepository, times(1)).deleteAllByUrlId(1L);
     }
 
     @Test
@@ -233,5 +235,39 @@ public class UrlRepositoryTest {
         assertEquals(2, urlRepository.getAvailableId());
     }
 
+    @Test
+    public void testDeleteByIdAndUserWhileSomeoneElseUsesUrl () {
+        when(userUrlRepository.findAllUserIdsByUrlId(anyLong())).thenReturn(new ArrayList<>() {{
+            add(1L);
+            add(2L);
+        }});
+        when(userUrlRepository.getIdByPair(any(UserUrl.class))).thenReturn(Optional.of(1L));
+        doNothing().when(userUrlRepository).deleteById(anyLong());
+
+        urlRepository.save(url1);
+        urlRepository.deleteByIdAndUserId(1L, 1L);
+
+        assertEquals(1, urlRepository.count());
+
+        verify(userUrlRepository, times(1)).findAllUserIdsByUrlId(1L);
+        verify(userUrlRepository, times(1)).getIdByPair(new UserUrl(1L, 1L));
+        verify(userUrlRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void testDeleteByIdAndUserWhileNoOneElseUsesUrl () {
+        when(userUrlRepository.findAllUserIdsByUrlId(anyLong())).thenReturn(new ArrayList<>() {{
+            add(1L);
+        }});
+        doNothing().when(userUrlRepository).deleteAllByUrlId(anyLong());
+
+        urlRepository.save(url1);
+        urlRepository.deleteByIdAndUserId(1L, 1L);
+
+        assertEquals(0, urlRepository.count());
+
+        verify(userUrlRepository, times(1)).findAllUserIdsByUrlId(1L);
+        verify(userUrlRepository, times(1)).deleteAllByUrlId(1L);
+    }
 
 }

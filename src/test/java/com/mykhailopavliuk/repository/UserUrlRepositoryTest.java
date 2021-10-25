@@ -1,7 +1,6 @@
 package com.mykhailopavliuk.repository;
 
 import com.mykhailopavliuk.TestConfig;
-import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.model.UserUrl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,12 +27,9 @@ public class UserUrlRepositoryTest {
     private UserUrl userUrl1, userUrl2;
 
     @BeforeEach
-    void clearDB() {
-        userUrlRepository.deleteAll();
-    }
-
-    @BeforeEach
     public void setUp() {
+        userUrlRepository.deleteAll();
+
         userUrl1 = new UserUrl();
         userUrl1.setId(10);
         userUrl1.setUserId(1);
@@ -49,6 +45,8 @@ public class UserUrlRepositoryTest {
     public void tearDown() {
         userUrl1 = null;
         userUrl2 = null;
+
+        userUrlRepository.deleteAll();
     }
 
     @Test
@@ -150,7 +148,7 @@ public class UserUrlRepositoryTest {
     }
 
     @Test
-    public void testFindAllFirstEntityIdsBySecondEntityId() {
+    public void testFindAllUserIdsByUrlId() {
         userUrl1.setUrlId(1);
 
         UserUrl userUrl3 = new UserUrl();
@@ -166,13 +164,13 @@ public class UserUrlRepositoryTest {
         expected.add(2L);
         expected.add(3L);
 
-        List<Long> actual = userUrlRepository.findAllFirstEntityIdsBySecondEntityId(2L);
+        List<Long> actual = userUrlRepository.findAllUserIdsByUrlId(2L);
 
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testFindAllSecondEntityIdsByFirstEntityId() {
+    public void testFindAllUrlIdsByUserId() {
         UserUrl userUrl3 = new UserUrl();
         userUrl3.setId(15);
         userUrl3.setUserId(1);
@@ -186,13 +184,13 @@ public class UserUrlRepositoryTest {
         expected.add(2L);
         expected.add(3L);
 
-        List<Long> actual = userUrlRepository.findAllSecondEntityIdsByFirstEntityId(1L);
+        List<Long> actual = userUrlRepository.findAllUrlIdsByUserId(1L);
 
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testDeleteAllByFirstEntityId() {
+    public void testDeleteAllByUserId() {
         userUrl2.setUserId(1);
         userUrl2.setUrlId(3);
 
@@ -205,13 +203,13 @@ public class UserUrlRepositoryTest {
         userUrlRepository.save(userUrl2);
         userUrlRepository.save(userUrl3);
 
-        userUrlRepository.deleteAllByFirstEntityId(1L);
+        userUrlRepository.deleteAllByUserId(1L);
 
         assertEquals(1, userUrlRepository.count());
     }
 
     @Test
-    public void testDeleteAllBySecondEntityId() {
+    public void testDeleteAllByUrlId() {
         userUrl2.setUrlId(3);
 
         UserUrl userUrl3 = new UserUrl();
@@ -223,7 +221,7 @@ public class UserUrlRepositoryTest {
         userUrlRepository.save(userUrl2);
         userUrlRepository.save(userUrl3);
 
-        userUrlRepository.deleteAllBySecondEntityId(2L);
+        userUrlRepository.deleteAllByUrlId(2L);
 
         assertEquals(1, userUrlRepository.count());
     }

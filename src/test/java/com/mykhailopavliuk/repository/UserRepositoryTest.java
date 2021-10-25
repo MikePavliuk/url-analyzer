@@ -3,11 +3,13 @@ package com.mykhailopavliuk.repository;
 import com.mykhailopavliuk.TestConfig;
 import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
+import com.mykhailopavliuk.model.UserUrl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -15,6 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 
 @SpringBootTest
@@ -25,15 +31,18 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    @MockBean
+    private UserUrlRepository userUrlRepository;
+
+    @MockBean
+    private UrlRepository urlRepository;
+
     private User user1, user2;
 
     @BeforeEach
-    void clearDB() {
-        userRepository.deleteAll();
-    }
-
-    @BeforeEach
     public void setUp() {
+        userRepository.deleteAll();
+
         user1 = new User();
         user1.setId(1);
         user1.setEmail("user1@gmail.com");
@@ -49,6 +58,8 @@ public class UserRepositoryTest {
     public void tearDown() {
         user1 = null;
         user2 = null;
+
+        userRepository.deleteAll();
     }
 
     @Test
@@ -162,6 +173,9 @@ public class UserRepositoryTest {
         userRepository.deleteById(1L);
 
         assertEquals(0, userRepository.count());
+
+        verify(userUrlRepository, times(1)).findAllUrlIdsByUserId(1L);
+        verify(urlRepository, times(0)).findById(anyLong());
     }
 
     @Test
@@ -171,6 +185,9 @@ public class UserRepositoryTest {
         userRepository.deleteById(2L);
 
         assertEquals(1, userRepository.count());
+
+        verify(userUrlRepository, times(0)).findAllUrlIdsByUserId(10L);
+        verify(urlRepository, times(0)).findById(anyLong());
     }
 
     @Test
@@ -181,6 +198,8 @@ public class UserRepositoryTest {
         userRepository.deleteAll();
 
         assertEquals(0, userRepository.count());
+
+        verify(urlRepository, times(2)).deleteAll();
     }
 
     @Test
