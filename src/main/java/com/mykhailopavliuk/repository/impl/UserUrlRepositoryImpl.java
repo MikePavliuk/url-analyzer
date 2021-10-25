@@ -173,7 +173,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
     }
 
     @Override
-    public List<Long> findAllFirstEntityIdsBySecondEntityId(Long urlID) {
+    public List<Long> findAllUserIdsByUrlId(Long urlID) {
         String line;
         String[] recordData;
         List<Long> usersIds = new ArrayList<>();
@@ -194,7 +194,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
     }
 
     @Override
-    public List<Long> findAllSecondEntityIdsByFirstEntityId(Long userID) {
+    public List<Long> findAllUrlIdsByUserId(Long userID) {
         String line;
         String[] recordData;
         List<Long> urlsIds = new ArrayList<>();
@@ -215,7 +215,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
     }
 
     @Override
-    public void deleteAllByFirstEntityId(Long userID) {
+    public void deleteAllByUserId(Long userID) {
         String line;
         String[] recordData;
         StringBuilder updatedFile = new StringBuilder();
@@ -240,7 +240,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
     }
 
     @Override
-    public void deleteAllBySecondEntityId(Long urlID) {
+    public void deleteAllByUrlId(Long urlID) {
         String line;
         String[] recordData;
         StringBuilder updatedFile = new StringBuilder();

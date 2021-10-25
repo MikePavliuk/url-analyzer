@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserUrlRepository extends CrudRepository<UserUrl, Long>  {
-    List<Long> findAllFirstEntityIdsBySecondEntityId(Long urlID);
-    List<Long> findAllSecondEntityIdsByFirstEntityId(Long userID);
-    void deleteAllByFirstEntityId(Long userID);
-    void deleteAllBySecondEntityId(Long urlID);
+    List<Long> findAllUserIdsByUrlId(Long urlID);
+    List<Long> findAllUrlIdsByUserId(Long userID);
+    void deleteAllByUserId(Long userID);
+    void deleteAllByUrlId(Long urlID);
     Optional<Long> getIdByPair(UserUrl userUrl);
 }

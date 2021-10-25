@@ -1,7 +1,9 @@
 package com.mykhailopavliuk.repository.impl;
 
 import com.mykhailopavliuk.exception.DatabaseOperationException;
+import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
+import com.mykhailopavliuk.repository.UrlRepository;
 import com.mykhailopavliuk.repository.UserRepository;
 import com.mykhailopavliuk.repository.UserUrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,13 @@ public class UserRepositoryImpl implements UserRepository {
 
     private final UserUrlRepository userUrlRepository;
 
+    private final UrlRepository urlRepository;
+
     @Autowired
-    public UserRepositoryImpl(@Qualifier("usersDatabase") Path usersDatabase, UserUrlRepository userUrlRepository) {
+    public UserRepositoryImpl(@Qualifier("usersDatabase") Path usersDatabase, UserUrlRepository userUrlRepository, UrlRepository urlRepository) {
         this.usersDatabase = usersDatabase;
         this.userUrlRepository = userUrlRepository;
+        this.urlRepository = urlRepository;
     }
 
     @Override
@@ -42,7 +47,7 @@ public class UserRepositoryImpl implements UserRepository {
                 writer.append("\n");
 
             } catch (IOException e) {
-                throw new DatabaseOperationException("Exception has occurred while writing to the database");
+                throw new DatabaseOperationException("Exception has occurred while writing to the User database");
             }
         } else {
             String line;
@@ -65,13 +70,13 @@ public class UserRepositoryImpl implements UserRepository {
                     }
                 }
             } catch (IOException e) {
-                throw new DatabaseOperationException("Exception has occurred while reading from the database");
+                throw new DatabaseOperationException("Exception has occurred while reading from the User database");
             }
 
             try (var writer = Files.newBufferedWriter(usersDatabase)) {
                 writer.write(updatedFile.toString());
             } catch (IOException e) {
-                throw new DatabaseOperationException("Exception has while writing to the database");
+                throw new DatabaseOperationException("Exception has while writing to the User database");
             }
         }
 
@@ -98,9 +103,10 @@ public class UserRepositoryImpl implements UserRepository {
                 if (userData[0].equals(String.valueOf(id))) {
                     return Optional.of(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), null));
                 }
+
             }
         } catch (IOException e) {
-            throw new DatabaseOperationException("Exception has occurred while reading from the database");
+            throw new DatabaseOperationException("Exception has occurred while reading from the User database");
         }
 
         return Optional.empty();
@@ -120,7 +126,7 @@ public class UserRepositoryImpl implements UserRepository {
                 }
             }
         } catch (IOException e) {
-            throw new DatabaseOperationException("Exception has occurred while reading from the database");
+            throw new DatabaseOperationException("Exception has occurred while reading from the User database");
         }
 
         return false;
@@ -138,7 +144,7 @@ public class UserRepositoryImpl implements UserRepository {
                 users.add(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), null));
             }
         } catch (IOException e) {
-            throw new DatabaseOperationException("Exception has occurred while reading from the database");
+            throw new DatabaseOperationException("Exception has occurred while reading from the User database");
         }
 
         return users;
@@ -153,7 +159,7 @@ public class UserRepositoryImpl implements UserRepository {
                 count++;
             }
         } catch (IOException e) {
-            throw new DatabaseOperationException("Exception has occurred while reading from the database");
+            throw new DatabaseOperationException("Exception has occurred while reading from the User database");
         }
 
         return count;
@@ -174,24 +180,28 @@ public class UserRepositoryImpl implements UserRepository {
                 }
             }
         } catch (IOException e) {
-            throw new DatabaseOperationException("Exception has occurred while reading from the database");
+            throw new DatabaseOperationException("Exception has occurred while reading from the User database");
         }
 
         try (var writer = Files.newBufferedWriter(usersDatabase)) {
             writer.write(updatedFile.toString());
         } catch (IOException e) {
-            throw new DatabaseOperationException("Exception has occurred while writing to the database");
+            throw new DatabaseOperationException("Exception has occurred while writing to the User database");
         }
 
-        userUrlRepository.deleteAllByFirstEntityId(id);
+        for (Long urlId : userUrlRepository.findAllUrlIdsByUserId(id)) {
+            urlRepository.deleteById(urlId);
+        }
     }
 
     @Override
     public void deleteAll() {
         try (var writer = Files.newBufferedWriter(usersDatabase)) {
         } catch (IOException e) {
-            throw new DatabaseOperationException("Exception has occurred while writing to the database");
+            throw new DatabaseOperationException("Exception has occurred while writing to the User database");
         }
+
+        urlRepository.deleteAll();
     }
 
     @Override
@@ -208,7 +218,7 @@ public class UserRepositoryImpl implements UserRepository {
                 }
             }
         } catch (IOException e) {
-            throw new DatabaseOperationException("Exception has occurred while reading from the database");
+            throw new DatabaseOperationException("Exception has occurred while reading from the User database");
         }
 
         return Optional.empty();
@@ -224,7 +234,7 @@ public class UserRepositoryImpl implements UserRepository {
                 userData = line.split(",");
             }
         } catch (IOException e) {
-            throw new DatabaseOperationException("Exception has occurred while reading from the database");
+            throw new DatabaseOperationException("Exception has occurred while reading from the User database");
         }
 
         return userData != null ? (Long.parseLong(userData[0]) + 1) : 1;

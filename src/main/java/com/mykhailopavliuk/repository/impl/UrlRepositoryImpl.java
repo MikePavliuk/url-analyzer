@@ -38,7 +38,7 @@ public class UrlRepositoryImpl implements UrlRepository {
             writeUrlToDatabase(url);
 
         } else {
-            if (userUrlRepository.findAllFirstEntityIdsBySecondEntityId(urlId).size() > 1) {
+            if (userUrlRepository.findAllUserIdsByUrlId(urlId).size() > 1) {
                 Optional<Long> userUrlId = userUrlRepository.getIdByPair(new UserUrl(url.getOwner().getId(), urlId));
                 userUrlRepository.deleteById(userUrlId.get());
                 url.setId(getAvailableId());
@@ -174,32 +174,29 @@ public class UrlRepositoryImpl implements UrlRepository {
 
     @Override
     public void deleteById(Long id) {
-        if (userUrlRepository.findAllFirstEntityIdsBySecondEntityId(id).size() > 1) {
-            Optional<Long> userUrlId = userUrlRepository.getIdByPair(new UserUrl(findById(id).get().getOwner().getId(), id));
-            userUrlRepository.deleteById(userUrlId.get());
-        } else {
-            String line;
-            String[] urlData;
-            StringBuilder updatedFile = new StringBuilder();
+        String line;
+        String[] urlData;
+        StringBuilder updatedFile = new StringBuilder();
 
-            try (var reader = Files.newBufferedReader(urlsDatabase)) {
-                while ((line = reader.readLine()) != null) {
-                    urlData = line.split(",");
+        try (var reader = Files.newBufferedReader(urlsDatabase)) {
+            while ((line = reader.readLine()) != null) {
+                urlData = line.split(",");
 
-                    if (!urlData[0].equals(String.valueOf(id))) {
-                        updatedFile.append(line);
-                    }
+                if (!urlData[0].equals(String.valueOf(id))) {
+                    updatedFile.append(line);
                 }
-            } catch (IOException e) {
-                throw new DatabaseOperationException("Exception has occurred while reading from the Url database");
             }
-
-            try (var writer = Files.newBufferedWriter(urlsDatabase)) {
-                writer.write(updatedFile.toString());
-            } catch (IOException e) {
-                throw new DatabaseOperationException("Exception has occurred while writing to the Url database");
-            }
+        } catch (IOException e) {
+            throw new DatabaseOperationException("Exception has occurred while reading from the Url database");
         }
+
+        try (var writer = Files.newBufferedWriter(urlsDatabase)) {
+            writer.write(updatedFile.toString());
+        } catch (IOException e) {
+            throw new DatabaseOperationException("Exception has occurred while writing to the Url database");
+        }
+
+        userUrlRepository.deleteAllByUrlId(id);
     }
 
     @Override
@@ -246,5 +243,37 @@ public class UrlRepositoryImpl implements UrlRepository {
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public void deleteByIdAndUserId(Long id, Long userId) {
+        if (userUrlRepository.findAllUserIdsByUrlId(id).size() > 1) {
+            Optional<Long> userUrlId = userUrlRepository.getIdByPair(new UserUrl(userId, id));
+            userUrlRepository.deleteById(userUrlId.get());
+        } else {
+            String line;
+            String[] urlData;
+            StringBuilder updatedFile = new StringBuilder();
+
+            try (var reader = Files.newBufferedReader(urlsDatabase)) {
+                while ((line = reader.readLine()) != null) {
+                    urlData = line.split(",");
+
+                    if (!urlData[0].equals(String.valueOf(id))) {
+                        updatedFile.append(line);
+                    }
+                }
+            } catch (IOException e) {
+                throw new DatabaseOperationException("Exception has occurred while reading from the Url database");
+            }
+
+            try (var writer = Files.newBufferedWriter(urlsDatabase)) {
+                writer.write(updatedFile.toString());
+            } catch (IOException e) {
+                throw new DatabaseOperationException("Exception has occurred while writing to the Url database");
+            }
+
+            userUrlRepository.deleteAllByUrlId(id);
+        }
     }
 }
