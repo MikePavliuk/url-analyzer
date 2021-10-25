@@ -62,4 +62,9 @@ public class UrlServiceImpl implements UrlService {
         return urlRepository.findByPath(path).orElseThrow(
                 () -> new EntityNotFoundException("Url with path '" + path + "' not found"));
     }
+
+    @Override
+    public void deleteByIdAndUserId(Long id, Long userId) {
+        urlRepository.deleteByIdAndUserId(id, userId);
+    }
 }
