@@ -150,4 +150,13 @@ public class UrlServiceTest {
         verify(urlRepository, times(1)).getAvailableId();
     }
 
+    @Test
+    public void testDeleteByIdAndUserId() {
+        doNothing().when(urlRepository).deleteByIdAndUserId(anyLong(), anyLong());
+        urlService.deleteByIdAndUserId(1L, 1L);
+
+        verify(urlRepository, times(1)).deleteByIdAndUserId(1L, 1L);
+    }
+
+
 }
