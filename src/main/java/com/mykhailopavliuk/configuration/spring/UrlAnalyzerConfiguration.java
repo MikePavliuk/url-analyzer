@@ -1,6 +1,8 @@
-package com.mykhailopavliuk.configuration;
+package com.mykhailopavliuk.configuration.spring;
 
+import com.mykhailopavliuk.configuration.application.AdminProperties;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -48,5 +50,23 @@ public class UrlAnalyzerConfiguration {
         }
 
         return user_urlDatabase;
+    }
+
+    @Bean
+    @Qualifier("settings")
+    public Path getSettingsFile() throws IOException {
+        Path settings = Paths.get("src/main/resources/settings/settings.xml");
+
+        if (!Files.exists(settings)) {
+            Files.createFile(settings);
+        }
+
+        return settings;
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "admin")
+    public AdminProperties getAdminProperties() {
+        return new AdminProperties();
     }
 }

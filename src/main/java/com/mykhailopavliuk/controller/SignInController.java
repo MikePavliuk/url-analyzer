@@ -4,10 +4,10 @@ import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.mykhailopavliuk.configuration.application.AdminProperties;
+import com.mykhailopavliuk.controller.admin.AdminController;
 import com.mykhailopavliuk.controller.dashboard.DashboardMainController;
-import com.mykhailopavliuk.controller.dashboard.LargeDashboardMainController;
 import com.mykhailopavliuk.controller.dashboard.MediumDashboardMainController;
-import com.mykhailopavliuk.controller.dashboard.SmallDashboardMainController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.model.User;
@@ -41,6 +41,8 @@ public class SignInController implements Initializable {
 
     private final FxWeaver fxWeaver;
 
+    private final AdminProperties adminProperties;
+
     @FXML
     private JFXTextField inputEmail;
 
@@ -51,9 +53,10 @@ public class SignInController implements Initializable {
     private Label singInFailedLabel;
 
     @Autowired
-    public SignInController(UserService userService, FxWeaver fxWeaver) {
+    public SignInController(UserService userService, FxWeaver fxWeaver, AdminProperties adminProperties) {
         this.userService = userService;
         this.fxWeaver = fxWeaver;
+        this.adminProperties = adminProperties;
     }
 
     @Override
@@ -67,6 +70,22 @@ public class SignInController implements Initializable {
 
         String email = inputEmail.getText();
         String password = inputPassword.getText();
+
+        if (email.equals(adminProperties.getEmail()) && password.equals(adminProperties.getPassword())) {
+            TrayHandler.notify(
+                    "Welcome, Administrator",
+                    "Now you can do everything you want with user accounts",
+                    Notifications.SUCCESS,
+                    Animations.POPUP,
+                    Paint.valueOf("#4883db"),
+                    Duration.seconds(5)
+            );
+
+            Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(AdminController.class)));
+            stageTheEventSourceNodeBelongs.centerOnScreen();
+            return;
+        }
 
         try {
             User user = userService.readByEmail(email);

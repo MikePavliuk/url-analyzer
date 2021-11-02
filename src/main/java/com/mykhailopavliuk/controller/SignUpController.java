@@ -2,19 +2,17 @@ package com.mykhailopavliuk.controller;
 
 import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
-import com.github.plushaze.traynotification.notification.TrayNotification;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.mykhailopavliuk.configuration.application.AdminProperties;
+import com.mykhailopavliuk.controller.admin.AdminController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
-import com.mykhailopavliuk.exception.NullEntityReferenceException;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.UserService;
 import com.mykhailopavliuk.util.TrayHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -27,7 +25,6 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,6 +33,8 @@ import java.util.ResourceBundle;
 public class SignUpController implements Initializable {
 
     private final UserService userService;
+
+    private final AdminProperties adminProperties;
 
     private final FxWeaver fxWeaver;
 
@@ -58,8 +57,9 @@ public class SignUpController implements Initializable {
     private Label passwordValidationLabel;
 
     @Autowired
-    public SignUpController(UserService userService, FxWeaver fxWeaver) {
+    public SignUpController(UserService userService, AdminProperties adminProperties, FxWeaver fxWeaver) {
         this.userService = userService;
+        this.adminProperties = adminProperties;
         this.fxWeaver = fxWeaver;
     }
 
@@ -114,6 +114,12 @@ public class SignUpController implements Initializable {
 
         String email = inputEmail.getText();
         String password = inputPassword.getText();
+
+        if (email.equals(adminProperties.getEmail()) && password.equals(adminProperties.getPassword())) {
+            emailValidationLabel.setVisible(true);
+            emailValidationLabel.setText("Email is not valid");
+            return;
+        }
 
         try {
             userService.readByEmail(email);
