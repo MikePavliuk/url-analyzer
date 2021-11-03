@@ -5,9 +5,9 @@ import com.github.plushaze.traynotification.notification.Notifications;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
-import com.mykhailopavliuk.controller.admin.AdminController;
-import com.mykhailopavliuk.controller.dashboard.DashboardMainController;
-import com.mykhailopavliuk.controller.dashboard.MediumDashboardMainController;
+import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
+import com.mykhailopavliuk.controller.user.overview.UserOverviewController;
+import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.model.User;
@@ -82,7 +82,7 @@ public class SignInController implements Initializable {
             );
 
             Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(AdminController.class)));
+            stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(AdminOverviewController.class)));
             stageTheEventSourceNodeBelongs.centerOnScreen();
             return;
         }
@@ -100,9 +100,9 @@ public class SignInController implements Initializable {
                         Duration.seconds(5)
                 );
                 Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                DashboardMainController dashboardMainController = fxWeaver.loadController(MediumDashboardMainController.class);
-                dashboardMainController.setUser(user);
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumDashboardMainController.class)));
+                UserOverviewController userOverviewController = fxWeaver.loadController(MediumUserOverviewController.class);
+                userOverviewController.setUser(user);
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
                 stageTheEventSourceNodeBelongs.centerOnScreen();
             } else {
                 throw new EntityNotFoundException();

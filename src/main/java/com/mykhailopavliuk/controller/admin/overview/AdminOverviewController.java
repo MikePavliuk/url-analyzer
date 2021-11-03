@@ -1,4 +1,4 @@
-package com.mykhailopavliuk.controller.admin;
+package com.mykhailopavliuk.controller.admin.overview;
 
 
 import com.mykhailopavliuk.controller.SignInController;
@@ -13,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@FxmlView("/view/admin/admin.fxml")
-public class AdminController {
+@FxmlView("/view/admin/overview/medium-overview.fxml")
+public class AdminOverviewController {
 
     private final FxWeaver fxWeaver;
 
     @Autowired
-    public AdminController(FxWeaver fxWeaver) {
+    public AdminOverviewController(FxWeaver fxWeaver) {
         this.fxWeaver = fxWeaver;
     }
 

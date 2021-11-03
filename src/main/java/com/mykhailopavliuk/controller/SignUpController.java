@@ -5,7 +5,6 @@ import com.github.plushaze.traynotification.notification.Notifications;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
-import com.mykhailopavliuk.controller.admin.AdminController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.model.User;

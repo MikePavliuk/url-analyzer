@@ -1,4 +1,4 @@
-package com.mykhailopavliuk.controller.dashboard;
+package com.mykhailopavliuk.controller.user.overview;
 
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.model.User;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public abstract class DashboardMainController implements Initializable {
+public abstract class UserOverviewController implements Initializable {
 
     private User user;
 
@@ -39,7 +39,7 @@ public abstract class DashboardMainController implements Initializable {
     }
 
 
-    public DashboardMainController(UserService userService, FxWeaver fxWeaver) {
+    public UserOverviewController(UserService userService, FxWeaver fxWeaver) {
         this.userService = userService;
         this.fxWeaver = fxWeaver;
     }

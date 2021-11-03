@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mykhailopavliuk.controller.dashboard.SmallDashboardMainController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mykhailopavliuk.controller.user.overview.SmallUserOverviewController">
    <children>
       <BorderPane prefHeight="500.0" prefWidth="700.0">
          <center>
@@ -21,7 +21,7 @@
                <children>
                   <ImageView fitHeight="69.0" fitWidth="66.0" layoutX="59.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assets/user.png" />
+                        <Image url="@../../../assets/user.png" />
                      </image>
                   </ImageView>
                   <Label fx:id="userEmailLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="95.0" prefHeight="21.0" prefWidth="185.0" text="user@gmail.com" textFill="WHITE">
@@ -36,7 +36,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
-                              <Image url="@../../assets/icons8-website_statistics.png" />
+                              <Image url="@../../../assets/icons8-website_statistics.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -48,7 +48,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
-                              <Image url="@../../assets/icons8-website.png" />
+                              <Image url="@../../../assets/icons8-website.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -60,7 +60,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
-                              <Image url="@../../assets/icons8-package_settings.png" />
+                              <Image url="@../../../assets/icons8-package_settings.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -72,7 +72,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
-                              <Image url="@../../assets/icons8-exit.png" />
+                              <Image url="@../../../assets/icons8-exit.png" />
                            </image>
                         </ImageView>
                      </graphic>

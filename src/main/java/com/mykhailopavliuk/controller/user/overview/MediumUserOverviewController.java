@@ -1,4 +1,4 @@
-package com.mykhailopavliuk.controller.dashboard;
+package com.mykhailopavliuk.controller.user.overview;
 
 
 import com.mykhailopavliuk.service.UserService;
@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@FxmlView("/view/dashboard/medium-dashboard-main.fxml")
-public class MediumDashboardMainController extends DashboardMainController {
+@FxmlView("/view/user/overview/medium-overview.fxml")
+public class MediumUserOverviewController extends UserOverviewController {
 
     @Autowired
-    public MediumDashboardMainController(UserService userService, FxWeaver fxWeaver) {
+    public MediumUserOverviewController(UserService userService, FxWeaver fxWeaver) {
         super(userService, fxWeaver);
     }
 }

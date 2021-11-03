@@ -1,4 +1,4 @@
-package com.mykhailopavliuk.controller.dashboard;
+package com.mykhailopavliuk.controller.user.overview;
 
 import com.mykhailopavliuk.service.UserService;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@FxmlView("/view/dashboard/large-dashboard-main.fxml")
-public class LargeDashboardMainController extends DashboardMainController {
+@FxmlView("/view/user/overview/large-overview.fxml")
+public class LargeUserOverviewController extends UserOverviewController {
 
     @Autowired
-    public LargeDashboardMainController(UserService userService, FxWeaver fxWeaver) {
+    public LargeUserOverviewController(UserService userService, FxWeaver fxWeaver) {
         super(userService, fxWeaver);
     }
 }

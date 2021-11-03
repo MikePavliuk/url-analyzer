@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mykhailopavliuk.controller.admin.AdminController">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mykhailopavliuk.controller.admin.overview.AdminOverviewController">
    <children>
       <BorderPane prefHeight="768.0" prefWidth="1024.0">
          <center>
@@ -31,7 +31,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
-                              <Image url="@../../assets/icons8-users.png" />
+                              <Image url="@../../../assets/icons8-users.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -43,7 +43,7 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
-                              <Image url="@../../assets/icons8-package_settings.png" />
+                              <Image url="@../../../assets/icons8-package_settings.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -55,14 +55,14 @@
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                            <image>
-                              <Image url="@../../assets/icons8-exit.png" />
+                              <Image url="@../../../assets/icons8-exit.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
                   <ImageView layoutX="92.0" layoutY="63.0">
                      <image>
-                        <Image url="@../../assets/icons8-admin_settings_male.png" />
+                        <Image url="@../../../assets/icons8-admin_settings_male.png" />
                      </image>
                   </ImageView>
                </children>
