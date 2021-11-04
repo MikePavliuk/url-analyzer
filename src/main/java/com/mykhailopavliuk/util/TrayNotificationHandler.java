@@ -6,10 +6,10 @@ import com.github.plushaze.traynotification.notification.TrayNotification;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
-public final class TrayHandler {
+public final class TrayNotificationHandler {
     private static final TrayNotification trayNotification = new TrayNotification();
 
-    private TrayHandler() {
+    private TrayNotificationHandler() {
     }
 
     public static void notify(
