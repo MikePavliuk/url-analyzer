@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="DisplayMode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DARK"/>
+            <xs:enumeration value="LIGHT"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ScreenResolution">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SMALL"/>
+            <xs:enumeration value="MEDIUM"/>
+            <xs:enumeration value="LARGE"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="RequestsFrequency">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PER_MINUTE"/>
+            <xs:enumeration value="PER_HOUR"/>
+            <xs:enumeration value="PER_DAY"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Settings">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="DisplayMode" type="DisplayMode"/>
+                <xs:element name="ScreenResolution" type="ScreenResolution"/>
+                <xs:element name="RequestsFrequency" type="RequestsFrequency"/>
+                <xs:element name="ExportDirectory" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

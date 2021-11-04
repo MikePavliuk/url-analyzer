@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings xsi:noNamespaceSchemaLocation="settings.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <DisplayMode>LIGHT</DisplayMode>
+    <ScreenResolution>MEDIUM</ScreenResolution>
+    <RequestsFrequency>PER_MINUTE</RequestsFrequency>
+    <ExportDirectory>/</ExportDirectory>
+</Settings>
