@@ -10,9 +10,12 @@ import com.mykhailopavliuk.controller.user.overview.UserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
+import com.mykhailopavliuk.exception.SettingsException;
+import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.User;
+import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.service.UserService;
-import com.mykhailopavliuk.util.TrayHandler;
+import com.mykhailopavliuk.util.TrayNotificationHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -72,7 +75,7 @@ public class SignInController implements Initializable {
         String password = inputPassword.getText();
 
         if (email.equals(adminProperties.getEmail()) && password.equals(adminProperties.getPassword())) {
-            TrayHandler.notify(
+            TrayNotificationHandler.notify(
                     "Welcome, Administrator",
                     "Now you can do everything you want with user accounts",
                     Notifications.SUCCESS,
@@ -91,7 +94,7 @@ public class SignInController implements Initializable {
             User user = userService.readByEmail(email);
 
             if (Arrays.equals(user.getPassword(), password.toCharArray())) {
-                TrayHandler.notify(
+                TrayNotificationHandler.notify(
                         "Welcome, " + user.getEmail(),
                         "Now you can analyze urls you want",
                         Notifications.SUCCESS,
@@ -118,7 +121,7 @@ public class SignInController implements Initializable {
             inputPassword.setText("");
 
         } catch (DatabaseOperationException exception) {
-            TrayHandler.notify(
+            TrayNotificationHandler.notify(
                     "Error",
                     exception.getMessage(),
                     Notifications.ERROR,

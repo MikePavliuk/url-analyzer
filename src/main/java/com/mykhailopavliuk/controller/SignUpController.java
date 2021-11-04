@@ -9,7 +9,7 @@ import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.UserService;
-import com.mykhailopavliuk.util.TrayHandler;
+import com.mykhailopavliuk.util.TrayNotificationHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -134,7 +134,7 @@ public class SignUpController implements Initializable {
                         null
                 ));
 
-                TrayHandler.notify(
+                TrayNotificationHandler.notify(
                         "Congratulations",
                         "You successfully created an account! Now you can sign in",
                         Notifications.SUCCESS,
@@ -191,7 +191,7 @@ public class SignUpController implements Initializable {
     }
 
     private void invokeTrayNotificationError(RuntimeException exception) {
-        TrayHandler.notify(
+        TrayNotificationHandler.notify(
                 "Error",
                 exception.getMessage(),
                 Notifications.ERROR,
