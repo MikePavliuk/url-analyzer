@@ -179,6 +179,13 @@ public class AdminUsersController implements Initializable {
         updateTable();
     }
 
+    @FXML
+    void refreshTable(ActionEvent event) {
+        if (doesWeHaveUnsavedChanges) {
+            updateTable();
+        }
+    }
+
     private void updateTable() {
         usersDtoObservableList.clear();
 
@@ -189,6 +196,7 @@ public class AdminUsersController implements Initializable {
 
         TreeItem<UserTableRowDTO> root = new RecursiveTreeItem<>(usersDtoObservableList, RecursiveTreeObject::getChildren);
         usersTableView.setRoot(root);
+        doesWeHaveUnsavedChanges = false;
     }
 
     private void addDeleteButtonColumn() {
