@@ -10,6 +10,7 @@ import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.UserService;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
+import com.mykhailopavliuk.util.ValidationHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -70,8 +71,8 @@ public class SignUpController implements Initializable {
             emailValidationLabel.setVisible(true);
             if (inputEmail.getText().isEmpty()) {
                 emailValidationLabel.setText("Email can't be empty");
-            } else if (!inputEmail.getText().matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
-                emailValidationLabel.setText("Email is not valid");
+            } else if (!inputEmail.getText().matches(ValidationHandler.getEmailRegex().getRegex())) {
+                emailValidationLabel.setText(ValidationHandler.getEmailRegex().getMessage());
             } else {
                 emailValidationLabel.setVisible(false);
             }
@@ -81,8 +82,8 @@ public class SignUpController implements Initializable {
             passwordValidationLabel.setVisible(true);
             if (inputPassword.getText().isEmpty()) {
                 passwordValidationLabel.setText("Password can't be empty");
-            } else if (!inputPassword.getText().matches("^(?=.*[0-9]).{8,}$")) {
-                passwordValidationLabel.setText("Must have at least 1 digit and min length of 8");
+            } else if (!inputPassword.getText().matches(ValidationHandler.getPasswordValidation().getRegex())) {
+                passwordValidationLabel.setText(ValidationHandler.getPasswordValidation().getMessage());
             } else {
                 passwordValidationLabel.setVisible(false);
             }
@@ -114,7 +115,7 @@ public class SignUpController implements Initializable {
         String email = inputEmail.getText();
         String password = inputPassword.getText();
 
-        if (email.equals(adminProperties.getEmail()) && password.equals(adminProperties.getPassword())) {
+        if (email.equals(adminProperties.getEmail())) {
             emailValidationLabel.setVisible(true);
             emailValidationLabel.setText("Email is not valid");
             return;
@@ -158,16 +159,16 @@ public class SignUpController implements Initializable {
 
         if (inputEmail.getText().isEmpty()) {
             emailValidationLabel.setText("Email can't be empty");
-        } else if (!inputEmail.getText().matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
-            emailValidationLabel.setText("Email is not valid");
+        } else if (!inputEmail.getText().matches(ValidationHandler.getEmailRegex().getRegex())) {
+            emailValidationLabel.setText(ValidationHandler.getEmailRegex().getMessage());
         } else {
             emailValidationLabel.setVisible(false);
         }
 
         if (inputPassword.getText().isEmpty()) {
             passwordValidationLabel.setText("Password can't be empty");
-        } else if (!inputPassword.getText().matches("^(?=.*[0-9]).{8,}$")) {
-            passwordValidationLabel.setText("Must have at least 1 digit and min length of 8");
+        } else if (!inputPassword.getText().matches(ValidationHandler.getPasswordValidation().getRegex())) {
+            passwordValidationLabel.setText(ValidationHandler.getPasswordValidation().getMessage());
         } else {
             passwordValidationLabel.setVisible(false);
         }
