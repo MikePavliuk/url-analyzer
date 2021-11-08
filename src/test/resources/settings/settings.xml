@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+    <DisplayMode>LIGHT</DisplayMode>
+    <ScreenResolution>MEDIUM</ScreenResolution>
+    <RequestsFrequency>PER_MINUTE</RequestsFrequency>
+    <ExportDirectory>/</ExportDirectory>
+</Settings>

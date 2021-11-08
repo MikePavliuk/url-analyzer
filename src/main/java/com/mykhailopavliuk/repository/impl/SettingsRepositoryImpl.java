@@ -68,7 +68,7 @@ public class SettingsRepositoryImpl implements SettingsRepository {
             createDefault();
         }
 
-        return  parseSetting(settingsPath);
+        return parseSetting(settingsPath);
 
     }
 
@@ -106,13 +106,13 @@ public class SettingsRepositoryImpl implements SettingsRepository {
     }
 
     private static SAXParser createSaxParser() throws ParserConfigurationException, SAXException {
-        SAXParser saxParser = null;
+        SAXParser saxParser;
         SAXParserFactory factory = SAXParserFactory.newInstance();
         saxParser = factory.newSAXParser();
         return saxParser;
     }
 
-    public  Settings parseSetting(Path fileXML) {
+    private Settings parseSetting(Path fileXML) {
         SettingsHandler handler = new SettingsHandler();
         try {
             SAXParser parser = createSaxParser();

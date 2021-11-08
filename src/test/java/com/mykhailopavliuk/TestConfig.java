@@ -1,6 +1,8 @@
 package com.mykhailopavliuk;
 
+import com.mykhailopavliuk.configuration.application.AdminProperties;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
@@ -48,5 +50,30 @@ public class TestConfig {
         }
 
         return user_urlDatabase;
+    }
+
+    @Bean
+    @Qualifier("defaultSettings")
+    public Path getDefaultSettingsFile() {
+        return Paths.get("src/test/resources/settings/settings.xml");
+    }
+
+    @Bean
+    @Qualifier("settingsSchema")
+    public Path getSettingsSchemaFile() {
+        return Paths.get("src/test/resources/settings/settings.xsd");
+    }
+
+    @Bean
+    @Qualifier("settings")
+    public Path getSettingsFile() {
+        return Paths.get("src/test/settings.xml");
+    }
+
+
+    @Bean
+    @ConfigurationProperties(prefix = "admintest")
+    public AdminProperties getAdminProperties() {
+        return new AdminProperties();
     }
 }
