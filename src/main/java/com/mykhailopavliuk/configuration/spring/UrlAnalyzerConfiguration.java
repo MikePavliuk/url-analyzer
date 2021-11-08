@@ -30,25 +30,41 @@ public class UrlAnalyzerConfiguration {
     @Bean
     @Qualifier("usersDatabase")
     public Path getUsersDatabaseFile() throws IOException {
-        return resourceLoader.getResource("classpath:database/users.csv").getFile().toPath();
+        Path userDatabase = Paths.get("src/main/resources/database/users.csv");
+
+        if (!Files.exists(userDatabase)) {
+            Files.createFile(userDatabase);
+        }
+
+        return userDatabase;
     }
 
     @Bean
     @Qualifier("urlsDatabase")
     public Path getUrlsDatabaseFile() throws IOException {
-        return resourceLoader.getResource("classpath:database/urls.csv").getFile().toPath();
+        Path urlsDatabase = Paths.get("src/main/resources/database/urls.csv");
+
+        if (!Files.exists(urlsDatabase)) {
+            Files.createFile(urlsDatabase);
+        }
+
+        return urlsDatabase;
     }
 
     @Bean
     @Qualifier("user_urlDatabase")
     public Path getUserUrlDatabaseFile() throws IOException {
-        return resourceLoader.getResource("classpath:database/urls.csv").getFile().toPath();
-    }
+        Path user_urlDatabase = Paths.get("src/main/resources/database/user-url.csv");
 
+        if (!Files.exists(user_urlDatabase)) {
+            Files.createFile(user_urlDatabase);
+        }
+        return user_urlDatabase;
+    }
     @Bean
     @Qualifier("defaultSettings")
     public Path getDefaultSettingsFile() throws IOException {
-        return resourceLoader.getResource("classpath:database/user-url.csv").getFile().toPath();
+        return resourceLoader.getResource("classpath:settings/settings.xml").getFile().toPath();
     }
 
     @Bean
@@ -60,7 +76,7 @@ public class UrlAnalyzerConfiguration {
     @Bean
     @Qualifier("settings")
     public Path getSettingsFile() {
-        return Path.of(".").toAbsolutePath().resolve("settings.xml");
+        return Path.of("").toAbsolutePath().resolve("settings.xml");
     }
 
     @Bean
