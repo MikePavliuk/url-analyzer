@@ -199,7 +199,7 @@ public class UserRepositoryImpl implements UserRepository {
                 userData = line.split(",");
 
                 if (!userData[0].equals(String.valueOf(id))) {
-                    updatedFile.append(line);
+                    updatedFile.append(line).append("\n");
                 }
             }
         } catch (IOException e) {
