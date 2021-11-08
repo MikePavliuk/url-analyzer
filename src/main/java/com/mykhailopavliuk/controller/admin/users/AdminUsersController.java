@@ -7,6 +7,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
+import com.mykhailopavliuk.controller.admin.settings.AdminSettingsController;
 import com.mykhailopavliuk.dto.UserTableRowDTO;
 import com.mykhailopavliuk.dto.UserTransformer;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
@@ -108,6 +109,9 @@ public class AdminUsersController implements Initializable {
             return;
         }
 
+        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(AdminSettingsController.class)));
+        stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
     @FXML
