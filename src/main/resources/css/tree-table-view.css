@@ -1,0 +1,20 @@
+* {
+    -fx-text-alignment: center;
+}
+
+.tree-table-view{
+    -fx-border-color: none;
+}
+
+.tree-table-view:focused .tree-table-row-cell:selected {
+    -fx-background-color: #4883db;
+    -fx-table-cell-border-color: #fff;
+}
+
+.tree-table-view:focused .tree-table-row-cell:selected .tree-table-cell{
+    -fx-text-fill: white;
+}
+
+.tree-table-cell {
+    -fx-alignment: center;
+}
