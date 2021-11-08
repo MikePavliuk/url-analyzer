@@ -101,7 +101,8 @@ public class UserRepositoryImpl implements UserRepository {
                 userData = line.split(",");
 
                 if (userData[0].equals(String.valueOf(id))) {
-                    return Optional.of(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), null));
+
+                    return getUserWithUrls(userData);
                 }
 
             }
@@ -110,6 +111,18 @@ public class UserRepositoryImpl implements UserRepository {
         }
 
         return Optional.empty();
+    }
+
+    private Optional<User> getUserWithUrls(String[] userData) {
+        List<Url> urls = new ArrayList<>();
+        Optional<Url> currentUrl;
+        for (Long urlId : userUrlRepository.findAllUrlIdsByUserId(Long.parseLong(userData[0]))) {
+            if ((currentUrl = urlRepository.findById(urlId)).isPresent()) {
+                urls.add(currentUrl.get());
+            }
+        }
+
+        return Optional.of(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), urls));
     }
 
     @Override
@@ -139,9 +152,19 @@ public class UserRepositoryImpl implements UserRepository {
         List<User> users = new ArrayList<>();
 
         try (var reader = Files.newBufferedReader(usersDatabase)) {
+
+            List<Url> urls = new ArrayList<>();
+            Optional<Url> currentUrl;
+
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
-                users.add(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), null));
+
+                for (Long urlId : userUrlRepository.findAllUrlIdsByUserId(Long.parseLong(userData[0]))) {
+                    if ((currentUrl = urlRepository.findById(urlId)).isPresent()) {
+                        urls.add(currentUrl.get());
+                    }
+                }
+                users.add(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), urls));
             }
         } catch (IOException e) {
             throw new DatabaseOperationException("Exception has occurred while reading from the User database");
@@ -214,7 +237,7 @@ public class UserRepositoryImpl implements UserRepository {
                 userData = line.split(",");
 
                 if (userData[1].equals(email)) {
-                    return Optional.of(new User(Long.parseLong(userData[0]), userData[1], userData[2].toCharArray(), null));
+                    return getUserWithUrls(userData);
                 }
             }
         } catch (IOException e) {
