@@ -69,6 +69,28 @@ public class Settings implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Settings settings = (Settings) o;
+
+        if (displayMode != settings.displayMode) return false;
+        if (screenResolution != settings.screenResolution) return false;
+        if (requestsFrequency != settings.requestsFrequency) return false;
+        return exportDirectory.equals(settings.exportDirectory);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = displayMode.hashCode();
+        result = 31 * result + screenResolution.hashCode();
+        result = 31 * result + requestsFrequency.hashCode();
+        result = 31 * result + exportDirectory.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Settings{" +
                 "displayMode=" + displayMode +
