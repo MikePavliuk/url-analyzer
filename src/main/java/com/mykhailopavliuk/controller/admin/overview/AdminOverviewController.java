@@ -4,12 +4,20 @@ package com.mykhailopavliuk.controller.admin.overview;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.admin.settings.AdminSettingsController;
 import com.mykhailopavliuk.controller.admin.users.AdminUsersController;
+import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
+import com.mykhailopavliuk.service.UrlService;
+import com.mykhailopavliuk.service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -17,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
@@ -25,9 +34,31 @@ public class AdminOverviewController implements Initializable {
 
     private final FxWeaver fxWeaver;
 
+    private final UserService userService;
+    private final UrlService urlService;
+    private final SettingsService settingsService;
+
+    @FXML
+    private Label usersNumberLabel;
+
+    @FXML
+    private Label urlsNumberLabel;
+
+    @FXML
+    private AreaChart<String, Number> areaChart;
+
+    @FXML
+    private CategoryAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
+
     @Autowired
-    public AdminOverviewController(FxWeaver fxWeaver) {
+    public AdminOverviewController(FxWeaver fxWeaver, UserService userService, UrlService urlService, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
+        this.userService = userService;
+        this.urlService = urlService;
+        this.settingsService = settingsService;
     }
 
 
@@ -54,5 +85,36 @@ public class AdminOverviewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        List<User> usersList = userService.getAll();
+
+        usersNumberLabel.setText(String.valueOf(usersList.size()));
+        urlsNumberLabel.setText(String.valueOf(urlService.getAll().size()));
+
+        xAxis.setLabel("User");
+        yAxis.setLabel("Number of urls");
+        yAxis.setAutoRanging(false);
+        yAxis.setLowerBound(0);
+        yAxis.setUpperBound(getMaxNumberOfUrlsFromUser(usersList)+1);
+
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+
+        for (int i = 0; i < usersList.size(); i++) {
+            series.getData().add(new XYChart.Data<>(String.valueOf(i), usersList.get(i).getUrls().size()));
+        }
+
+        areaChart.getData().add(series);
+
     }
+
+    private int getMaxNumberOfUrlsFromUser(List<User> usersList) {
+        int max = 0;
+        for (User user : usersList) {
+            if (user.getUrls().size() > max) {
+                max = user.getUrls().size();
+            }
+        }
+
+        return max;
+    }
+
 }
