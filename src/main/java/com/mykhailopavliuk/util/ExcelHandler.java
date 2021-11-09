@@ -29,7 +29,7 @@ public class ExcelHandler {
         Cell headerCell;
 
         for (String columnName : columnNames) {
-            headerCell = header.createCell(++rowCounter);
+            headerCell = header.createCell(rowCounter++);
             headerCell.setCellValue(columnName);
             headerCell.setCellStyle(headerStyle);
         }
