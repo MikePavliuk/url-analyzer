@@ -43,7 +43,7 @@ public class User {
         this.password = password;
     }
 
-    public List<?> getUrls() {
+    public List<Url> getUrls() {
         return urls;
     }
 
