@@ -36,11 +36,16 @@ import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 @Component
 @FxmlView("/view/admin/settings/medium-settings.fxml")
 public class AdminSettingsController implements Initializable {
+
+    private final FxWeaver fxWeaver;
+    private final SettingsService settingsService;
+    private boolean isWasEdit;
 
     @FXML
     private JFXComboBox<Settings.DisplayMode> displayModeComboBox;
@@ -51,10 +56,6 @@ public class AdminSettingsController implements Initializable {
     @FXML
     private JFXTextField exportDirectoryTextField;
 
-    private final FxWeaver fxWeaver;
-    private final SettingsService settingsService;
-
-
     @Autowired
     public AdminSettingsController(FxWeaver fxWeaver, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
@@ -63,21 +64,46 @@ public class AdminSettingsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        isWasEdit = false;
+
         for (Settings.DisplayMode displayMode: Settings.DisplayMode.values()) {
             displayModeComboBox.getItems().add(displayMode);
         }
+
+        displayModeComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (!Objects.equals(settingsService.read().getDisplayMode(), newValue)) {
+                isWasEdit = true;
+            }
+        });
+
 
         for (Settings.ScreenResolution screenResolution: Settings.ScreenResolution.values()) {
             screenResolutionComboBox.getItems().add(screenResolution);
         }
 
+        screenResolutionComboBox.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
+            if (!Objects.equals(settingsService.read().getScreenResolution(), newValue)) {
+                isWasEdit = true;
+            }
+        });
+
+        Settings settings = settingsService.read();
+        if (settings.getExportDirectory().toString().equals("/")) {
+            settings.setExportDirectory(Path.of(System.getProperty("user.home")).toAbsolutePath());
+            settingsService.save(settings);
+        }
+
+        isWasEdit = true;
         refreshForm();
+        isWasEdit = false;
     }
 
     private void refreshForm() {
-        displayModeComboBox.setValue(settingsService.read().getDisplayMode());
-        screenResolutionComboBox.setValue(settingsService.read().getScreenResolution());
-        exportDirectoryTextField.setText(settingsService.read().getExportDirectory().toString());
+        if (isWasEdit) {
+            displayModeComboBox.setValue(settingsService.read().getDisplayMode());
+            screenResolutionComboBox.setValue(settingsService.read().getScreenResolution());
+            exportDirectoryTextField.setText(settingsService.read().getExportDirectory().toString());
+        }
     }
 
     @FXML
@@ -108,14 +134,22 @@ public class AdminSettingsController implements Initializable {
 
     @FXML
     void chooseExportDirectory(ActionEvent event) {
+        String oldValue = exportDirectoryTextField.getText();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setInitialDirectory(settingsService.read().getExportDirectory().toFile());
         File directory = directoryChooser.showDialog(exportDirectoryTextField.getScene().getWindow());
-        if (directory != null) exportDirectoryTextField.setText(directory.getAbsolutePath());
+        if (directory != null && !directory.getAbsolutePath().equals(oldValue)){
+            if (!directory.getAbsolutePath().equals(oldValue)) {
+                exportDirectoryTextField.setText(directory.getAbsolutePath());
+                isWasEdit = true;
+            }
+        }
     }
 
     @FXML
     void saveChanges(ActionEvent event) {
+        if (!isWasEdit) return;
+
         Settings settings = new Settings();
         settings.setDisplayMode(displayModeComboBox.getValue());
         settings.setScreenResolution(screenResolutionComboBox.getValue());
@@ -132,5 +166,7 @@ public class AdminSettingsController implements Initializable {
                 Paint.valueOf("#4883db"),
                 Duration.seconds(3)
         );
+
+        isWasEdit = false;
     }
 }
