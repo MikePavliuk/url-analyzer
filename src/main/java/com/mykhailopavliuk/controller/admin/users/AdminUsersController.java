@@ -13,13 +13,14 @@ import com.mykhailopavliuk.dto.UserTransformer;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.model.User;
+import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.service.UserService;
+import com.mykhailopavliuk.util.ExcelHandler;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
 import com.mykhailopavliuk.util.ValidationHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -29,11 +30,8 @@ import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
@@ -42,6 +40,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -50,6 +49,8 @@ import java.util.*;
 public class AdminUsersController implements Initializable {
 
     private final UserService userService;
+
+    private final SettingsService settingsService;
 
     private final AdminProperties adminProperties;
 
@@ -86,8 +87,9 @@ public class AdminUsersController implements Initializable {
 
 
     @Autowired
-    public AdminUsersController(UserService userService, AdminProperties adminProperties, FxWeaver fxWeaver) {
+    public AdminUsersController(UserService userService, SettingsService settingsService, AdminProperties adminProperties, FxWeaver fxWeaver) {
         this.userService = userService;
+        this.settingsService = settingsService;
         this.adminProperties = adminProperties;
         this.fxWeaver = fxWeaver;
     }
@@ -358,6 +360,32 @@ public class AdminUsersController implements Initializable {
         updateTable();
         usersToDelete.clear();
         doesWeHaveUnsavedChanges = false;
+    }
+
+    @FXML
+    void exportExcel(ActionEvent event) {
+        try {
+            ExcelHandler.exportUsersToTable(settingsService.read().getExportDirectory(), userService.getAll());
+
+            TrayNotificationHandler.notify(
+                    "Well done!",
+                    "File was created in " + settingsService.read().getExportDirectory() + " folder",
+                    Notifications.SUCCESS,
+                    Animations.POPUP,
+                    Paint.valueOf("#4883db"),
+                    Duration.seconds(5)
+            );
+
+        } catch (IOException e) {
+            TrayNotificationHandler.notify(
+                    "Error",
+                    "Exception has occurred while writing to xlsx file",
+                    Notifications.ERROR,
+                    Animations.POPUP,
+                    Paint.valueOf("#fc5b5b"),
+                    Duration.seconds(3)
+            );
+        }
     }
 
 }
