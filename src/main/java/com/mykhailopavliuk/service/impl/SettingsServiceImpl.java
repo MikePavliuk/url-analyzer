@@ -7,6 +7,8 @@ import com.mykhailopavliuk.service.SettingsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Path;
+
 
 @Service
 public class SettingsServiceImpl implements SettingsService {
@@ -29,6 +31,11 @@ public class SettingsServiceImpl implements SettingsService {
 
     @Override
     public Settings read() {
-        return settingsRepository.find();
+        Settings settings = settingsRepository.find();
+        if (settings.getExportDirectory().toString().equals("/") || !settings.getExportDirectory().toFile().exists()) {
+            settings.setExportDirectory(Path.of(System.getProperty("user.home")).toAbsolutePath());
+            settingsRepository.save(settings);
+        }
+        return settings;
     }
 }

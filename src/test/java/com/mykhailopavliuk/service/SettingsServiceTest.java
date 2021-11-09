@@ -76,4 +76,17 @@ public class SettingsServiceTest {
         verify(settingsRepository, times(1)).find();
     }
 
+    @Test
+    public void testReadWithUndefinedPath() {
+        when(settingsRepository.find()).thenReturn(expected);
+        expected.setExportDirectory(Path.of("/lalalal"));
+        Settings actual = settingsService.read();
+        Settings newExpected = expected;
+        expected.setExportDirectory(Path.of(System.getProperty("user.home")).toAbsolutePath());
+
+        assertEquals(newExpected, actual);
+        verify(settingsRepository, times(1)).find();
+        verify(settingsRepository, times(1)).save(any(Settings.class));
+    }
+
 }
