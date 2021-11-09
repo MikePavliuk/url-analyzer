@@ -152,13 +152,11 @@ public class UserRepositoryImpl implements UserRepository {
         List<User> users = new ArrayList<>();
 
         try (var reader = Files.newBufferedReader(usersDatabase)) {
-
-            List<Url> urls = new ArrayList<>();
             Optional<Url> currentUrl;
 
             while ((line = reader.readLine()) != null) {
                 userData = line.split(",");
-
+                List<Url> urls = new ArrayList<>();
                 for (Long urlId : userUrlRepository.findAllUrlIdsByUserId(Long.parseLong(userData[0]))) {
                     if ((currentUrl = urlRepository.findById(urlId)).isPresent()) {
                         urls.add(currentUrl.get());
