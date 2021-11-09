@@ -10,7 +10,6 @@ import com.mykhailopavliuk.controller.user.overview.UserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
-import com.mykhailopavliuk.exception.SettingsException;
 import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
@@ -33,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -41,6 +41,8 @@ import java.util.ResourceBundle;
 public class SignInController implements Initializable {
 
     private final UserService userService;
+
+    private final SettingsService settingsService;
 
     private final FxWeaver fxWeaver;
 
@@ -56,8 +58,9 @@ public class SignInController implements Initializable {
     private Label singInFailedLabel;
 
     @Autowired
-    public SignInController(UserService userService, FxWeaver fxWeaver, AdminProperties adminProperties) {
+    public SignInController(UserService userService, SettingsService settingsService, FxWeaver fxWeaver, AdminProperties adminProperties) {
         this.userService = userService;
+        this.settingsService = settingsService;
         this.fxWeaver = fxWeaver;
         this.adminProperties = adminProperties;
     }
@@ -65,6 +68,12 @@ public class SignInController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         singInFailedLabel.setVisible(false);
+
+        Settings settings = settingsService.read();
+        if (settingsService.read().getExportDirectory().toString().equals("/")) {
+            settings.setExportDirectory(Path.of(System.getProperty("user.home")).toAbsolutePath());
+            settingsService.save(settings);
+        }
     }
 
     @FXML
