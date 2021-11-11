@@ -183,7 +183,7 @@ public class UrlRepositoryImpl implements UrlRepository {
                 urlData = line.split(",");
 
                 if (!urlData[0].equals(String.valueOf(id))) {
-                    updatedFile.append(line);
+                    updatedFile.append(line).append("\n");
                 }
             }
         } catch (IOException e) {

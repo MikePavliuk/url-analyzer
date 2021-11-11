@@ -134,7 +134,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
                 recordData = line.split(",");
 
                 if (!recordData[0].equals(String.valueOf(id))) {
-                    updatedFile.append(line);
+                    updatedFile.append(line).append("\n");
                 }
             }
         } catch (IOException e) {
@@ -225,7 +225,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
                 recordData = line.split(",");
 
                 if (!recordData[1].equals(String.valueOf(userID))) {
-                    updatedFile.append(line);
+                    updatedFile.append(line).append("\n");
                 }
             }
         } catch (IOException e) {
@@ -250,7 +250,7 @@ public class UserUrlRepositoryImpl implements UserUrlRepository {
                 recordData = line.split(",");
 
                 if (!recordData[2].equals(String.valueOf(urlID))) {
-                    updatedFile.append(line);
+                    updatedFile.append(line).append("\n");
                 }
             }
         } catch (IOException e) {
