@@ -194,6 +194,7 @@ public class AdminUsersController implements Initializable {
 
     private void updateTable() {
         usersDtoObservableList.clear();
+        usersToDelete.clear();
 
         List<User> userList = userService.getAll();
         for (User user : userList) {
