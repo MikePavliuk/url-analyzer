@@ -87,12 +87,6 @@ public class AdminSettingsController implements Initializable {
             }
         });
 
-        Settings settings = settingsService.read();
-        if (settings.getExportDirectory().toString().equals("/")) {
-            settings.setExportDirectory(Path.of(System.getProperty("user.home")).toAbsolutePath());
-            settingsService.save(settings);
-        }
-
         isWasEdit = true;
         refreshForm();
     }
