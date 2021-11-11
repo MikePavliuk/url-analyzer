@@ -1,6 +1,7 @@
 package com.mykhailopavliuk.controller.user.overview;
 
 import com.mykhailopavliuk.controller.SignInController;
+import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.UserService;
 import javafx.application.Platform;
@@ -50,8 +51,19 @@ public abstract class UserOverviewController implements Initializable {
     }
 
     @FXML
+    void goToUrlsPage(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goToSettingsPage(ActionEvent event) {
+        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(UserSettingsController.class)));
+        stageTheEventSourceNodeBelongs.centerOnScreen();
+    }
+
+    @FXML
     public void signOut(ActionEvent event) {
-        user = null;
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
         stageTheEventSourceNodeBelongs.centerOnScreen();
