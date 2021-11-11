@@ -95,7 +95,6 @@ public class AdminSettingsController implements Initializable {
 
         isWasEdit = true;
         refreshForm();
-        isWasEdit = false;
     }
 
     private void refreshForm() {
@@ -103,6 +102,7 @@ public class AdminSettingsController implements Initializable {
             displayModeComboBox.setValue(settingsService.read().getDisplayMode());
             screenResolutionComboBox.setValue(settingsService.read().getScreenResolution());
             exportDirectoryTextField.setText(settingsService.read().getExportDirectory().toString());
+            isWasEdit = false;
         }
     }
 
