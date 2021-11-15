@@ -64,14 +64,11 @@ public class Url {
 
         Url url = (Url) o;
 
-        if (id != url.id) return false;
         return path.equals(url.path);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + path.hashCode();
-        return result;
+        return path.hashCode();
     }
 }
