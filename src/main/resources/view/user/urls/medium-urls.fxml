@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mykhailopavliuk.controller.user.urls.UserUrlsController">
+   <children>
+      <BorderPane prefHeight="768.0" prefWidth="1024.0">
+         <left>
+            <Pane prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="90.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/user.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="userEmailLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="174.0" prefHeight="20.0" prefWidth="280.0" text="user@gmail.com" textFill="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="242.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../../../assets/icons8-website_statistics.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="314.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="URLs" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0">
+                           <image>
+                              <Image url="@../../../assets/icons8-website.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="390.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../../../assets/icons8-package_settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="606.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="50.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Sign Out" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../../../assets/icons8-exit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </Pane>
+         </left>
+         <center>
+            <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #cedef7;" BorderPane.alignment="CENTER">
+               <children>
+                  <BorderPane prefHeight="608.0" prefWidth="744.0">
+                     <top>
+                        <Pane prefHeight="140.0" prefWidth="744.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <JFXTextField fx:id="inputPath" focusColor="#4883db" labelFloat="true" layoutX="18.0" layoutY="14.0" prefHeight="40.0" prefWidth="524.0" promptText="Url path" />
+                              <JFXButton fx:id="saveNewPathButton" buttonType="RAISED" layoutX="574.0" layoutY="14.0" onAction="#addPath" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #4883db;" text="Save new path" textFill="WHITE" />
+                              <Label fx:id="pathValidationLabel" layoutX="18.0" layoutY="54.0" prefHeight="17.0" prefWidth="201.0" text="Url is not valid" textFill="#fc5b5b" />
+                              <JFXButton fx:id="refreshTableButton" buttonType="RAISED" layoutX="574.0" layoutY="86.0" onAction="#refreshTable" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #3bc967;" text="Refresh table" textFill="WHITE" />
+                              <JFXButton fx:id="responseTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="87.0" onAction="#onResponseTimeButtonClick" prefHeight="40.0" prefWidth="295.0" style="-fx-background-color: #4883db;" text="Start response time analysis" textFill="WHITE" />
+                              <JFXButton fx:id="responseTimeButton1" buttonType="RAISED" layoutX="14.0" layoutY="87.0" onAction="#onResponseTimeButtonClick" prefHeight="40.0" prefWidth="295.0" style="-fx-background-color: #4883db;" text="Start response time analysis" textFill="WHITE" />
+                           </children>
+                        </Pane>
+                     </top>
+                     <center>
+                        <JFXTreeTableView fx:id="urlsTableView" editable="true" prefHeight="545.0" prefWidth="744.0" showRoot="false" stylesheets="@../../../css/tree-table-view.css" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TreeTableColumn fx:id="idColumn" editable="false" prefWidth="75.0" text="Id" />
+                              <TreeTableColumn fx:id="pathColumn" editable="false" prefWidth="335.0" text="Path" />
+                              <TreeTableColumn fx:id="detailsColumn" editable="false" prefWidth="140.0" sortable="false" text="Details" />
+                              <TreeTableColumn fx:id="deleteColumn" editable="false" prefWidth="140.0" sortable="false" text="Delete" />
+                           </columns>
+                        </JFXTreeTableView>
+                     </center>
+                     <bottom>
+                        <Pane prefHeight="49.0" prefWidth="744.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <JFXButton fx:id="saveEditChangesButton" buttonType="RAISED" layoutX="3.0" layoutY="9.0" onAction="#saveChanges" prefHeight="32.0" prefWidth="735.0" ripplerFill="#2e6b37" style="-fx-background-color: #3bc967;" text="Save Edit Changes" textFill="WHITE" />
+                           </children>
+                        </Pane>
+                     </bottom>
+                  </BorderPane>
+               </children>
+            </StackPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
