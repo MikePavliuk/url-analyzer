@@ -214,14 +214,14 @@ public class UserUrlRepositoryTest {
 
         UserUrl userUrl3 = new UserUrl();
         userUrl3.setId(12);
-        userUrl3.setUserId(2);
+        userUrl3.setUserId(3);
         userUrl3.setUrlId(3);
 
         userUrlRepository.save(userUrl1);
         userUrlRepository.save(userUrl2);
         userUrlRepository.save(userUrl3);
 
-        userUrlRepository.deleteAllByUrlId(2L);
+        userUrlRepository.deleteAllByUrlId(3L);
 
         assertEquals(1, userUrlRepository.count());
     }
