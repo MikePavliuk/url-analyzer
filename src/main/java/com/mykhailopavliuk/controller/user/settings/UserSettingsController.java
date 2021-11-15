@@ -9,6 +9,7 @@ import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
 import com.mykhailopavliuk.controller.admin.users.AdminUsersController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.UserOverviewController;
+import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
 import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
@@ -127,7 +128,9 @@ public class UserSettingsController implements Initializable {
 
     @FXML
     void goToUrlsPage(ActionEvent event) {
-
+        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(UserUrlsController.class)));
+        stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
     @FXML

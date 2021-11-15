@@ -2,6 +2,7 @@ package com.mykhailopavliuk.controller.user.overview;
 
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
+import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.UserService;
 import javafx.application.Platform;
@@ -52,7 +53,9 @@ public abstract class UserOverviewController implements Initializable {
 
     @FXML
     void goToUrlsPage(ActionEvent event) {
-
+        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(UserUrlsController.class)));
+        stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
     @FXML
