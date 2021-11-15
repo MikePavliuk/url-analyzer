@@ -38,12 +38,8 @@ public class UrlRepositoryImpl implements UrlRepository {
             writeUrlToDatabase(url);
 
         } else {
-            if (userUrlRepository.findAllUserIdsByUrlId(urlId).size() > 1) {
-                Optional<Long> userUrlId = userUrlRepository.getIdByPair(new UserUrl(url.getOwner().getId(), urlId));
-                userUrlRepository.deleteById(userUrlId.get());
-                url.setId(getAvailableId());
-                writeUrlToDatabase(url);
-
+            if (userUrlRepository.getIdByPair(new UserUrl(url.getOwner().getId(), urlId)).isEmpty()) {
+                userUrlRepository.save(new UserUrl(userUrlRepository.getAvailableId(), url.getOwner().getId(), url.getId()));
             } else {
                 String line;
                 String[] urlData;
@@ -260,7 +256,7 @@ public class UrlRepositoryImpl implements UrlRepository {
                     urlData = line.split(",");
 
                     if (!urlData[0].equals(String.valueOf(id))) {
-                        updatedFile.append(line);
+                        updatedFile.append(line).append("\n");
                     }
                 }
             } catch (IOException e) {

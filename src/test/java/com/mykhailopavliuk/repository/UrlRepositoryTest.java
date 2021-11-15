@@ -102,7 +102,7 @@ public class UrlRepositoryTest {
                         expected.equals(urlRepository.findById(2L).orElse(null))
         );
 
-        verify(userUrlRepository, times(1)).findAllUserIdsByUrlId(1L);
+        verify(userUrlRepository, times(2)).findAllUserIdsByUrlId(1L);
         verify(userUrlRepository, times(1)).getIdByPair(new UserUrl(1L, 1L));
         verify(userUrlRepository, times(1)).deleteById(1L);
         verify(userUrlRepository, times(1)).save(new UserUrl(2L, 1L, 2L));
