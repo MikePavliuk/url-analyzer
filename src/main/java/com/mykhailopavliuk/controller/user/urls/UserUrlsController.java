@@ -9,11 +9,11 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
+import com.mykhailopavliuk.controller.user.overview.UserOverviewController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
+import com.mykhailopavliuk.controller.user.url.UserUrlController;
 import com.mykhailopavliuk.dto.UrlTableRowDTO;
 import com.mykhailopavliuk.dto.UrlTransformer;
-import com.mykhailopavliuk.dto.UserTableRowDTO;
-import com.mykhailopavliuk.dto.UserTransformer;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.model.Url;
@@ -21,8 +21,7 @@ import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.service.UrlService;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
-import com.mykhailopavliuk.util.UrlHandler;
-import com.mykhailopavliuk.util.ValidationHandler;
+import com.mykhailopavliuk.util.urlHandler.UrlHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,6 +61,7 @@ public class UserUrlsController implements Initializable {
     private List<Url> urlsToDelete;
     private boolean doesWeHaveUnsavedChanges;
     private User user;
+    private Url sentUrlForViewingDetails;
 
     @FXML
     private Label userEmailLabel;
@@ -100,6 +100,10 @@ public class UserUrlsController implements Initializable {
     private TreeTableColumn<UrlTableRowDTO, String> deleteColumn;
 
 
+    public Url getSentUrlForViewingDetails() {
+        return sentUrlForViewingDetails;
+    }
+
     @Autowired
     public UserUrlsController(FxWeaver fxWeaver, UrlService urlService, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
@@ -109,12 +113,11 @@ public class UserUrlsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        user = fxWeaver.loadController(MediumUserOverviewController.class).getUser();
+        user = fxWeaver.loadController(SignInController.class).getSignedInUser();
         userEmailLabel.setText(user.getEmail());
 
         urlsDtoObservableList = FXCollections.observableArrayList();
         urlsToDelete = new ArrayList<>();
-        doesWeHaveUnsavedChanges = false;
         pathValidationLabel.setVisible(false);
         initializeButtonsState();
 
@@ -150,7 +153,9 @@ public class UserUrlsController implements Initializable {
                                     btn.setButtonType(JFXButton.ButtonType.RAISED);
                                     btn.setRipplerFill(Color.web("#4883db"));
                                     btn.setOnAction(event -> {
-
+                                        sentUrlForViewingDetails = UrlTransformer.convertToEntity(getTableRow().getItem(), user);
+                                        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                                        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(UserUrlController.class)));
                                     });
                                     setGraphic(btn);
                                 }
@@ -230,6 +235,7 @@ public class UserUrlsController implements Initializable {
 
     @FXML
     void signOut(ActionEvent event) {
+        UrlHandler.stopUrlAnalysis();
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
         stageTheEventSourceNodeBelongs.centerOnScreen();
@@ -325,7 +331,6 @@ public class UserUrlsController implements Initializable {
 
         updateTable();
         urlsToDelete.clear();
-        doesWeHaveUnsavedChanges = false;
 
         TrayNotificationHandler.notify(
                 "Well done!",
@@ -344,13 +349,25 @@ public class UserUrlsController implements Initializable {
             ((Button)event.getSource()).setStyle("-fx-background-color: #f44336;");
 
             setEditTableButtonsDisability(true);
-            UrlHandler.setIsAnalysingResponseTimes(true);
+            try {
+                UrlHandler.startUrlAnalysis(user);
+            } catch (IOException e) {
+                UrlHandler.setIsAnalysingResponseTimes(false);
+                TrayNotificationHandler.notify(
+                        "Sorry, can't start analysis",
+                        e.getMessage(),
+                        Notifications.ERROR,
+                        Animations.POPUP,
+                        Paint.valueOf("#fc5b5b"),
+                        Duration.seconds(3)
+                );
+            }
         } else {
             ((Button)event.getSource()).setText("Start response time analysis");
             ((Button)event.getSource()).setStyle("-fx-background-color: #4883db;");
 
             setEditTableButtonsDisability(false);
-            UrlHandler.setIsAnalysingResponseTimes(false);
+            UrlHandler.stopUrlAnalysis();
         }
 
     }

@@ -92,7 +92,6 @@
                               <Label fx:id="pathValidationLabel" layoutX="18.0" layoutY="54.0" prefHeight="17.0" prefWidth="201.0" text="Url is not valid" textFill="#fc5b5b" />
                               <JFXButton fx:id="refreshTableButton" buttonType="RAISED" layoutX="574.0" layoutY="86.0" onAction="#refreshTable" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #3bc967;" text="Refresh table" textFill="WHITE" />
                               <JFXButton fx:id="responseTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="87.0" onAction="#onResponseTimeButtonClick" prefHeight="40.0" prefWidth="295.0" style="-fx-background-color: #4883db;" text="Start response time analysis" textFill="WHITE" />
-                              <JFXButton fx:id="responseTimeButton1" buttonType="RAISED" layoutX="14.0" layoutY="87.0" onAction="#onResponseTimeButtonClick" prefHeight="40.0" prefWidth="295.0" style="-fx-background-color: #4883db;" text="Start response time analysis" textFill="WHITE" />
                            </children>
                         </Pane>
                      </top>
