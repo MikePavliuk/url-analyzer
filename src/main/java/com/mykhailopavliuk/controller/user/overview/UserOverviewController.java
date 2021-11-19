@@ -1,10 +1,14 @@
 package com.mykhailopavliuk.controller.user.overview;
 
+import com.github.plushaze.traynotification.animations.Animations;
+import com.github.plushaze.traynotification.notification.Notifications;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
 import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.UserService;
+import com.mykhailopavliuk.util.TrayNotificationHandler;
+import com.mykhailopavliuk.util.urlHandler.UrlHandler;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,12 +16,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,14 +39,6 @@ public abstract class UserOverviewController implements Initializable {
     @FXML
     private Label userEmailLabel;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
 
     public UserOverviewController(UserService userService, FxWeaver fxWeaver) {
         this.userService = userService;
@@ -48,7 +47,8 @@ public abstract class UserOverviewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Platform.runLater(() -> userEmailLabel.setText(user.getEmail()));
+        user = fxWeaver.loadController(SignInController.class).getSignedInUser();
+        userEmailLabel.setText(user.getEmail());
     }
 
     @FXML
@@ -67,6 +67,7 @@ public abstract class UserOverviewController implements Initializable {
 
     @FXML
     public void signOut(ActionEvent event) {
+        UrlHandler.stopUrlAnalysis();
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
         stageTheEventSourceNodeBelongs.centerOnScreen();

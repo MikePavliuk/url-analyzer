@@ -15,6 +15,7 @@ import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.service.UserService;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
+import com.mykhailopavliuk.util.urlHandler.UrlHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -31,6 +32,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -45,6 +47,8 @@ public class SignInController implements Initializable {
 
     private final AdminProperties adminProperties;
 
+    private User signedInUser;
+
     @FXML
     private JFXTextField inputEmail;
 
@@ -53,6 +57,11 @@ public class SignInController implements Initializable {
 
     @FXML
     private Label singInFailedLabel;
+
+
+    public User getSignedInUser() {
+        return signedInUser;
+    }
 
     @Autowired
     public SignInController(UserService userService, FxWeaver fxWeaver, AdminProperties adminProperties) {
@@ -101,9 +110,9 @@ public class SignInController implements Initializable {
                         Paint.valueOf("#4883db"),
                         Duration.seconds(5)
                 );
+                signedInUser = user;
+                initializeUrlAnalysisOutputFile(signedInUser);
                 Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                UserOverviewController userOverviewController = fxWeaver.loadController(MediumUserOverviewController.class);
-                userOverviewController.setUser(user);
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
                 stageTheEventSourceNodeBelongs.centerOnScreen();
             } else {
@@ -123,6 +132,21 @@ public class SignInController implements Initializable {
             TrayNotificationHandler.notify(
                     "Error",
                     exception.getMessage(),
+                    Notifications.ERROR,
+                    Animations.POPUP,
+                    Paint.valueOf("#fc5b5b"),
+                    Duration.seconds(3)
+            );
+        }
+    }
+
+    private void initializeUrlAnalysisOutputFile(User user) {
+        try {
+            UrlHandler.initializeAnalysisOutputFile(user);
+        } catch (IOException e) {
+            TrayNotificationHandler.notify(
+                    "Sorry, can't configure analysis files",
+                    e.getMessage(),
                     Notifications.ERROR,
                     Animations.POPUP,
                     Paint.valueOf("#fc5b5b"),

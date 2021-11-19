@@ -5,15 +5,12 @@ import com.github.plushaze.traynotification.notification.Notifications;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.mykhailopavliuk.controller.SignInController;
-import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
-import com.mykhailopavliuk.controller.admin.users.AdminUsersController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
-import com.mykhailopavliuk.controller.user.overview.UserOverviewController;
 import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
 import com.mykhailopavliuk.model.Settings;
-import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
+import com.mykhailopavliuk.util.urlHandler.UrlHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,7 +63,7 @@ public class UserSettingsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userEmailLabel.setText(fxWeaver.loadController(MediumUserOverviewController.class).getUser().getEmail());
+        userEmailLabel.setText(fxWeaver.loadController(SignInController.class).getSignedInUser().getEmail());
 
         isWasEdit = false;
 
@@ -174,6 +171,7 @@ public class UserSettingsController implements Initializable {
 
     @FXML
     void signOut(ActionEvent event) {
+        UrlHandler.stopUrlAnalysis();
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
         stageTheEventSourceNodeBelongs.centerOnScreen();
