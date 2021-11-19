@@ -1,13 +1,8 @@
 package com.mykhailopavliuk.model;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
-
 public class Url {
     private long id;
     private String path;
-    private List<Duration> responseTimes = new ArrayList<>();
     private User owner;
 
     public Url() {
@@ -18,10 +13,9 @@ public class Url {
         this.path = path;
     }
 
-    public Url(long id, String path, List<Duration> responseTimes, User owner) {
+    public Url(long id, String path, User owner) {
         this.id = id;
         this.path = path;
-        this.responseTimes = responseTimes;
         this.owner = owner;
     }
 
@@ -39,14 +33,6 @@ public class Url {
 
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public List<Duration> getResponseTimes() {
-        return responseTimes;
-    }
-
-    public void setResponseTimes(List<Duration> responseTimes) {
-        this.responseTimes = responseTimes;
     }
 
     public User getOwner() {

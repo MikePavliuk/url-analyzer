@@ -2,9 +2,6 @@ package com.mykhailopavliuk.dto;
 
 import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
-import com.mykhailopavliuk.service.UrlService;
-
-import java.util.ArrayList;
 
 public class UrlTransformer {
     public static UrlTableRowDTO convertToDto(Url url) {
@@ -18,7 +15,6 @@ public class UrlTransformer {
         return new Url(
                 urlDto.getId(),
                 urlDto.getPath(),
-                new ArrayList<>(),
                 owner
         );
     }
