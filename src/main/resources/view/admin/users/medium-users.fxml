@@ -44,7 +44,8 @@
                            <columns>
                               <TreeTableColumn fx:id="idColumn" editable="false" prefWidth="75.0" text="Id" />
                               <TreeTableColumn fx:id="emailColumn" prefWidth="351.0" text="Email" />
-                              <TreeTableColumn fx:id="numberOfUrlsColumn" editable="false" prefWidth="174.0" text="Number of Urls" />
+                              <TreeTableColumn fx:id="numberOfUrlsColumn" editable="false" prefWidth="162.0" text="Number of Urls" />
+                              <TreeTableColumn fx:id="deleteColumn" editable="false" prefWidth="132.0" text="Delete" />
                            </columns>
                         </JFXTreeTableView>
                      </center>

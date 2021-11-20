@@ -8,6 +8,8 @@ import com.mykhailopavliuk.configuration.application.AdminProperties;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
 import com.mykhailopavliuk.controller.admin.settings.AdminSettingsController;
+import com.mykhailopavliuk.dto.UrlTableRowDTO;
+import com.mykhailopavliuk.dto.UrlTransformer;
 import com.mykhailopavliuk.dto.UserTableRowDTO;
 import com.mykhailopavliuk.dto.UserTransformer;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
@@ -96,6 +98,9 @@ public class AdminUsersController implements Initializable {
 
     @FXML
     private TreeTableColumn<UserTableRowDTO, Integer> numberOfUrlsColumn;
+
+    @FXML
+    private TreeTableColumn<UserTableRowDTO, String> deleteColumn;
 
 
     @Autowired
@@ -193,37 +198,12 @@ public class AdminUsersController implements Initializable {
         numberOfUrlsColumn.setCellValueFactory(new TreeItemPropertyValueFactory<>("numberOfUrls"));
 
         usersTableView.setShowRoot(false);
-        addDeleteButtonColumn();
+        initializeDeleteButtonColumn();
         updateTable();
     }
 
-    @FXML
-    void refreshTable(ActionEvent event) {
-        if (doesWeHaveUnsavedChanges) {
-            refreshButton.setDisable(true);
-            updateTable();
-            refreshButton.setDisable(false);
-        }
-    }
-
-    private void updateTable() {
-        usersDtoObservableList.clear();
-        usersToDelete.clear();
-
-        List<User> userList = userService.getAll();
-        for (User user : userList) {
-            usersDtoObservableList.add(UserTransformer.convertToDto(user));
-        }
-
-        TreeItem<UserTableRowDTO> root = new RecursiveTreeItem<>(usersDtoObservableList, RecursiveTreeObject::getChildren);
-        usersTableView.setRoot(root);
-        doesWeHaveUnsavedChanges = false;
-    }
-
-    private void addDeleteButtonColumn() {
-        JFXTreeTableColumn<UserTableRowDTO, String> actionColumn = new JFXTreeTableColumn<>("Action");
-        actionColumn.setPrefWidth(100);
-        Callback<TreeTableColumn<UserTableRowDTO, String>, TreeTableCell<UserTableRowDTO, String>> cellFactory
+    private void initializeDeleteButtonColumn() {
+        Callback<TreeTableColumn<UserTableRowDTO, String>, TreeTableCell<UserTableRowDTO, String>> deleteCellFactory
                 =
                 new Callback<>() {
                     @Override
@@ -257,8 +237,30 @@ public class AdminUsersController implements Initializable {
                     }
                 };
 
-        actionColumn.setCellFactory(cellFactory);
-        usersTableView.getColumns().add(actionColumn);
+        deleteColumn.setCellFactory(deleteCellFactory);
+    }
+
+    @FXML
+    void refreshTable(ActionEvent event) {
+        if (doesWeHaveUnsavedChanges) {
+            refreshButton.setDisable(true);
+            updateTable();
+            refreshButton.setDisable(false);
+        }
+    }
+
+    private void updateTable() {
+        usersDtoObservableList.clear();
+        usersToDelete.clear();
+
+        List<User> userList = userService.getAll();
+        for (User user : userList) {
+            usersDtoObservableList.add(UserTransformer.convertToDto(user));
+        }
+
+        TreeItem<UserTableRowDTO> root = new RecursiveTreeItem<>(usersDtoObservableList, RecursiveTreeObject::getChildren);
+        usersTableView.setRoot(root);
+        doesWeHaveUnsavedChanges = false;
     }
 
     @FXML
@@ -298,7 +300,7 @@ public class AdminUsersController implements Initializable {
                         Notifications.SUCCESS,
                         Animations.POPUP,
                         Paint.valueOf("#4883db"),
-                        Duration.seconds(3)
+                        Duration.seconds(5)
                 );
 
                 usersDtoObservableList.add(UserTransformer.convertToDto(user));
@@ -347,7 +349,7 @@ public class AdminUsersController implements Initializable {
                 Notifications.ERROR,
                 Animations.POPUP,
                 Paint.valueOf("#fc5b5b"),
-                Duration.seconds(3)
+                Duration.seconds(5)
         );
     }
 
@@ -405,7 +407,7 @@ public class AdminUsersController implements Initializable {
                     Notifications.ERROR,
                     Animations.POPUP,
                     Paint.valueOf("#fc5b5b"),
-                    Duration.seconds(3)
+                    Duration.seconds(5)
             );
         }
         exportButton.setDisable(false);
