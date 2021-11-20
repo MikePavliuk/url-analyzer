@@ -150,8 +150,12 @@ public class UrlHandler {
         }
     }
 
-    public static void deleteLogByUserId(long userId) throws IOException {
-        Files.deleteIfExists(Path.of(System.getProperty("java.io.tmpdir")).resolve("Url Analyzer").resolve(userId + "_ping.log"));
+    public static void deleteLogByUserId(long userId) {
+        try {
+            Files.deleteIfExists(Path.of(System.getProperty("java.io.tmpdir")).resolve("Url Analyzer").resolve(userId + "_ping.log"));
+        } catch (IOException e) {
+            throw new DatabaseOperationException("Exception has occurred while deleting log for User with id = " + userId);
+        }
     }
 
     public static List<Response> getAllResponsesByUrlId(long urlId) {
