@@ -165,7 +165,7 @@
                   </Pane>
                </top>
                <center>
-                  <AreaChart fx:id="areaChart" BorderPane.alignment="CENTER">
+                  <AreaChart fx:id="areaChart" legendVisible="false" BorderPane.alignment="CENTER">
                     <xAxis>
                       <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                     </xAxis>
