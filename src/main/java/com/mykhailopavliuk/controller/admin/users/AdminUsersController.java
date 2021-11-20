@@ -20,6 +20,7 @@ import com.mykhailopavliuk.service.UserService;
 import com.mykhailopavliuk.util.ExcelHandler;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
 import com.mykhailopavliuk.util.ValidationHandler;
+import com.mykhailopavliuk.util.urlHandler.UrlHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -227,6 +228,11 @@ public class AdminUsersController implements Initializable {
                                         UserTableRowDTO userTableRowDTO = getTableRow().getItem();
                                         usersToDelete.add(UserTransformer.convertToEntity(userTableRowDTO, userService));
                                         usersDtoObservableList.remove(userTableRowDTO);
+                                        try {
+                                            UrlHandler.deleteLogByUserId(userTableRowDTO.getId());
+                                        } catch (DatabaseOperationException e) {
+                                            invokeTrayNotificationError(e);
+                                        }
                                         doesWeHaveUnsavedChanges = true;
                                     });
                                     setGraphic(btn);
