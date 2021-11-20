@@ -87,10 +87,17 @@
                      <top>
                         <Pane prefHeight="140.0" prefWidth="744.0" BorderPane.alignment="CENTER">
                            <children>
-                              <JFXTextField fx:id="inputPath" focusColor="#4883db" labelFloat="true" layoutX="18.0" layoutY="14.0" prefHeight="40.0" prefWidth="524.0" promptText="Url path" />
-                              <JFXButton fx:id="saveNewPathButton" buttonType="RAISED" layoutX="574.0" layoutY="14.0" onAction="#addPath" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #4883db;" text="Save new path" textFill="WHITE" />
-                              <Label fx:id="pathValidationLabel" layoutX="18.0" layoutY="54.0" prefHeight="17.0" prefWidth="201.0" text="Url is not valid" textFill="#fc5b5b" />
-                              <JFXButton fx:id="refreshTableButton" buttonType="RAISED" layoutX="574.0" layoutY="86.0" onAction="#refreshTable" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #3bc967;" text="Refresh table" textFill="WHITE" />
+                              <JFXTextField fx:id="inputPath" focusColor="#4883db" labelFloat="true" layoutX="14.0" layoutY="20.0" prefHeight="40.0" prefWidth="524.0" promptText="Url path" />
+                              <JFXButton fx:id="saveNewPathButton" buttonType="RAISED" layoutX="574.0" layoutY="20.0" onAction="#addPath" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #4883db;" text="Save new path" textFill="WHITE" />
+                              <Label fx:id="pathValidationLabel" layoutX="14.0" layoutY="62.0" prefHeight="17.0" prefWidth="201.0" text="Url is not valid" textFill="#fc5b5b" />
+                              <JFXButton fx:id="refreshTableButton" buttonType="RAISED" layoutX="574.0" layoutY="86.0" onAction="#refreshTable" prefHeight="40.0" prefWidth="156.0" style="-fx-background-color: #3bc967;" text="Refresh table" textFill="WHITE">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0">
+                                       <image>
+                                          <Image url="@../../../assets/icons8-sync.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic></JFXButton>
                               <JFXButton fx:id="responseTimeButton" buttonType="RAISED" layoutX="14.0" layoutY="87.0" onAction="#onResponseTimeButtonClick" prefHeight="40.0" prefWidth="295.0" style="-fx-background-color: #4883db;" text="Start response time analysis" textFill="WHITE" />
                            </children>
                         </Pane>
