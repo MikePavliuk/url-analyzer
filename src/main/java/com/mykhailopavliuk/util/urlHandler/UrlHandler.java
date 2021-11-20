@@ -127,6 +127,33 @@ public class UrlHandler {
         }
     }
 
+    public static void deleteUrlFromLog(long urlId) {
+        String line;
+        String[] responseData;
+        StringBuilder updatedFile = new StringBuilder();
+
+        try (var reader = Files.newBufferedReader(outputFilePath)) {
+            while ((line = reader.readLine()) != null) {
+                responseData = line.split(Response.SEPARATOR);
+                if (Long.parseLong(responseData[0]) != urlId) {
+                    updatedFile.append(line).append("\n");
+                }
+            }
+        } catch (IOException e) {
+            throw new DatabaseOperationException("Exception has occurred while deleting from the " + outputFilePath);
+        }
+
+        try (var writer = Files.newBufferedWriter(outputFilePath)) {
+            writer.write(updatedFile.toString());
+        } catch (IOException e) {
+            throw new DatabaseOperationException("Exception has occurred while writing to the User database");
+        }
+    }
+
+    public static void deleteLogByUserId(long userId) throws IOException {
+        Files.deleteIfExists(Path.of(System.getProperty("java.io.tmpdir")).resolve("Url Analyzer").resolve(userId + "_ping.log"));
+    }
+
     public static List<Response> getAllResponsesByUrlId(long urlId) {
         List<Response> responses = new ArrayList<>();
         if (outputFilePath == null) return responses;
@@ -162,7 +189,7 @@ public class UrlHandler {
     public static boolean isUrlPathExists(String path) throws IOException {
         URL url = new URL(path);
         HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-        huc.setConnectTimeout(timeoutInSeconds);
+        huc.setConnectTimeout((int) Duration.ofSeconds(timeoutInSeconds).toMillis());
 
         huc.setRequestMethod("HEAD");
 
