@@ -79,9 +79,9 @@
                <children>
                   <BorderPane prefHeight="608.0" prefWidth="744.0">
                      <top>
-                        <Pane prefHeight="113.0" prefWidth="744.0" BorderPane.alignment="CENTER">
+                        <Pane prefHeight="113.0" prefWidth="744.0" style="-fx-background-color: #3bc967;" BorderPane.alignment="CENTER">
                            <children>
-                              <Label fx:id="pathLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="39.0" prefHeight="37.0" prefWidth="744.0" text="Path" textAlignment="CENTER" wrapText="true">
+                              <Label fx:id="pathLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="39.0" prefHeight="37.0" prefWidth="744.0" text="Path" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
                                     <Font name="Arial Black" size="24.0" />
                                  </font>
@@ -251,11 +251,8 @@
                               </Pane>
                            </top>
                            <left>
-                              <PieChart fx:id="pieChart" prefHeight="367.0" prefWidth="369.0" BorderPane.alignment="CENTER" />
+                              <PieChart fx:id="pieChart" prefHeight="418.0" prefWidth="743.0" BorderPane.alignment="CENTER" />
                            </left>
-                           <bottom>
-                              <Pane prefHeight="45.0" prefWidth="744.0" BorderPane.alignment="CENTER" />
-                           </bottom>
                         </BorderPane>
                      </center>
                   </BorderPane>

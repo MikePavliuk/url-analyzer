@@ -9,15 +9,22 @@ import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.util.urlHandler.PingStatistics;
 import com.mykhailopavliuk.util.urlHandler.Response;
 import com.mykhailopavliuk.util.urlHandler.UrlHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +78,7 @@ public class UserUrlController implements Initializable {
         pathLabel.setText(urlForAnalysing.getPath());
         initializeStatistics();
         initializeChart();
+        customizeChartHoverEffects();
     }
 
     private void initializeStatistics() {
@@ -91,7 +99,46 @@ public class UserUrlController implements Initializable {
     }
 
     private void initializeChart() {
+        PieChart.Data slice1;
+        PieChart.Data slice2;
+        if (!responses.isEmpty()) {
+            slice1 = new PieChart.Data(
+                    "Correct responses"  ,
+                    pingStatistics.getTotalNumberOfRequests() - pingStatistics.getNumberOfNotTimeoutResponses());
+            slice2 = new PieChart.Data(
+                    "Timeout responses",
+                    pingStatistics.getNumberOfNotTimeoutResponses());
+        } else {
+            slice1 = new PieChart.Data(
+                    "Correct responses",
+                    1);
+            slice2 = new PieChart.Data(
+                    "Timeout responses",
+                    1);
+        }
 
+        pieChart.getData().add(slice1);
+        pieChart.getData().add(slice2);
+
+    }
+
+    private void customizeChartHoverEffects() {
+        for (final PieChart.Data data : pieChart.getData()) {
+            Tooltip tooltip;
+
+            if (!responses.isEmpty()) {
+                tooltip = new Tooltip(
+                        Math.round(data.getPieValue()) +
+                                " (" + ((data.getPieValue() * 100) / pingStatistics.getTotalNumberOfRequests() + "%)"));
+            } else {
+                tooltip = new Tooltip("Not analyzed yet");
+            }
+
+            tooltip.setFont(Font.font("Arial Black"));
+            tooltip.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+            tooltip.setShowDelay(Duration.seconds(0.5));
+            Tooltip.install(data.getNode(), tooltip);
+        }
     }
 
     @FXML
