@@ -309,14 +309,16 @@ public class UserUrlsController implements Initializable {
                 Notifications.SUCCESS,
                 Animations.POPUP,
                 Paint.valueOf("#4883db"),
-                Duration.seconds(3)
+                Duration.seconds(5)
         );
     }
 
     @FXML
     void refreshTable(ActionEvent event) {
         if (doesWeHaveUnsavedChanges) {
+            refreshTableButton.setDisable(true);
             updateTable();
+            refreshTableButton.setDisable(false);
         }
     }
 
@@ -324,9 +326,12 @@ public class UserUrlsController implements Initializable {
     void saveChanges(ActionEvent event) {
         if (!doesWeHaveUnsavedChanges) return;
 
+        saveEditChangesButton.setDisable(true);
+
         for (Url url : urlsToDelete) {
             urlService.deleteByIdAndUserId(url.getId(), user.getId());
             user.getUrls().remove(url);
+            UrlHandler.deleteUrlFromLog(url.getId());
         }
 
         updateTable();
@@ -340,6 +345,8 @@ public class UserUrlsController implements Initializable {
                 Paint.valueOf("#4883db"),
                 Duration.seconds(5)
         );
+
+        saveEditChangesButton.setDisable(false);
     }
 
     @FXML
