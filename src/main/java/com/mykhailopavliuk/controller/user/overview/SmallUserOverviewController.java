@@ -1,7 +1,6 @@
 package com.mykhailopavliuk.controller.user.overview;
 
 
-import com.mykhailopavliuk.service.UserService;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class SmallUserOverviewController extends UserOverviewController {
 
     @Autowired
-    public SmallUserOverviewController(UserService userService, FxWeaver fxWeaver) {
-        super(userService, fxWeaver);
+    public SmallUserOverviewController(FxWeaver fxWeaver) {
+        super(fxWeaver);
     }
 }
