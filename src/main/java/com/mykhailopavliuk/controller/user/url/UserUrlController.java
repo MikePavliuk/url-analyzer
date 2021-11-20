@@ -1,5 +1,6 @@
 package com.mykhailopavliuk.controller.user.url;
 
+import com.jfoenix.controls.JFXButton;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
@@ -51,6 +52,9 @@ public class UserUrlController implements Initializable {
     private Label pathLabel;
 
     @FXML
+    private JFXButton refreshButton;
+
+    @FXML
     private Label totalNumberOfRequestsLabel;
 
     @FXML
@@ -99,6 +103,8 @@ public class UserUrlController implements Initializable {
     }
 
     private void initializeChart() {
+        pieChart.getData().clear();
+
         PieChart.Data slice1;
         PieChart.Data slice2;
         if (!responses.isEmpty()) {
@@ -168,6 +174,15 @@ public class UserUrlController implements Initializable {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
         stageTheEventSourceNodeBelongs.centerOnScreen();
+    }
+
+    @FXML
+    void refreshStatistics(ActionEvent event) {
+        refreshButton.setDisable(true);
+        initializeStatistics();
+        initializeChart();
+        customizeChartHoverEffects();
+        refreshButton.setDisable(false);
     }
 
 }

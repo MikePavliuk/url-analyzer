@@ -34,6 +34,13 @@
                      <font>
                         <Font size="14.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                           <image>
+                              <Image url="@../../../assets/icons8-website_statistics.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </JFXButton>
                   <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="314.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#goToUrlsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="URLs" textAlignment="CENTER" textFill="WHITE">
                      <font>
@@ -91,6 +98,18 @@
                                     <Image url="@../../../assets/icons8-go_back.png" />
                                  </image>
                               </ImageView>
+                              <JFXButton fx:id="refreshButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutX="610.0" layoutY="76.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#refreshStatistics" prefHeight="33.0" prefWidth="120.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Refresh" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0">
+                                       <image>
+                                          <Image url="@../../../assets/icons8-sync.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
                            </children>
                         </Pane>
                      </top>
