@@ -1,11 +1,16 @@
 package com.mykhailopavliuk.controller.user.overview;
 
+import com.github.plushaze.traynotification.animations.Animations;
+import com.github.plushaze.traynotification.notification.Notifications;
+import com.jfoenix.controls.JFXButton;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
 import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
 import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
-import com.mykhailopavliuk.service.UserService;
+import com.mykhailopavliuk.service.SettingsService;
+import com.mykhailopavliuk.util.ExcelHandler;
+import com.mykhailopavliuk.util.TrayNotificationHandler;
 import com.mykhailopavliuk.util.urlHandler.PingStatistics;
 import com.mykhailopavliuk.util.urlHandler.Response;
 import com.mykhailopavliuk.util.urlHandler.UrlHandler;
@@ -16,15 +21,19 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import net.rgielen.fxweaver.core.FxWeaver;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 public abstract class UserOverviewController implements Initializable {
     private User user;
     private final FxWeaver fxWeaver;
+    private final SettingsService settingsService;
     private Map<Long, PingStatistics> pingStatisticsMap;
     private PingStatistics globalPingStatistics;
 
@@ -44,6 +53,12 @@ public abstract class UserOverviewController implements Initializable {
     private Label averageResponseTimeLabel;
 
     @FXML
+    private JFXButton refreshButton;
+
+    @FXML
+    private JFXButton exportButton;
+
+    @FXML
     private AreaChart<String, Number> responseChart;
 
     @FXML
@@ -53,8 +68,9 @@ public abstract class UserOverviewController implements Initializable {
     private NumberAxis yAxis;
 
 
-    public UserOverviewController(FxWeaver fxWeaver) {
+    public UserOverviewController(FxWeaver fxWeaver, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
+        this.settingsService = settingsService;
     }
 
     @Override
@@ -66,12 +82,66 @@ public abstract class UserOverviewController implements Initializable {
         initializeChart();
     }
 
+    @FXML
+    void exportStatistics(ActionEvent event) {
+        exportButton.setDisable(true);
+        List<PingStatistics> pingStatisticsList = new ArrayList<>();
+        pingStatisticsMap.forEach((key,value) -> {
+            if (value != null) {
+                pingStatisticsList.add(value);
+            }
+        });
+
+        if (pingStatisticsList.isEmpty()) {
+            TrayNotificationHandler.notify(
+                    "Nothing to export",
+                    "First analyze your urls",
+                    Notifications.WARNING,
+                    Animations.POPUP,
+                    Paint.valueOf("#fc5b5b"),
+                    Duration.seconds(5)
+            );
+        } else {
+            try {
+                ExcelHandler.exportUrlStatisticsToTable(settingsService.read().getExportDirectory(), pingStatisticsList);
+                TrayNotificationHandler.notify(
+                        "Well done!",
+                        "File was created in " + settingsService.read().getExportDirectory() + " folder",
+                        Notifications.SUCCESS,
+                        Animations.POPUP,
+                        Paint.valueOf("#4883db"),
+                        Duration.seconds(5)
+                );
+            } catch (IOException e) {
+                TrayNotificationHandler.notify(
+                        "Error",
+                        "Exception has occurred while writing to xlsx file",
+                        Notifications.ERROR,
+                        Animations.POPUP,
+                        Paint.valueOf("#fc5b5b"),
+                        Duration.seconds(5)
+                );
+            }
+        }
+
+        exportButton.setDisable(false);
+    }
+
+    @FXML
+    void refreshStatistics(ActionEvent event) {
+        refreshButton.setDisable(true);
+        initializeStatistics();
+        initializeChart();
+        refreshButton.setDisable(false);
+    }
+
     private void initializeStatistics() {
+        pingStatisticsMap.clear();
         List<Response> globalResponses = new ArrayList<>();
         for (Url url : user.getUrls()) {
             List<Response> responses = UrlHandler.getAllResponsesByUrlId(url.getId());
             if (!responses.isEmpty()) {
-                pingStatisticsMap.put(url.getId(), new PingStatistics(responses));
+                pingStatisticsMap.put(url.getId(), new PingStatistics(url, responses));
                 globalResponses.addAll(responses);
             }
         }
@@ -92,6 +162,8 @@ public abstract class UserOverviewController implements Initializable {
     }
 
     private void initializeChart() {
+        responseChart.getData().clear();
+
         xAxis.setLabel("Url id");
         yAxis.setLabel("Response ms");
         yAxis.setAutoRanging(false);

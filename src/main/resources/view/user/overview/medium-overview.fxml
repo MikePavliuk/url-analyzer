@@ -29,12 +29,12 @@
                            <center>
                               <Pane prefHeight="529.0" prefWidth="744.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutY="7.0" prefHeight="59.0" prefWidth="744.0" text="Responses time in ms" textAlignment="CENTER">
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="66.0" prefWidth="744.0" text="Responses time in ms" textAlignment="CENTER">
                                        <font>
                                           <Font name="Arial Black" size="18.0" />
                                        </font>
                                     </Label>
-                                    <AreaChart fx:id="responseChart" layoutY="48.0" prefHeight="512.0" prefWidth="744.0">
+                                    <AreaChart fx:id="responseChart" layoutY="51.0" prefHeight="509.0" prefWidth="744.0">
                                        <xAxis>
                                           <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                                        </xAxis>
@@ -42,6 +42,30 @@
                                           <NumberAxis fx:id="yAxis" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="0.0" tickLength="0.0" tickUnit="1000.0" />
                                        </yAxis>
                                     </AreaChart>
+                                    <JFXButton fx:id="refreshButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutX="610.0" layoutY="2.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#refreshStatistics" prefHeight="33.0" prefWidth="120.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Refresh" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0">
+                                             <image>
+                                                <Image url="@../../../assets/icons8-sync.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                    <JFXButton fx:id="exportButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutX="33.0" layoutY="2.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#exportStatistics" prefHeight="33.0" prefWidth="120.0" ripplerFill="#cedef7" style="-fx-background-color: #3bc967;" text="Export" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fitHeight="30.0" fitWidth="30.0">
+                                             <image>
+                                                <Image url="@../../../assets/icons8-microsoft_excel.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
                                  </children>
                               </Pane>
                            </center>
