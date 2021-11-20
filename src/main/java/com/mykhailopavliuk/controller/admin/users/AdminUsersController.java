@@ -68,6 +68,18 @@ public class AdminUsersController implements Initializable {
     private JFXTextField inputPassword;
 
     @FXML
+    private JFXButton saveNewUserButton;
+
+    @FXML
+    private JFXButton exportButton;
+
+    @FXML
+    private JFXButton saveChangesButton;
+
+    @FXML
+    private JFXButton refreshButton;
+
+    @FXML
     private Label emailValidationLabel;
 
     @FXML
@@ -188,7 +200,9 @@ public class AdminUsersController implements Initializable {
     @FXML
     void refreshTable(ActionEvent event) {
         if (doesWeHaveUnsavedChanges) {
+            refreshButton.setDisable(true);
             updateTable();
+            refreshButton.setDisable(false);
         }
     }
 
@@ -253,6 +267,8 @@ public class AdminUsersController implements Initializable {
             return;
         }
 
+        saveNewUserButton.setDisable(true);
+
         String email = inputEmail.getText();
         String password = inputPassword.getText();
 
@@ -298,6 +314,7 @@ public class AdminUsersController implements Initializable {
             invokeTrayNotificationError(exception);
         }
 
+        saveNewUserButton.setDisable(false);
     }
 
     private void setVisibilityOfValidationLabels(boolean visibility) {
@@ -337,7 +354,9 @@ public class AdminUsersController implements Initializable {
     @FXML
     void saveChanges(ActionEvent event) {
         if (!doesWeHaveUnsavedChanges) return;
-        
+
+        saveChangesButton.setDisable(true);
+
         for (User user: usersToDelete) {
             userService.deleteById(user.getId());
         }
@@ -361,10 +380,12 @@ public class AdminUsersController implements Initializable {
         updateTable();
         usersToDelete.clear();
         doesWeHaveUnsavedChanges = false;
+        saveChangesButton.setDisable(false);
     }
 
     @FXML
     void exportExcel(ActionEvent event) {
+        exportButton.setDisable(true);
         try {
             ExcelHandler.exportUsersToTable(settingsService.read().getExportDirectory(), userService.getAll());
 
@@ -387,6 +408,7 @@ public class AdminUsersController implements Initializable {
                     Duration.seconds(3)
             );
         }
+        exportButton.setDisable(false);
     }
 
 }
