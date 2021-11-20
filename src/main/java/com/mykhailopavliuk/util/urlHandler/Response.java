@@ -5,6 +5,7 @@ import com.mykhailopavliuk.model.Url;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Response {
     private final Url url;
@@ -45,6 +46,26 @@ public class Response {
 
     public void setDuration(Duration duration) {
         this.duration = duration;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Response response = (Response) o;
+
+        if (!url.equals(response.url)) return false;
+        if (!startTime.equals(response.startTime)) return false;
+        return Objects.equals(duration, response.duration);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = url.hashCode();
+        result = 31 * result + startTime.hashCode();
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
+        return result;
     }
 
     @Override
