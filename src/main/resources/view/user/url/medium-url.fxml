@@ -98,7 +98,7 @@
                                     <Image url="@../../../assets/icons8-go_back.png" />
                                  </image>
                               </ImageView>
-                              <JFXButton fx:id="refreshButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutX="610.0" layoutY="76.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#refreshStatistics" prefHeight="33.0" prefWidth="120.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Refresh" textAlignment="CENTER" textFill="WHITE">
+                              <JFXButton fx:id="refreshButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutX="610.0" layoutY="68.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#refreshStatistics" prefHeight="33.0" prefWidth="120.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Refresh" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -118,7 +118,7 @@
                            <top>
                               <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Pane layoutX="25.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
+                                    <Pane layoutX="25.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
                                        <children>
                                           <Circle layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                              <stroke>
@@ -155,7 +155,7 @@
                                           </Label>
                                        </children>
                                     </Pane>
-                                    <Pane layoutX="203.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
+                                    <Pane layoutX="203.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
                                        <children>
                                           <Circle layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                              <stroke>
@@ -192,7 +192,7 @@
                                           </Label>
                                        </children>
                                     </Pane>
-                                    <Pane layoutX="381.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
+                                    <Pane layoutX="381.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
                                        <children>
                                           <Circle layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                              <stroke>
@@ -229,7 +229,7 @@
                                           </Label>
                                        </children>
                                     </Pane>
-                                    <Pane layoutX="559.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
+                                    <Pane layoutX="559.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
                                        <children>
                                           <Circle layoutX="81.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                              <stroke>
