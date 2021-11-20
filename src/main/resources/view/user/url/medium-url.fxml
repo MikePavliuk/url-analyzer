@@ -90,7 +90,7 @@
                            <children>
                               <Label fx:id="pathLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="39.0" prefHeight="37.0" prefWidth="744.0" text="Path" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
-                                    <Font name="Arial Black" size="24.0" />
+                                    <Font name="Arial Black" size="18.0" />
                                  </font>
                               </Label>
                               <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="14.0" layoutY="35.0" onMouseClicked="#goToUrlsPage">
