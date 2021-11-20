@@ -88,9 +88,9 @@
                      <top>
                         <Pane prefHeight="113.0" prefWidth="744.0" style="-fx-background-color: #3bc967;" BorderPane.alignment="CENTER">
                            <children>
-                              <Label fx:id="pathLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="39.0" prefHeight="37.0" prefWidth="744.0" text="Path" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                              <Label fx:id="idLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="30.0" prefHeight="46.0" prefWidth="744.0" text="Id:  1" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
-                                    <Font name="Arial Black" size="18.0" />
+                                    <Font name="Arial Black" size="36.0" />
                                  </font>
                               </Label>
                               <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="14.0" layoutY="35.0" onMouseClicked="#goToUrlsPage">

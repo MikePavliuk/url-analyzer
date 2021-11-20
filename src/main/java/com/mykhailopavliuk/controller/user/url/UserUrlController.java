@@ -49,7 +49,7 @@ public class UserUrlController implements Initializable {
     private Label userEmailLabel;
 
     @FXML
-    private Label pathLabel;
+    private Label idLabel;
 
     @FXML
     private JFXButton refreshButton;
@@ -79,7 +79,7 @@ public class UserUrlController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         urlForAnalysing = fxWeaver.loadController(UserUrlsController.class).getSentUrlForViewingDetails();
         userEmailLabel.setText(urlForAnalysing.getOwner().getEmail());
-        pathLabel.setText(urlForAnalysing.getPath());
+        idLabel.setText("Id: " + urlForAnalysing.getId());
         initializeStatistics();
         initializeChart();
         customizeChartHoverEffects();
