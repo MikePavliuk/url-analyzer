@@ -1,15 +1,17 @@
 package com.mykhailopavliuk.util.urlHandler;
 
+import com.mykhailopavliuk.model.Url;
+
 import java.time.Duration;
 import java.util.List;
 
 public class PingStatistics {
+    private Url url;
     private int totalNumberOfRequests;
     private int numberOfNotTimeoutResponses;
     private Duration fastestResponseTime = Duration.ofSeconds(5);
     private Duration slowestResponseTime = Duration.ofSeconds(0);
     private Duration averageResponseTime;
-
 
     public PingStatistics(List<Response> responses) {
         double sumOfDurations = 0;
@@ -31,6 +33,15 @@ public class PingStatistics {
             totalNumberOfRequests++;
         }
         averageResponseTime = Duration.ofMillis(Double.valueOf(sumOfDurations / (totalNumberOfRequests - numberOfNotTimeoutResponses)).longValue());
+    }
+
+    public PingStatistics(Url url, List<Response> responses) {
+        this(responses);
+        this.url = url;
+    }
+
+    public Url getUrl() {
+        return url;
     }
 
     public int getTotalNumberOfRequests() {
