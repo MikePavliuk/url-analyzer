@@ -7,7 +7,11 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
 import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
+import com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewController;
+import com.mykhailopavliuk.controller.admin.overview.MediumAdminOverviewController;
+import com.mykhailopavliuk.controller.admin.overview.SmallAdminOverviewController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
+import com.mykhailopavliuk.controller.user.overview.SmallUserOverviewController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.model.Settings;
@@ -116,7 +120,26 @@ public class SignInController implements Initializable {
             );
 
             Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(AdminOverviewController.class)));
+
+
+            switch (settingsService.read().getScreenResolution()) {
+                case SMALL:
+                    stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminOverviewController.class)));
+                    break;
+
+                case MEDIUM:
+                    stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminOverviewController.class)));
+                    break;
+
+                case LARGE:
+                    stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminOverviewController.class)));
+                    break;
+
+                default:
+                    stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminOverviewController.class)));
+                    break;
+            }
+
             stageTheEventSourceNodeBelongs.centerOnScreen();
             return;
         }

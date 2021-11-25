@@ -34,9 +34,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@Component
-@FxmlView("/view/admin/overview/medium-overview.fxml")
-public class AdminOverviewController implements Initializable {
+public abstract class AdminOverviewController implements Initializable {
 
     private final FxWeaver fxWeaver;
 
@@ -83,14 +81,12 @@ public class AdminOverviewController implements Initializable {
     @FXML
     private Label yAxisLabel;
 
-    @Autowired
     public AdminOverviewController(FxWeaver fxWeaver, UserService userService, UrlService urlService, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
         this.userService = userService;
         this.urlService = urlService;
         this.settingsService = settingsService;
     }
-
 
     @FXML
     void goToUsersPage(ActionEvent event) {

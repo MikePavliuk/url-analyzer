@@ -10,6 +10,9 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
+import com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewController;
+import com.mykhailopavliuk.controller.admin.overview.MediumAdminOverviewController;
+import com.mykhailopavliuk.controller.admin.overview.SmallAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.settings.AdminSettingsController;
 import com.mykhailopavliuk.dto.UserTableRowDTO;
 import com.mykhailopavliuk.dto.UserTransformer;
@@ -122,7 +125,23 @@ public class AdminUsersController implements Initializable {
         }
 
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(AdminOverviewController.class)));
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminOverviewController.class)));
+                break;
+
+            case MEDIUM:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminOverviewController.class)));
+                break;
+
+            case LARGE:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminOverviewController.class)));
+                break;
+
+            default:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminOverviewController.class)));
+                break;
+        }
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
