@@ -37,9 +37,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-@Component
-@FxmlView("/view/admin/settings/medium-settings.fxml")
-public class AdminSettingsController implements Initializable {
+public abstract class AdminSettingsController implements Initializable {
 
     private final FxWeaver fxWeaver;
     private final SettingsService settingsService;
@@ -81,7 +79,6 @@ public class AdminSettingsController implements Initializable {
     @FXML
     private JFXButton signOutButton;
 
-    @Autowired
     public AdminSettingsController(FxWeaver fxWeaver, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
         this.settingsService = settingsService;
@@ -244,7 +241,23 @@ public class AdminSettingsController implements Initializable {
 
         isWasEdit = false;
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(AdminSettingsController.class)));
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminSettingsController.class)));
+                break;
+
+            case MEDIUM:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminSettingsController.class)));
+                break;
+
+            case LARGE:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminSettingsController.class)));
+                break;
+
+            default:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminSettingsController.class)));
+                break;
+        };
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 }

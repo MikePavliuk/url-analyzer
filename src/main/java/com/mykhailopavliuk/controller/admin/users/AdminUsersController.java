@@ -14,6 +14,9 @@ import com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewControlle
 import com.mykhailopavliuk.controller.admin.overview.MediumAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.SmallAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.settings.AdminSettingsController;
+import com.mykhailopavliuk.controller.admin.settings.LargeAdminSettingsController;
+import com.mykhailopavliuk.controller.admin.settings.MediumAdminSettingsController;
+import com.mykhailopavliuk.controller.admin.settings.SmallAdminSettingsController;
 import com.mykhailopavliuk.dto.UserTableRowDTO;
 import com.mykhailopavliuk.dto.UserTransformer;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
@@ -152,7 +155,23 @@ public class AdminUsersController implements Initializable {
         }
 
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(AdminSettingsController.class)));
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminSettingsController.class)));
+                break;
+
+            case MEDIUM:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminSettingsController.class)));
+                break;
+
+            case LARGE:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminSettingsController.class)));
+                break;
+
+            default:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminSettingsController.class)));
+                break;
+        }
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
