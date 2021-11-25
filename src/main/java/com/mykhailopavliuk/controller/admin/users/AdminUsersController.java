@@ -2,18 +2,20 @@ package com.mykhailopavliuk.controller.admin.users;
 
 import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
 import com.mykhailopavliuk.controller.admin.settings.AdminSettingsController;
-import com.mykhailopavliuk.dto.UrlTableRowDTO;
-import com.mykhailopavliuk.dto.UrlTransformer;
 import com.mykhailopavliuk.dto.UserTableRowDTO;
 import com.mykhailopavliuk.dto.UserTransformer;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
+import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.service.UserService;
@@ -33,6 +35,8 @@ import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -52,57 +56,56 @@ import java.util.*;
 public class AdminUsersController implements Initializable {
 
     private final UserService userService;
-
     private final SettingsService settingsService;
-
     private final AdminProperties adminProperties;
-
     private final FxWeaver fxWeaver;
 
     private ObservableList<UserTableRowDTO> usersDtoObservableList;
     private List<User> usersToDelete;
     private boolean doesWeHaveUnsavedChanges;
+    private Settings.DisplayMode currentDisplayMode;
 
 
     @FXML
     private JFXTextField inputEmail;
-
     @FXML
     private JFXTextField inputPassword;
-
     @FXML
     private JFXButton saveNewUserButton;
-
     @FXML
     private JFXButton exportButton;
-
     @FXML
     private JFXButton saveChangesButton;
-
     @FXML
     private JFXButton refreshButton;
-
     @FXML
     private Label emailValidationLabel;
-
     @FXML
     private Label passwordValidationLabel;
-
     @FXML
     private JFXTreeTableView<UserTableRowDTO> usersTableView;
-
     @FXML
     private TreeTableColumn<UserTableRowDTO, Long> idColumn;
-
     @FXML
     private TreeTableColumn<UserTableRowDTO, String> emailColumn;
-
     @FXML
     private TreeTableColumn<UserTableRowDTO, Integer> numberOfUrlsColumn;
-
     @FXML
     private TreeTableColumn<UserTableRowDTO, String> deleteColumn;
-
+    @FXML
+    private StackPane mainWindow;
+    @FXML
+    private Pane sidebarPane;
+    @FXML
+    private Label adminLabel;
+    @FXML
+    private JFXButton overviewButton;
+    @FXML
+    private JFXButton usersButton;
+    @FXML
+    private JFXButton settingsButton;
+    @FXML
+    private JFXButton signOutButton;
 
     @Autowired
     public AdminUsersController(UserService userService, SettingsService settingsService, AdminProperties adminProperties, FxWeaver fxWeaver) {
@@ -158,6 +161,9 @@ public class AdminUsersController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        currentDisplayMode = settingsService.read().getDisplayMode();
+        initializeStyles();
+
         usersDtoObservableList = FXCollections.observableArrayList();
         usersToDelete = new ArrayList<>();
         doesWeHaveUnsavedChanges = false;
@@ -181,7 +187,7 @@ public class AdminUsersController implements Initializable {
                         ValidationHandler.getEmailRegex().getMessage()+ ". So old value was restored",
                         Notifications.ERROR,
                         Animations.POPUP,
-                        Paint.valueOf("#4883db"),
+                        Paint.valueOf(currentDisplayMode.getPrimaryColor()),
                         Duration.seconds(5)
                 );
             } else {
@@ -201,6 +207,36 @@ public class AdminUsersController implements Initializable {
         usersTableView.setShowRoot(false);
         initializeDeleteButtonColumn();
         updateTable();
+    }
+
+    private void initializeStyles() {
+        adminLabel.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        mainWindow.setStyle("-fx-background-color: " + currentDisplayMode.getBackgroundColor());
+        sidebarPane.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+
+        overviewButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        overviewButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        usersButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        usersButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        settingsButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        settingsButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        signOutButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        signOutButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        refreshButton.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor());
+        exportButton.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor());
+        saveNewUserButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        saveChangesButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+
+        inputEmail.setFocusColor(Paint.valueOf(currentDisplayMode.getFontColorOnFormItems()));
+        inputEmail.setStyle("-fx-text-fill: " + currentDisplayMode.getFontColorOnBackground());
+
+        inputPassword.setFocusColor(Paint.valueOf(currentDisplayMode.getFontColorOnFormItems()));
+        inputPassword.setStyle("-fx-text-fill: " + currentDisplayMode.getFontColorOnBackground());
     }
 
     private void initializeDeleteButtonColumn() {
@@ -223,7 +259,7 @@ public class AdminUsersController implements Initializable {
                                     imageView.setFitWidth(25);
                                     imageView.setFitHeight(25);
                                     btn.setButtonType(JFXButton.ButtonType.RAISED);
-                                    btn.setRipplerFill(Color.web("#4883db"));
+                                    btn.setRipplerFill(Color.web(currentDisplayMode.getPrimaryColor()));
                                     btn.setOnAction(event -> {
                                         UserTableRowDTO userTableRowDTO = getTableRow().getItem();
                                         usersToDelete.add(UserTransformer.convertToEntity(userTableRowDTO, userService));
@@ -305,7 +341,7 @@ public class AdminUsersController implements Initializable {
                         "You successfully created and saved a new account!",
                         Notifications.SUCCESS,
                         Animations.POPUP,
-                        Paint.valueOf("#4883db"),
+                        Paint.valueOf(currentDisplayMode.getPrimaryColor()),
                         Duration.seconds(5)
                 );
 
@@ -381,7 +417,7 @@ public class AdminUsersController implements Initializable {
                 "All changes were saved",
                 Notifications.SUCCESS,
                 Animations.POPUP,
-                Paint.valueOf("#4883db"),
+                Paint.valueOf(currentDisplayMode.getPrimaryColor()),
                 Duration.seconds(5)
         );
 
@@ -402,7 +438,7 @@ public class AdminUsersController implements Initializable {
                     "File was created in " + settingsService.read().getExportDirectory() + " folder",
                     Notifications.SUCCESS,
                     Animations.POPUP,
-                    Paint.valueOf("#4883db"),
+                    Paint.valueOf(currentDisplayMode.getPrimaryColor()),
                     Duration.seconds(5)
             );
 

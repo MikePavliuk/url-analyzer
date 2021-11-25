@@ -18,7 +18,7 @@
    <children>
       <BorderPane prefHeight="768.0" prefWidth="1024.0">
          <left>
-            <Pane prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
+            <Pane fx:id="sidebarPane" prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="90.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -30,7 +30,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="242.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="242.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -42,7 +42,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="314.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#goToUrlsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="URLs" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="urlsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="314.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#goToUrlsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="URLs" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -54,7 +54,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="390.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="390.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -66,7 +66,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="606.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="50.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Sign Out" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="606.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="50.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Sign Out" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -86,7 +86,7 @@
                <children>
                   <BorderPane prefHeight="608.0" prefWidth="744.0">
                      <top>
-                        <Pane prefHeight="113.0" prefWidth="744.0" style="-fx-background-color: #3bc967;" BorderPane.alignment="CENTER">
+                        <Pane fx:id="topPane" prefHeight="113.0" prefWidth="744.0" style="-fx-background-color: #3bc967;" BorderPane.alignment="CENTER">
                            <children>
                               <Label fx:id="idLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="30.0" prefHeight="46.0" prefWidth="744.0" text="Id:  1" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                                  <font>
@@ -114,13 +114,13 @@
                         </Pane>
                      </top>
                      <center>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <BorderPane fx:id="mainWindow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <top>
                               <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Pane layoutX="25.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
+                                    <Pane fx:id="totalCard" layoutX="25.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
                                        <children>
-                                          <Circle layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
+                                          <Circle fx:id="circle1" layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                              <stroke>
                                                 <LinearGradient endX="1.0" endY="1.0">
                                                    <stops>
@@ -155,9 +155,9 @@
                                           </Label>
                                        </children>
                                     </Pane>
-                                    <Pane layoutX="203.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
+                                    <Pane fx:id="slowestCard" layoutX="203.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
                                        <children>
-                                          <Circle layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
+                                          <Circle fx:id="circle2" layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                              <stroke>
                                                 <LinearGradient endX="1.0" endY="1.0">
                                                    <stops>
@@ -192,9 +192,9 @@
                                           </Label>
                                        </children>
                                     </Pane>
-                                    <Pane layoutX="381.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
+                                    <Pane fx:id="fastestCard" layoutX="381.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
                                        <children>
-                                          <Circle layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
+                                          <Circle fx:id="circle3" layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                              <stroke>
                                                 <LinearGradient endX="1.0" endY="1.0">
                                                    <stops>
@@ -229,9 +229,9 @@
                                           </Label>
                                        </children>
                                     </Pane>
-                                    <Pane layoutX="559.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
+                                    <Pane fx:id="averageCard" layoutX="559.0" layoutY="10.0" prefWidth="161.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
                                        <children>
-                                          <Circle layoutX="81.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
+                                          <Circle fx:id="circle4" layoutX="81.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                              <stroke>
                                                 <LinearGradient endX="1.0" endY="1.0">
                                                    <stops>

@@ -17,7 +17,7 @@
    <children>
       <BorderPane prefHeight="768.0" prefWidth="1024.0">
          <left>
-            <Pane prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
+            <Pane fx:id="sidebarPane" prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="90.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -29,7 +29,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="242.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="242.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -41,7 +41,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="314.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="URLs" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="urlsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="314.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="URLs" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -53,7 +53,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="390.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="390.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -65,7 +65,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="606.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="50.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Sign Out" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="606.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="50.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Sign Out" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -81,7 +81,7 @@
             </Pane>
          </left>
          <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #cedef7;" BorderPane.alignment="CENTER">
+            <StackPane fx:id="mainWindow" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #cedef7;" BorderPane.alignment="CENTER">
                <children>
                   <BorderPane prefHeight="608.0" prefWidth="744.0">
                      <top>

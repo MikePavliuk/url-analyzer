@@ -17,7 +17,7 @@
     <children>
         <BorderPane prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #fff;">
             <left>
-                <Pane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
+                <Pane fx:id="paneWithLogo" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
                     <children>
                         <HBox prefHeight="102.0" prefWidth="301.0" />
                         <Label alignment="CENTER" layoutX="25.0" layoutY="284.0" prefHeight="42.0" prefWidth="250.0" style="-fx-alignment: center;" text="URL Analyzer" textAlignment="CENTER" textFill="WHITE">
@@ -37,17 +37,17 @@
                 <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <children>
                         <Pane prefHeight="200.0" prefWidth="200.0" />
-                        <Pane prefHeight="200.0" prefWidth="200.0">
+                        <Pane fx:id="formPane" prefHeight="200.0" prefWidth="200.0">
                             <children>
-                                <Label alignment="CENTER" layoutX="75.0" layoutY="48.0" prefHeight="42.0" prefWidth="250.0" style="-fx-alignment: center;" text="Sign In" textAlignment="CENTER">
+                                <Label fx:id="signInLabel" alignment="CENTER" layoutX="75.0" layoutY="48.0" prefHeight="42.0" prefWidth="250.0" style="-fx-alignment: center;" text="Sign In" textAlignment="CENTER">
                                     <font>
                                         <Font name="Arial Black" size="21.0" />
                                     </font>
                                 </Label>
-                                <JFXTextField fx:id="inputEmail" focusColor="#4883db" labelFloat="true" layoutX="77.0" layoutY="109.0" prefHeight="40.0" prefWidth="249.0" promptText="Email" />
+                                <JFXTextField fx:id="inputEmail" focusColor="#4883db" labelFloat="true" layoutX="77.0" layoutY="109.0" prefHeight="40.0" prefWidth="249.0" promptText="Email" unFocusColor="#4d4d4d" />
                                 <JFXPasswordField fx:id="inputPassword" focusColor="#4883db" labelFloat="true" layoutX="76.0" layoutY="180.0" prefHeight="40.0" prefWidth="250.0" promptText="Password" />
-                                <JFXButton buttonType="RAISED" layoutX="140.0" layoutY="284.0" onAction="#handleSignInButton" prefHeight="35.0" prefWidth="120.0" ripplerFill="#cdd7f5" style="-fx-background-color: #4883db;" text="Sign In" textFill="WHITE" />
-                                <JFXButton buttonType="RAISED" layoutX="76.0" layoutY="336.0" onAction="#handleGoToSignUpButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #d7e4f7; -fx-text-fill: #4883db; -fx-border-color: #4883db; -fx-border-radius: 5;" text="Don't have an account? Sign Up" />
+                                <JFXButton fx:id="signInButton" buttonType="RAISED" layoutX="140.0" layoutY="284.0" onAction="#handleSignInButton" prefHeight="35.0" prefWidth="120.0" ripplerFill="#cdd7f5" style="-fx-background-color: #4883db;" text="Sign In" textFill="WHITE" />
+                                <JFXButton fx:id="goToSignUpButton" buttonType="RAISED" layoutX="76.0" layoutY="336.0" onAction="#handleGoToSignUpButton" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #d7e4f7; -fx-text-fill: #4883db; -fx-border-color: #4883db; -fx-border-radius: 5;" text="Don't have an account? Sign Up" />
                         <Label fx:id="singInFailedLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="233.0" prefHeight="44.0" prefWidth="248.0" text="Email or password is invalid" textFill="#fc5b5b" wrapText="true" />
                             </children>
                         </Pane>

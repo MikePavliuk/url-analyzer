@@ -19,14 +19,14 @@
    <children>
       <BorderPane prefHeight="768.0" prefWidth="1024.0">
          <left>
-            <Pane prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
+            <Pane fx:id="sidebarPane" prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="174.0" prefHeight="20.0" prefWidth="280.0" text="Admin" textFill="WHITE">
+                  <Label fx:id="adminLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="174.0" prefHeight="20.0" prefWidth="280.0" text="Admin" textFill="WHITE">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="240.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="240.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -38,7 +38,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="320.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToUsersPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Users" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="usersButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="320.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToUsersPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Users" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -50,7 +50,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="400.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="400.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="60.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -62,7 +62,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="606.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="50.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Sign Out" textAlignment="CENTER" textFill="WHITE">
+                  <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="606.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="50.0" prefWidth="280.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Sign Out" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -83,13 +83,13 @@
             </Pane>
          </left>
          <center>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <BorderPane fx:id="mainWindow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <top>
                   <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Pane layoutX="14.0" layoutY="5.0" prefWidth="161.0" style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
+                        <Pane fx:id="usersCard" layoutX="58.0" layoutY="5.0" prefWidth="161.0" style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
                            <children>
-                              <Circle layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
+                              <Circle fx:id="circle1" layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                  <stroke>
                                     <LinearGradient endX="1.0" endY="1.0">
                                        <stops>
@@ -124,9 +124,9 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane layoutX="255.0" layoutY="5.0" prefWidth="161.0" style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
+                        <Pane fx:id="urlsCard" layoutX="292.0" layoutY="5.0" prefWidth="161.0" style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
                            <children>
-                              <Circle layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
+                              <Circle fx:id="circle2" layoutX="83.0" layoutY="66.0" radius="35.0" strokeType="INSIDE">
                                  <stroke>
                                     <LinearGradient endX="1.0" endY="1.0">
                                        <stops>
@@ -165,14 +165,20 @@
                   </Pane>
                </top>
                <center>
-                  <AreaChart fx:id="areaChart" legendVisible="false" BorderPane.alignment="CENTER">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" fx:id="xAxis" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis fx:id="yAxis" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="0.0" tickLength="0.0" tickUnit="1.0" />
-                    </yAxis>
-                  </AreaChart>
+                  <Pane prefHeight="568.0" prefWidth="713.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AreaChart fx:id="areaChart" layoutX="23.0" legendVisible="false" prefHeight="547.0" prefWidth="721.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="yAxis" minorTickCount="1" minorTickLength="1.0" side="LEFT" tickLabelGap="5.0" tickLength="0.0" tickUnit="1.0" />
+                          </yAxis>
+                        </AreaChart>
+                        <Label fx:id="yAxisLabel" alignment="CENTER" layoutX="-19.0" layoutY="265.0" rotate="-90.0" text="Number of urls" textAlignment="CENTER" />
+                        <Label alignment="CENTER" layoutX="359.0" layoutY="539.0" text="User" textAlignment="CENTER" fx:id="xAxisLabel" />
+                     </children>
+                  </Pane>
                </center>
             </BorderPane>
          </center>

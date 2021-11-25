@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
 import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
+import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
@@ -19,9 +20,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.chart.*;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -36,36 +43,62 @@ public abstract class UserOverviewController implements Initializable {
     private final SettingsService settingsService;
     private Map<Long, PingStatistics> pingStatisticsMap;
     private PingStatistics globalPingStatistics;
+    private Settings.DisplayMode currentDisplayMode;
 
     @FXML
     private Label userEmailLabel;
-
     @FXML
     private Label totalNumberOfRequestsLabel;
-
     @FXML
     private Label slowestResponseTimeLabel;
-
     @FXML
     private Label fastestResponseTimeLabel;
-
     @FXML
     private Label averageResponseTimeLabel;
-
     @FXML
     private JFXButton refreshButton;
-
     @FXML
     private JFXButton exportButton;
-
     @FXML
     private AreaChart<String, Number> responseChart;
-
     @FXML
     private CategoryAxis xAxis;
-
     @FXML
     private NumberAxis yAxis;
+    @FXML
+    private StackPane mainWindow;
+    @FXML
+    private Label chartTitleLabel;
+    @FXML
+    private Pane totalCard;
+    @FXML
+    private Pane slowestCard;
+    @FXML
+    private Pane fastestCard;
+    @FXML
+    private Pane averageCard;
+    @FXML
+    private Pane sidebarPane;
+    @FXML
+    private JFXButton overviewButton;
+    @FXML
+    private JFXButton urlsButton;
+    @FXML
+    private JFXButton settingsButton;
+    @FXML
+    private JFXButton signOutButton;
+    @FXML
+    private Circle circle1;
+    @FXML
+    private Circle circle2;
+    @FXML
+    private Circle circle3;
+    @FXML
+    private Circle circle4;
+    @FXML
+    private Label yAxisLabel;
+    @FXML
+    private Label xAxisLabel;
 
 
     public UserOverviewController(FxWeaver fxWeaver, SettingsService settingsService) {
@@ -78,8 +111,49 @@ public abstract class UserOverviewController implements Initializable {
         user = fxWeaver.loadController(SignInController.class).getSignedInUser();
         userEmailLabel.setText(user.getEmail());
         pingStatisticsMap = new HashMap<>();
+        currentDisplayMode = settingsService.read().getDisplayMode();
         initializeStatistics();
         initializeChart();
+        initializeStyles();
+    }
+
+    private void initializeStyles() {
+        userEmailLabel.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+        chartTitleLabel.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnBackground()));
+
+        mainWindow.setStyle("-fx-background-color: " + currentDisplayMode.getBackgroundColor());
+        sidebarPane.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+
+        overviewButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        overviewButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        urlsButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        urlsButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        settingsButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        settingsButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        signOutButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        signOutButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        totalCard.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor() + "; -fx-background-radius: 20px");
+        slowestCard.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor() + "; -fx-background-radius: 20px");
+        fastestCard.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor() + "; -fx-background-radius: 20px");
+        averageCard.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor() + "; -fx-background-radius: 20px");
+
+        exportButton.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor());
+        refreshButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+
+        circle1.setFill(Paint.valueOf(currentDisplayMode.getPrimaryColor()));
+        circle2.setFill(Paint.valueOf(currentDisplayMode.getPrimaryColor()));
+        circle3.setFill(Paint.valueOf(currentDisplayMode.getPrimaryColor()));
+        circle4.setFill(Paint.valueOf(currentDisplayMode.getPrimaryColor()));
+
+        xAxis.setTickLabelFill(Paint.valueOf(currentDisplayMode.getFontColorOnBackground()));
+        xAxisLabel.setStyle("-fx-text-fill: " + currentDisplayMode.getFontColorOnBackground());
+
+        yAxis.setTickLabelFill(Paint.valueOf(currentDisplayMode.getFontColorOnBackground()));
+        yAxisLabel.setStyle("-fx-text-fill: " + currentDisplayMode.getFontColorOnBackground());
     }
 
     @FXML
@@ -163,9 +237,6 @@ public abstract class UserOverviewController implements Initializable {
 
     private void initializeChart() {
         responseChart.getData().clear();
-
-        xAxis.setLabel("Url id");
-        yAxis.setLabel("Response ms");
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(0);
         yAxis.setUpperBound(6000);

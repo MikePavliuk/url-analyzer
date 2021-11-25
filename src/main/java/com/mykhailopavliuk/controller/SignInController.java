@@ -2,11 +2,11 @@ package com.mykhailopavliuk.controller;
 
 import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
 import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
-import com.mykhailopavliuk.controller.user.overview.UserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -47,32 +48,54 @@ public class SignInController implements Initializable {
 
     private final AdminProperties adminProperties;
 
+    private final SettingsService settingsService;
+
     private User signedInUser;
+    private Settings.DisplayMode currentDisplayMode;
 
     @FXML
     private JFXTextField inputEmail;
-
     @FXML
     private JFXPasswordField inputPassword;
-
     @FXML
     private Label singInFailedLabel;
-
+    @FXML
+    private Pane paneWithLogo;
+    @FXML
+    private Pane formPane;
+    @FXML
+    private Label signInLabel;
+    @FXML
+    private JFXButton signInButton;
 
     public User getSignedInUser() {
         return signedInUser;
     }
 
     @Autowired
-    public SignInController(UserService userService, FxWeaver fxWeaver, AdminProperties adminProperties) {
+    public SignInController(UserService userService, FxWeaver fxWeaver, AdminProperties adminProperties, SettingsService settingsService) {
         this.userService = userService;
         this.fxWeaver = fxWeaver;
         this.adminProperties = adminProperties;
+        this.settingsService = settingsService;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         singInFailedLabel.setVisible(false);
+        currentDisplayMode = settingsService.read().getDisplayMode();
+        initializeStyles();
+    }
+
+    public void initializeStyles() {
+        paneWithLogo.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        formPane.setStyle("-fx-background-color: " + currentDisplayMode.getBackgroundColor());
+        inputEmail.setFocusColor(Paint.valueOf(currentDisplayMode.getFontColorOnFormItems()));
+        inputEmail.setStyle("-fx-text-fill: " + currentDisplayMode.getFontColorOnBackground());
+        inputPassword.setFocusColor(Paint.valueOf(currentDisplayMode.getFontColorOnFormItems()));
+        inputPassword.setStyle("-fx-text-fill: " + currentDisplayMode.getFontColorOnBackground());
+        signInLabel.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnBackground()));
+        signInButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
     }
 
     @FXML
@@ -88,7 +111,7 @@ public class SignInController implements Initializable {
                     "Now you can do everything you want with user accounts",
                     Notifications.SUCCESS,
                     Animations.POPUP,
-                    Paint.valueOf("#4883db"),
+                    Paint.valueOf(currentDisplayMode.getPrimaryColor()),
                     Duration.seconds(5)
             );
 
@@ -107,7 +130,7 @@ public class SignInController implements Initializable {
                         "Now you can analyze urls you want",
                         Notifications.SUCCESS,
                         Animations.POPUP,
-                        Paint.valueOf("#4883db"),
+                        Paint.valueOf(currentDisplayMode.getPrimaryColor()),
                         Duration.seconds(5)
                 );
                 signedInUser = user;

@@ -9,13 +9,13 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
-import com.mykhailopavliuk.controller.user.overview.UserOverviewController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
 import com.mykhailopavliuk.controller.user.url.UserUrlController;
 import com.mykhailopavliuk.dto.UrlTableRowDTO;
 import com.mykhailopavliuk.dto.UrlTransformer;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
+import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
@@ -33,6 +33,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -57,6 +59,7 @@ public class UserUrlsController implements Initializable {
     private final FxWeaver fxWeaver;
     private final UrlService urlService;
     private final SettingsService settingsService;
+    private Settings.DisplayMode currentDisplayMode;
     private ObservableList<UrlTableRowDTO> urlsDtoObservableList;
     private List<Url> urlsToDelete;
     private boolean doesWeHaveUnsavedChanges;
@@ -65,39 +68,40 @@ public class UserUrlsController implements Initializable {
 
     @FXML
     private Label userEmailLabel;
-
     @FXML
     private JFXTextField inputPath;
-
     @FXML
     private JFXButton saveNewPathButton;
-
     @FXML
     private Label pathValidationLabel;
-
     @FXML
     private JFXButton refreshTableButton;
-
     @FXML
     private JFXButton responseTimeButton;
-
     @FXML
     private JFXButton saveEditChangesButton;
-
     @FXML
     private JFXTreeTableView<UrlTableRowDTO> urlsTableView;
-
     @FXML
     private TreeTableColumn<UrlTableRowDTO, String> idColumn;
-
     @FXML
     private TreeTableColumn<UrlTableRowDTO, String> pathColumn;
-
     @FXML
     private TreeTableColumn<UrlTableRowDTO, String> detailsColumn;
-
     @FXML
     private TreeTableColumn<UrlTableRowDTO, String> deleteColumn;
+    @FXML
+    private Pane sidebarPane;
+    @FXML
+    private JFXButton overviewButton;
+    @FXML
+    private JFXButton urlsButton;
+    @FXML
+    private JFXButton settingsButton;
+    @FXML
+    private JFXButton signOutButton;
+    @FXML
+    private StackPane mainWindow;
 
 
     public Url getSentUrlForViewingDetails() {
@@ -113,6 +117,9 @@ public class UserUrlsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        currentDisplayMode = settingsService.read().getDisplayMode();
+        initializeStyles();
+
         user = fxWeaver.loadController(SignInController.class).getSignedInUser();
         userEmailLabel.setText(user.getEmail());
 
@@ -129,6 +136,32 @@ public class UserUrlsController implements Initializable {
 
         urlsTableView.setShowRoot(false);
         updateTable();
+    }
+
+    private void initializeStyles() {
+        userEmailLabel.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        mainWindow.setStyle("-fx-background-color: " + currentDisplayMode.getBackgroundColor());
+        sidebarPane.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+
+        overviewButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        overviewButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        urlsButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        urlsButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        settingsButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        settingsButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        signOutButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        signOutButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        refreshTableButton.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor());
+        saveEditChangesButton.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor());
+        saveNewPathButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+
+        inputPath.setFocusColor(Paint.valueOf(currentDisplayMode.getFontColorOnFormItems()));
+        inputPath.setStyle("-fx-text-fill: " + currentDisplayMode.getFontColorOnBackground());
     }
 
     private void initializeViewButtonColumn() {
@@ -151,7 +184,7 @@ public class UserUrlsController implements Initializable {
                                     imageView.setFitWidth(25);
                                     imageView.setFitHeight(25);
                                     btn.setButtonType(JFXButton.ButtonType.RAISED);
-                                    btn.setRipplerFill(Color.web("#4883db"));
+                                    btn.setRipplerFill(Color.web(currentDisplayMode.getPrimaryColor()));
                                     btn.setOnAction(event -> {
                                         sentUrlForViewingDetails = UrlTransformer.convertToEntity(getTableRow().getItem(), user);
                                         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -308,7 +341,7 @@ public class UserUrlsController implements Initializable {
                 "You successfully created and saved a new path!",
                 Notifications.SUCCESS,
                 Animations.POPUP,
-                Paint.valueOf("#4883db"),
+                Paint.valueOf(currentDisplayMode.getPrimaryColor()),
                 Duration.seconds(5)
         );
     }
@@ -342,7 +375,7 @@ public class UserUrlsController implements Initializable {
                 "All changes were saved",
                 Notifications.SUCCESS,
                 Animations.POPUP,
-                Paint.valueOf("#4883db"),
+                Paint.valueOf(currentDisplayMode.getPrimaryColor()),
                 Duration.seconds(5)
         );
 
@@ -371,7 +404,7 @@ public class UserUrlsController implements Initializable {
             }
         } else {
             ((Button)event.getSource()).setText("Start response time analysis");
-            ((Button)event.getSource()).setStyle("-fx-background-color: #4883db;");
+            ((Button)event.getSource()).setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
 
             setEditTableButtonsDisability(false);
             UrlHandler.stopUrlAnalysis();
@@ -387,7 +420,7 @@ public class UserUrlsController implements Initializable {
             setEditTableButtonsDisability(true);
         } else {
             responseTimeButton.setText("Start response time analysis");
-            responseTimeButton.setStyle("-fx-background-color: #4883db;");
+            responseTimeButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
 
             setEditTableButtonsDisability(false);
         }

@@ -5,15 +5,13 @@ import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
 import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
+import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.util.urlHandler.PingStatistics;
 import com.mykhailopavliuk.util.urlHandler.Response;
 import com.mykhailopavliuk.util.urlHandler.UrlHandler;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -22,7 +20,10 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -41,33 +42,58 @@ public class UserUrlController implements Initializable {
 
     private final FxWeaver fxWeaver;
     private final SettingsService settingsService;
+    private Settings.DisplayMode currentDisplayMode;
     private Url urlForAnalysing;
     private List<Response> responses;
     private PingStatistics pingStatistics;
 
     @FXML
     private Label userEmailLabel;
-
     @FXML
     private Label idLabel;
-
     @FXML
     private JFXButton refreshButton;
-
     @FXML
     private Label totalNumberOfRequestsLabel;
-
     @FXML
     private Label slowestResponseTimeLabel;
-
     @FXML
     private Label fastestResponseTimeLabel;
-
     @FXML
     private Label averageResponseTimeLabel;
-
     @FXML
     private PieChart pieChart;
+    @FXML
+    private JFXButton overviewButton;
+    @FXML
+    private JFXButton urlsButton;
+    @FXML
+    private JFXButton settingsButton;
+    @FXML
+    private JFXButton signOutButton;
+    @FXML
+    private Pane topPane;
+    @FXML
+    private Pane sidebarPane;
+    @FXML
+    private BorderPane mainWindow;
+    @FXML
+    private Pane totalCard;
+    @FXML
+    private Circle circle1;
+    @FXML
+    private Pane slowestCard;
+    @FXML
+    private Circle circle2;
+    @FXML
+    private Pane fastestCard;
+    @FXML
+    private Circle circle3;
+    @FXML
+    private Pane averageCard;
+    @FXML
+    private Circle circle4;
+
 
     @Autowired
     public UserUrlController(FxWeaver fxWeaver, SettingsService settingsService) {
@@ -77,12 +103,53 @@ public class UserUrlController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        currentDisplayMode = settingsService.read().getDisplayMode();
+        initializeStyles();
         urlForAnalysing = fxWeaver.loadController(UserUrlsController.class).getSentUrlForViewingDetails();
         userEmailLabel.setText(urlForAnalysing.getOwner().getEmail());
         idLabel.setText("Id: " + urlForAnalysing.getId());
         initializeStatistics();
         initializeChart();
         customizeChartHoverEffects();
+    }
+
+    private void initializeStyles() {
+        userEmailLabel.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        if (currentDisplayMode == Settings.DisplayMode.LIGHT) {
+            mainWindow.setStyle("-fx-background-color: " + currentDisplayMode.getBackgroundColor());
+        } else {
+            mainWindow.setStyle("-fx-background-color: " + currentDisplayMode.getFontColorOnBackground());
+        }
+
+        sidebarPane.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        topPane.setStyle("-fx-background-color: " + currentDisplayMode.getSecondaryColor());
+
+        overviewButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        overviewButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        urlsButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        urlsButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        settingsButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        settingsButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        signOutButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+        signOutButton.setTextFill(Paint.valueOf(currentDisplayMode.getFontColorOnPrimary()));
+
+        refreshButton.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+
+        totalCard.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor() + "; -fx-background-radius: 20px");
+        slowestCard.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor() + "; -fx-background-radius: 20px");
+        fastestCard.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor() + "; -fx-background-radius: 20px");
+        averageCard.setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor() + "; -fx-background-radius: 20px");
+
+        circle1.setFill(Paint.valueOf(currentDisplayMode.getSecondaryColor()));
+        circle2.setFill(Paint.valueOf(currentDisplayMode.getSecondaryColor()));
+        circle3.setFill(Paint.valueOf(currentDisplayMode.getSecondaryColor()));
+        circle4.setFill(Paint.valueOf(currentDisplayMode.getSecondaryColor()));
+
+        pieChart.setStyle("-fx-fill: " + currentDisplayMode.getFontColorOnBackground());
     }
 
     private void initializeStatistics() {
