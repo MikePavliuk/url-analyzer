@@ -9,11 +9,9 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
 import com.mykhailopavliuk.controller.SignInController;
-import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.MediumAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.SmallAdminOverviewController;
-import com.mykhailopavliuk.controller.admin.settings.AdminSettingsController;
 import com.mykhailopavliuk.controller.admin.settings.LargeAdminSettingsController;
 import com.mykhailopavliuk.controller.admin.settings.MediumAdminSettingsController;
 import com.mykhailopavliuk.controller.admin.settings.SmallAdminSettingsController;
@@ -49,17 +47,12 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
 import net.rgielen.fxweaver.core.FxWeaver;
-import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-@Component
-@FxmlView("/view/admin/users/medium-users.fxml")
-public class AdminUsersController implements Initializable {
+public abstract class AdminUsersController implements Initializable {
 
     private final UserService userService;
     private final SettingsService settingsService;
@@ -113,7 +106,6 @@ public class AdminUsersController implements Initializable {
     @FXML
     private JFXButton signOutButton;
 
-    @Autowired
     public AdminUsersController(UserService userService, SettingsService settingsService, AdminProperties adminProperties, FxWeaver fxWeaver) {
         this.userService = userService;
         this.settingsService = settingsService;

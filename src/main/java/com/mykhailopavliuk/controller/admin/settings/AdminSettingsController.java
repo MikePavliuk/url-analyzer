@@ -11,6 +11,9 @@ import com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewControlle
 import com.mykhailopavliuk.controller.admin.overview.MediumAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.SmallAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.users.AdminUsersController;
+import com.mykhailopavliuk.controller.admin.users.LargeAdminUsersController;
+import com.mykhailopavliuk.controller.admin.users.MediumAdminUsersController;
+import com.mykhailopavliuk.controller.admin.users.SmallAdminUsersController;
 import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
@@ -188,7 +191,23 @@ public abstract class AdminSettingsController implements Initializable {
     @FXML
     void goToUsersPage(ActionEvent event) {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(AdminUsersController.class)));
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminUsersController.class)));
+                break;
+
+            case MEDIUM:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminUsersController.class)));
+                break;
+
+            case LARGE:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminUsersController.class)));
+                break;
+
+            default:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminUsersController.class)));
+                break;
+        }
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
