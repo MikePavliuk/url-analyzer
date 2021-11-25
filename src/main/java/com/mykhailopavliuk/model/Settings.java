@@ -15,7 +15,55 @@ import java.nio.file.Path;
 public class Settings implements Serializable {
 
     public enum DisplayMode {
-        DARK, LIGHT
+        DARK(
+                "#403455",
+                "#3c3c3e",
+                "#121212",
+                "#b38bf5",
+                "#b38bf5",
+                "b38bf5"),
+        LIGHT(
+                "#4883db",
+                "#3bc967",
+                "#cedef7",
+                "#ffffff",
+                "#000000",
+                "#4883db");
+
+        String primaryColor, secondaryColor, backgroundColor, fontColorOnPrimary, fontColorOnBackground, fontColorOnFormItems;
+
+        DisplayMode(String primaryColor, String secondaryColor, String backgroundColor, String fontColorOnPrimary, String fontColorOnBackground, String fontColorOnFormItems) {
+            this.primaryColor = primaryColor;
+            this.secondaryColor = secondaryColor;
+            this.backgroundColor = backgroundColor;
+            this.fontColorOnPrimary = fontColorOnPrimary;
+            this.fontColorOnBackground = fontColorOnBackground;
+            this.fontColorOnFormItems = fontColorOnFormItems;
+        }
+
+        public String getPrimaryColor() {
+            return primaryColor;
+        }
+
+        public String getSecondaryColor() {
+            return secondaryColor;
+        }
+
+        public String getBackgroundColor() {
+            return backgroundColor;
+        }
+
+        public String getFontColorOnPrimary() {
+            return fontColorOnPrimary;
+        }
+
+        public String getFontColorOnBackground() {
+            return fontColorOnBackground;
+        }
+
+        public String getFontColorOnFormItems() {
+            return fontColorOnFormItems;
+        }
     }
 
     public enum ScreenResolution {
