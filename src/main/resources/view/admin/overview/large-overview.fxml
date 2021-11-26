@@ -28,7 +28,7 @@
                   </Label>
                   <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="288.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
@@ -40,7 +40,7 @@
                   </JFXButton>
                   <JFXButton fx:id="usersButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="368.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToUsersPage" prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Users" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
@@ -52,7 +52,7 @@
                   </JFXButton>
                   <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="448.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="20.0" />
                      </font>
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
