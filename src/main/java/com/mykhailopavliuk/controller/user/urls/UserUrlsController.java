@@ -57,9 +57,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-@Component
-@FxmlView("/view/user/urls/medium-urls.fxml")
-public class UserUrlsController implements Initializable {
+public abstract class UserUrlsController implements Initializable {
 
     private final FxWeaver fxWeaver;
     private final UrlService urlService;
@@ -108,12 +106,10 @@ public class UserUrlsController implements Initializable {
     @FXML
     private StackPane mainWindow;
 
-
     public Url getSentUrlForViewingDetails() {
         return sentUrlForViewingDetails;
     }
 
-    @Autowired
     public UserUrlsController(FxWeaver fxWeaver, UrlService urlService, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
         this.urlService = urlService;

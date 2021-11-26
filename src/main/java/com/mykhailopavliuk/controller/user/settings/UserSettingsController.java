@@ -9,6 +9,9 @@ import com.mykhailopavliuk.controller.SignInController;
 import com.mykhailopavliuk.controller.user.overview.LargeUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.SmallUserOverviewController;
+import com.mykhailopavliuk.controller.user.urls.LargeUserUrlsController;
+import com.mykhailopavliuk.controller.user.urls.MediumUserUrlsController;
+import com.mykhailopavliuk.controller.user.urls.SmallUserUrlsController;
 import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
 import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.service.SettingsService;
@@ -208,7 +211,23 @@ public abstract class UserSettingsController implements Initializable {
     @FXML
     void goToUrlsPage(ActionEvent event) {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(UserUrlsController.class)));
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserUrlsController.class)));
+                break;
+
+            case MEDIUM:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlsController.class)));
+                break;
+
+            case LARGE:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserUrlsController.class)));
+                break;
+
+            default:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlsController.class)));
+                break;
+        }
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
