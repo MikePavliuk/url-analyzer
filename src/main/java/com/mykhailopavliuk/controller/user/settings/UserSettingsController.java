@@ -6,9 +6,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.mykhailopavliuk.controller.SignInController;
-import com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewController;
-import com.mykhailopavliuk.controller.admin.overview.MediumAdminOverviewController;
-import com.mykhailopavliuk.controller.admin.overview.SmallAdminOverviewController;
 import com.mykhailopavliuk.controller.user.overview.LargeUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.SmallUserOverviewController;
@@ -30,9 +27,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.rgielen.fxweaver.core.FxWeaver;
-import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.net.URL;
@@ -40,9 +34,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-@Component
-@FxmlView("/view/user/settings/medium-settings.fxml")
-public class UserSettingsController implements Initializable {
+public abstract class UserSettingsController implements Initializable {
 
     private final FxWeaver fxWeaver;
     private final SettingsService settingsService;
@@ -88,7 +80,6 @@ public class UserSettingsController implements Initializable {
     @FXML
     private Label titleLabel;
 
-    @Autowired
     public UserSettingsController(FxWeaver fxWeaver, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
         this.settingsService = settingsService;
@@ -258,7 +249,23 @@ public class UserSettingsController implements Initializable {
         );
         isWasEdit = false;
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(UserSettingsController.class)));
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserSettingsController.class)));
+                break;
+
+            case MEDIUM:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserSettingsController.class)));
+                break;
+
+            case LARGE:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserSettingsController.class)));
+                break;
+
+            default:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserSettingsController.class)));
+                break;
+        }
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 

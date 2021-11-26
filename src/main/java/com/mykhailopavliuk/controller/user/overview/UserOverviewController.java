@@ -4,7 +4,9 @@ import com.github.plushaze.traynotification.animations.Animations;
 import com.github.plushaze.traynotification.notification.Notifications;
 import com.jfoenix.controls.JFXButton;
 import com.mykhailopavliuk.controller.SignInController;
-import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
+import com.mykhailopavliuk.controller.user.settings.LargeUserSettingsController;
+import com.mykhailopavliuk.controller.user.settings.MediumUserSettingsController;
+import com.mykhailopavliuk.controller.user.settings.SmallUserSettingsController;
 import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
 import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.Url;
@@ -272,7 +274,23 @@ public abstract class UserOverviewController implements Initializable {
     @FXML
     void goToSettingsPage(ActionEvent event) {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(UserSettingsController.class)));
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserSettingsController.class)));
+                break;
+
+            case MEDIUM:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserSettingsController.class)));
+                break;
+
+            case LARGE:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserSettingsController.class)));
+                break;
+
+            default:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserSettingsController.class)));
+                break;
+        }
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
