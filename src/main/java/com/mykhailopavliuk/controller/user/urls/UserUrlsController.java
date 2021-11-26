@@ -15,6 +15,9 @@ import com.mykhailopavliuk.controller.user.settings.LargeUserSettingsController;
 import com.mykhailopavliuk.controller.user.settings.MediumUserSettingsController;
 import com.mykhailopavliuk.controller.user.settings.SmallUserSettingsController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
+import com.mykhailopavliuk.controller.user.url.LargeUserUrlController;
+import com.mykhailopavliuk.controller.user.url.MediumUserUrlController;
+import com.mykhailopavliuk.controller.user.url.SmallUserUrlController;
 import com.mykhailopavliuk.controller.user.url.UserUrlController;
 import com.mykhailopavliuk.dto.UrlTableRowDTO;
 import com.mykhailopavliuk.dto.UrlTransformer;
@@ -189,7 +192,24 @@ public abstract class UserUrlsController implements Initializable {
                                     btn.setOnAction(event -> {
                                         sentUrlForViewingDetails = UrlTransformer.convertToEntity(getTableRow().getItem(), user);
                                         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                                        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(UserUrlController.class)));
+                                        switch (settingsService.read().getScreenResolution()) {
+                                            case SMALL:
+                                                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserUrlController.class)));
+                                                break;
+
+                                            case MEDIUM:
+                                                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlController.class)));
+                                                break;
+
+                                            case LARGE:
+                                                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserUrlController.class)));
+                                                break;
+
+                                            default:
+                                                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlController.class)));
+                                                break;
+                                        }
+                                        stageTheEventSourceNodeBelongs.centerOnScreen();
                                     });
                                     setGraphic(btn);
                                 }

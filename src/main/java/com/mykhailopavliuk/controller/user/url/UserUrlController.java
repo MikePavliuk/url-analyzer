@@ -8,8 +8,9 @@ import com.mykhailopavliuk.controller.user.overview.SmallUserOverviewController;
 import com.mykhailopavliuk.controller.user.settings.LargeUserSettingsController;
 import com.mykhailopavliuk.controller.user.settings.MediumUserSettingsController;
 import com.mykhailopavliuk.controller.user.settings.SmallUserSettingsController;
-import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
-import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
+import com.mykhailopavliuk.controller.user.urls.LargeUserUrlsController;
+import com.mykhailopavliuk.controller.user.urls.MediumUserUrlsController;
+import com.mykhailopavliuk.controller.user.urls.SmallUserUrlsController;
 import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.service.SettingsService;
@@ -33,17 +34,12 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.rgielen.fxweaver.core.FxWeaver;
-import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-@Component
-@FxmlView("/view/user/url/medium-url.fxml")
-public class UserUrlController implements Initializable {
+public abstract class UserUrlController implements Initializable {
 
     private final FxWeaver fxWeaver;
     private final SettingsService settingsService;
@@ -99,8 +95,6 @@ public class UserUrlController implements Initializable {
     @FXML
     private Circle circle4;
 
-
-    @Autowired
     public UserUrlController(FxWeaver fxWeaver, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
         this.settingsService = settingsService;
@@ -110,7 +104,23 @@ public class UserUrlController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         currentDisplayMode = settingsService.read().getDisplayMode();
         initializeStyles();
-        urlForAnalysing = fxWeaver.loadController(UserUrlsController.class).getSentUrlForViewingDetails();
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                urlForAnalysing = fxWeaver.loadController(SmallUserUrlsController.class).getSentUrlForViewingDetails();
+                break;
+
+            case MEDIUM:
+                urlForAnalysing = fxWeaver.loadController(MediumUserUrlsController.class).getSentUrlForViewingDetails();
+                break;
+
+            case LARGE:
+                urlForAnalysing = fxWeaver.loadController(LargeUserUrlsController.class).getSentUrlForViewingDetails();
+                break;
+
+            default:
+                urlForAnalysing = fxWeaver.loadController(MediumUserUrlsController.class).getSentUrlForViewingDetails();
+                break;
+        }
         userEmailLabel.setText(urlForAnalysing.getOwner().getEmail());
         idLabel.setText("Id: " + urlForAnalysing.getId());
         initializeStatistics();
@@ -245,7 +255,23 @@ public class UserUrlController implements Initializable {
     @FXML
     void goToUrlsPage(MouseEvent event) {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(UserUrlsController.class)));
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserUrlsController.class)));
+                break;
+
+            case MEDIUM:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlsController.class)));
+                break;
+
+            case LARGE:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserUrlsController.class)));
+                break;
+
+            default:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlsController.class)));
+                break;
+        }
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
