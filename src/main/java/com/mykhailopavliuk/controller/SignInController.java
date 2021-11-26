@@ -10,6 +10,7 @@ import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.MediumAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.SmallAdminOverviewController;
+import com.mykhailopavliuk.controller.user.overview.LargeUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.SmallUserOverviewController;
 import com.mykhailopavliuk.exception.DatabaseOperationException;
@@ -159,7 +160,23 @@ public class SignInController implements Initializable {
                 signedInUser = user;
                 initializeUrlAnalysisOutputFile(signedInUser);
                 Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
+                switch (settingsService.read().getScreenResolution()) {
+                    case SMALL:
+                        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserOverviewController.class)));
+                        break;
+
+                    case MEDIUM:
+                        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
+                        break;
+
+                    case LARGE:
+                        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserOverviewController.class)));
+                        break;
+
+                    default:
+                        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
+                        break;
+                }
                 stageTheEventSourceNodeBelongs.centerOnScreen();
             } else {
                 throw new EntityNotFoundException();

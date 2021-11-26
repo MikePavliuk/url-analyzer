@@ -8,7 +8,9 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.mykhailopavliuk.controller.SignInController;
+import com.mykhailopavliuk.controller.user.overview.LargeUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
+import com.mykhailopavliuk.controller.user.overview.SmallUserOverviewController;
 import com.mykhailopavliuk.controller.user.settings.UserSettingsController;
 import com.mykhailopavliuk.controller.user.url.UserUrlController;
 import com.mykhailopavliuk.dto.UrlTableRowDTO;
@@ -255,7 +257,23 @@ public class UserUrlsController implements Initializable {
     @FXML
     void goToOverviewPage(ActionEvent event) {
         Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
+        switch (settingsService.read().getScreenResolution()) {
+            case SMALL:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserOverviewController.class)));
+                break;
+
+            case MEDIUM:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
+                break;
+
+            case LARGE:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserOverviewController.class)));
+                break;
+
+            default:
+                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
+                break;
+        }
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 
