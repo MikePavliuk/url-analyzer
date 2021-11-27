@@ -11,7 +11,7 @@ public class PingStatistics {
     private int numberOfNotTimeoutResponses;
     private Duration fastestResponseTime = Duration.ofSeconds(5);
     private Duration slowestResponseTime = Duration.ofSeconds(0);
-    private Duration averageResponseTime;
+    private final Duration averageResponseTime;
 
     public PingStatistics(List<Response> responses) {
         double sumOfDurations = 0;

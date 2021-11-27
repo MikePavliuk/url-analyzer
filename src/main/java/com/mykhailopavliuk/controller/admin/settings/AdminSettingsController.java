@@ -272,7 +272,6 @@ public abstract class AdminSettingsController implements Initializable {
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminSettingsController.class)));
                 break;
         }
-        ;
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 }
