@@ -46,7 +46,6 @@ public abstract class UserOverviewController implements Initializable {
     private final SettingsService settingsService;
     private User user;
     private Map<Long, PingStatistics> pingStatisticsMap;
-    private PingStatistics globalPingStatistics;
     private Settings.DisplayMode currentDisplayMode;
 
     @FXML
@@ -224,7 +223,7 @@ public abstract class UserOverviewController implements Initializable {
             }
         }
         if (!globalResponses.isEmpty()) {
-            globalPingStatistics = new PingStatistics(globalResponses);
+            PingStatistics globalPingStatistics = new PingStatistics(globalResponses);
 
             totalNumberOfRequestsLabel.setText(String.valueOf(globalPingStatistics.getTotalNumberOfRequests()));
             slowestResponseTimeLabel.setText(globalPingStatistics.getSlowestResponseTime().toMillis() + "ms");
