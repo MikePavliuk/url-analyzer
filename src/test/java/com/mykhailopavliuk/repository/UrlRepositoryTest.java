@@ -77,55 +77,6 @@ public class UrlRepositoryTest {
     }
 
     @Test
-    public void testSaveUpdatedUrlWhileSomeoneElseUsesOldOne() {
-        when(userUrlRepository.findAllUserIdsByUrlId(anyLong())).thenReturn(new ArrayList<>() {{
-            add(1L);
-            add(2L);
-        }});
-        when(userUrlRepository.getIdByPair(any(UserUrl.class))).thenReturn(Optional.of(1L));
-        when(userUrlRepository.save(any(UserUrl.class))).thenReturn(null);
-        when(userUrlRepository.getAvailableId()).thenReturn(2L);
-        doNothing().when(userUrlRepository).deleteById(anyLong());
-
-        urlRepository.save(url1);
-
-        url1.setPath("https://newPath.com");
-
-        Url expected = urlRepository.save(url1);
-
-        assertTrue(
-                urlRepository.count() == 2 &&
-                        expected.equals(urlRepository.findById(2L).orElse(null))
-        );
-
-        verify(userUrlRepository, times(2)).findAllUserIdsByUrlId(1L);
-        verify(userUrlRepository, times(1)).getIdByPair(new UserUrl(1L, 1L));
-        verify(userUrlRepository, times(1)).deleteById(1L);
-        verify(userUrlRepository, times(1)).save(new UserUrl(2L, 1L, 2L));
-    }
-
-    @Test
-    public void testSaveUpdatedUrlWhileNoOneUsesOldOne() {
-        when(userUrlRepository.findAllUserIdsByUrlId(anyLong())).thenReturn(new ArrayList<>() {{
-            add(1L);
-        }});
-
-        urlRepository.save(url1);
-
-        url1.setPath("https://newPath.com");
-
-        Url expected = urlRepository.save(url1);
-
-        assertTrue(
-                urlRepository.count() == 1 &&
-                        expected.equals(urlRepository.findById(1L).orElse(null))
-        );
-
-        verify(userUrlRepository, times(1)).save(any(UserUrl.class));
-        verify(userUrlRepository, times(1)).findAllUserIdsByUrlId(1L);
-    }
-
-    @Test
     public void testSaveAllUrls() {
         List<Url> urls = new ArrayList<>();
         urls.add(url1);
