@@ -142,9 +142,9 @@ public class UserServiceTest {
 
     @Test
     public void testGetAvailableId() {
-        when(userRepository.getAvailableId()).thenReturn(expected.getId()+1);
+        when(userRepository.getAvailableId()).thenReturn(expected.getId() + 1);
 
-        assertEquals(expected.getId()+1, userService.getAvailableId());
+        assertEquals(expected.getId() + 1, userService.getAvailableId());
         verify(userRepository, times(1)).getAvailableId();
     }
 

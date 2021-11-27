@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @Import(TestConfig.class)
-@ActiveProfiles({ "test" })
+@ActiveProfiles({"test"})
 public class SettingsRepositoryTest {
 
     @Autowired

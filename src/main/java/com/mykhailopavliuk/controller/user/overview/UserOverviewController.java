@@ -42,9 +42,9 @@ import java.net.URL;
 import java.util.*;
 
 public abstract class UserOverviewController implements Initializable {
-    private User user;
     private final FxWeaver fxWeaver;
     private final SettingsService settingsService;
+    private User user;
     private Map<Long, PingStatistics> pingStatisticsMap;
     private PingStatistics globalPingStatistics;
     private Settings.DisplayMode currentDisplayMode;
@@ -164,7 +164,7 @@ public abstract class UserOverviewController implements Initializable {
     void exportStatistics(ActionEvent event) {
         exportButton.setDisable(true);
         List<PingStatistics> pingStatisticsList = new ArrayList<>();
-        pingStatisticsMap.forEach((key,value) -> {
+        pingStatisticsMap.forEach((key, value) -> {
             if (value != null) {
                 pingStatisticsList.add(value);
             }
@@ -253,7 +253,7 @@ public abstract class UserOverviewController implements Initializable {
         seriesFast.setName("Fastest");
         seriesAverage.setName("Average");
 
-        pingStatisticsMap.forEach((key,value) -> {
+        pingStatisticsMap.forEach((key, value) -> {
             if (value != null) {
                 seriesSlow.getData().add(new XYChart.Data<>(String.valueOf(key), value.getSlowestResponseTime().toMillis()));
                 seriesFast.getData().add(new XYChart.Data<>(String.valueOf(key), value.getFastestResponseTime().toMillis()));

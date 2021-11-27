@@ -104,14 +104,14 @@ public abstract class UserUrlsController implements Initializable {
     @FXML
     private StackPane mainWindow;
 
-    public Url getSentUrlForViewingDetails() {
-        return sentUrlForViewingDetails;
-    }
-
     public UserUrlsController(FxWeaver fxWeaver, UrlService urlService, SettingsService settingsService) {
         this.fxWeaver = fxWeaver;
         this.urlService = urlService;
         this.settingsService = settingsService;
+    }
+
+    public Url getSentUrlForViewingDetails() {
+        return sentUrlForViewingDetails;
     }
 
     @Override
@@ -186,7 +186,7 @@ public abstract class UserUrlsController implements Initializable {
                                     btn.setRipplerFill(Color.web(currentDisplayMode.getPrimaryColor()));
                                     btn.setOnAction(event -> {
                                         sentUrlForViewingDetails = UrlTransformer.convertToEntity(getTableRow().getItem(), user);
-                                        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                                        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                         switch (settingsService.read().getScreenResolution()) {
                                             case SMALL:
                                                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserUrlController.class)));
@@ -433,8 +433,8 @@ public abstract class UserUrlsController implements Initializable {
     @FXML
     void onResponseTimeButtonClick(ActionEvent event) {
         if (!UrlHandler.isIsAnalysingResponseTimes()) {
-            ((Button)event.getSource()).setText("Stop response time analysis");
-            ((Button)event.getSource()).setStyle("-fx-background-color: #f44336;");
+            ((Button) event.getSource()).setText("Stop response time analysis");
+            ((Button) event.getSource()).setStyle("-fx-background-color: #f44336;");
 
             setEditTableButtonsDisability(true);
             try {
@@ -451,8 +451,8 @@ public abstract class UserUrlsController implements Initializable {
                 );
             }
         } else {
-            ((Button)event.getSource()).setText("Start response time analysis");
-            ((Button)event.getSource()).setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
+            ((Button) event.getSource()).setText("Start response time analysis");
+            ((Button) event.getSource()).setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
 
             setEditTableButtonsDisability(false);
             UrlHandler.stopUrlAnalysis();

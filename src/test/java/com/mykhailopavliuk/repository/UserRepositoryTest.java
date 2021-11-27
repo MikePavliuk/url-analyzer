@@ -22,7 +22,7 @@ import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @Import(TestConfig.class)
-@ActiveProfiles({ "test" })
+@ActiveProfiles({"test"})
 public class UserRepositoryTest {
 
     @Autowired
@@ -115,7 +115,7 @@ public class UserRepositoryTest {
         assertTrue(
                 3 == userRepository.count() &&
                         user1.equals(userRepository.findByEmail("user1updated@gmail.com").orElse(null))
-                );
+        );
     }
 
     @Test

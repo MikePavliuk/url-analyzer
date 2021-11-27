@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
-public class PingTask implements Runnable{
+public class PingTask implements Runnable {
     private final List<Url> urls;
     private final Path outputPath;
 
@@ -34,7 +34,8 @@ public class PingTask implements Runnable{
                 Response response = null;
                 try {
                     response = future.get(UrlHandler.getTimeoutInSeconds(), TimeUnit.SECONDS);
-                } catch (TimeoutException | InterruptedException | ExecutionException ignored) {}
+                } catch (TimeoutException | InterruptedException | ExecutionException ignored) {
+                }
                 if (response != null) {
                     writer.write(response + System.lineSeparator());
                 }

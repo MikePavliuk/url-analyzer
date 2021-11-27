@@ -1,4 +1,5 @@
 package com.mykhailopavliuk;
+
 import com.dustinredmond.fxtrayicon.FXTrayIcon;
 import com.mykhailopavliuk.controller.SignInController;
 import javafx.application.Application;
@@ -52,7 +53,7 @@ public class UrlAnalyzerApplication extends Application {
                         "Show", e -> primaryStage.toFront()
                 )
                 .menuItem(
-                        "Exit", e ->  {
+                        "Exit", e -> {
                             this.context.close();
                             Platform.exit();
                             System.exit(0);

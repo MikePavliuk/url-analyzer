@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Import(TestConfig.class)
-@ActiveProfiles({ "test" })
+@ActiveProfiles({"test"})
 public class UserUrlRepositoryTest {
 
     @Autowired
@@ -232,6 +232,7 @@ public class UserUrlRepositoryTest {
 
         assertEquals(11L, userUrlRepository.getIdByPair(new UserUrl(2, 2)).orElse(0L));
     }
+
     @Test
     public void testGetIdByPairNotExisted() {
         userUrlRepository.save(userUrl1);

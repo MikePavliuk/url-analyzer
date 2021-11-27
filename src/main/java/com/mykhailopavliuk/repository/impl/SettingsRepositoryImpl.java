@@ -43,6 +43,13 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         this.settingsSchemaPath = settingsSchemaPath;
     }
 
+    private static SAXParser createSaxParser() throws ParserConfigurationException, SAXException {
+        SAXParser saxParser;
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        saxParser = factory.newSAXParser();
+        return saxParser;
+    }
+
     @Override
     public Settings save(Settings settings) {
         JAXBContext contextObj;
@@ -101,13 +108,6 @@ public class SettingsRepositoryImpl implements SettingsRepository {
         } catch (IOException e) {
             throw new SettingsException("Exception has occurred while creating default " + settingsPath.getFileName() + " file");
         }
-    }
-
-    private static SAXParser createSaxParser() throws ParserConfigurationException, SAXException {
-        SAXParser saxParser;
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        saxParser = factory.newSAXParser();
-        return saxParser;
     }
 
     private Settings parseSetting(Path fileXML) {

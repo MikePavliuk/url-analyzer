@@ -8,270 +8,340 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mykhailopavliuk.controller.user.url.SmallUserUrlController">
-   <children>
-      <BorderPane prefHeight="480.0" prefWidth="636.0">
-         <left>
-            <Pane fx:id="sidebarPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="117.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../assets/user.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="userEmailLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="79.0" prefHeight="20.0" prefWidth="117.0" text="user@gmail.com" textFill="WHITE">
-                     <font>
-                        <Font size="8.0" />
-                     </font>
-                  </Label>
-                  <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="160.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage" prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../../../assets/icons8-website_statistics.png" />
-                           </image>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/15.0.1"
+            fx:controller="com.mykhailopavliuk.controller.user.url.SmallUserUrlController">
+    <children>
+        <BorderPane prefHeight="480.0" prefWidth="636.0">
+            <left>
+                <Pane fx:id="sidebarPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0"
+                      prefWidth="117.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../../../assets/user.png"/>
+                            </image>
                         </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="urlsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="215.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToUrlsPage" prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../../../assets/icons8-website.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="270.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../../../assets/icons8-package_settings.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="406.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../../../assets/icons8-exit.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-               </children>
-            </Pane>
-         </left>
-         <center>
-            <StackPane maxWidth="-Infinity" prefHeight="480.0" prefWidth="426.0" style="-fx-background-color: #cedef7;" BorderPane.alignment="CENTER">
-               <children>
-                  <BorderPane prefHeight="480.0" prefWidth="690.0">
-                     <top>
-                        <Pane fx:id="topPane" prefHeight="46.0" prefWidth="523.0" style="-fx-background-color: #3bc967;" BorderPane.alignment="CENTER">
-                           <children>
-                              <Label fx:id="idLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="-1.0" prefHeight="43.0" prefWidth="523.0" text="Id:  1" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                 <font>
-                                    <Font name="Arial Black" size="18.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="14.0" layoutY="1.0" onMouseClicked="#goToUrlsPage">
-                                 <image>
-                                    <Image url="@../../../assets/icons8-go_back.png" />
-                                 </image>
-                              </ImageView>
-                              <JFXButton fx:id="refreshButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutX="387.0" layoutY="6.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#refreshStatistics" prefHeight="30.0" prefWidth="120.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Refresh" textAlignment="CENTER" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0">
-                                       <image>
-                                          <Image url="@../../../assets/icons8-sync.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </JFXButton>
-                           </children>
-                        </Pane>
-                     </top>
-                     <center>
-                        <BorderPane fx:id="mainWindow" prefHeight="367.0" prefWidth="608.0" BorderPane.alignment="CENTER">
-                           <top>
-                              <Pane prefHeight="118.0" prefWidth="523.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <Pane fx:id="totalCard" layoutY="10.0" prefHeight="100.0" prefWidth="130.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
-                                       <children>
-                                          <Circle fx:id="circle1" layoutX="65.0" layoutY="33.0" radius="20.0" strokeType="INSIDE">
-                                             <stroke>
-                                                <LinearGradient endX="1.0" endY="1.0">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </stroke>
-                                             <fill>
-                                                <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                                   <stops>
-                                                      <Stop color="#03b5fc" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </fill>
-                                          </Circle>
-                                          <Label alignment="CENTER" layoutX="1.0" layoutY="53.0" prefHeight="17.0" prefWidth="128.0" text="Total number of requests" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="11.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="50.0" layoutY="18.0">
-                                             <image>
-                                                <Image url="@../../../assets/icons8-numbers.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label fx:id="totalNumberOfRequestsLabel" alignment="CENTER" layoutX="-1.0" layoutY="72.0" prefHeight="27.0" prefWidth="130.0" text="100" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                             <font>
-                                                <Font name="Arial Black" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </Pane>
-                                    <Pane fx:id="slowestCard" layoutX="131.0" layoutY="10.0" prefHeight="100.0" prefWidth="130.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
-                                       <children>
-                                          <Circle fx:id="circle2" layoutX="64.0" layoutY="33.0" radius="20.0" strokeType="INSIDE">
-                                             <stroke>
-                                                <LinearGradient endX="1.0" endY="1.0">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </stroke>
-                                             <fill>
-                                                <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                                   <stops>
-                                                      <Stop color="#03b5fc" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </fill>
-                                          </Circle>
-                                          <Label alignment="CENTER" layoutY="53.0" prefHeight="17.0" prefWidth="129.0" text="Slowest response time" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="11.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="50.0" layoutY="18.0">
-                                             <image>
-                                                <Image url="@../../../assets/icons8-slow_download.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label fx:id="slowestResponseTimeLabel" alignment="CENTER" layoutY="72.0" prefHeight="27.0" prefWidth="131.0" text="100s" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                             <font>
-                                                <Font name="Arial Black" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </Pane>
-                                    <Pane fx:id="fastestCard" layoutX="263.0" layoutY="11.0" prefHeight="100.0" prefWidth="130.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
-                                       <children>
-                                          <Circle fx:id="circle3" layoutX="66.0" layoutY="36.0" radius="20.0" strokeType="INSIDE">
-                                             <stroke>
-                                                <LinearGradient endX="1.0" endY="1.0">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </stroke>
-                                             <fill>
-                                                <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                                   <stops>
-                                                      <Stop color="#03b5fc" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </fill>
-                                          </Circle>
-                                          <Label alignment="CENTER" layoutY="53.0" prefHeight="17.0" prefWidth="130.0" text="Fastest response time" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="11.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="51.0" layoutY="21.0">
-                                             <image>
-                                                <Image url="@../../../assets/icons8-fast_download.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label fx:id="fastestResponseTimeLabel" alignment="CENTER" layoutY="67.0" prefHeight="37.0" prefWidth="130.0" text="100s" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                             <font>
-                                                <Font name="Arial Black" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </Pane>
-                                    <Pane fx:id="averageCard" layoutX="394.0" layoutY="12.0" prefHeight="100.0" prefWidth="130.0" style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
-                                       <children>
-                                          <Circle fx:id="circle4" layoutX="66.0" layoutY="33.0" radius="20.0" strokeType="INSIDE">
-                                             <stroke>
-                                                <LinearGradient endX="1.0" endY="1.0">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </stroke>
-                                             <fill>
-                                                <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                                   <stops>
-                                                      <Stop color="#03b5fc" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </LinearGradient>
-                                             </fill>
-                                          </Circle>
-                                          <Label alignment="CENTER" layoutY="53.0" prefHeight="17.0" prefWidth="130.0" text="Average response time" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="11.0" />
-                                             </font>
-                                          </Label>
-                                          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="51.0" layoutY="18.0">
-                                             <image>
-                                                <Image url="@../../../assets/icons8-bell_curve.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Label fx:id="averageResponseTimeLabel" alignment="CENTER" layoutY="67.0" prefHeight="37.0" prefWidth="131.0" text="100s" textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                             <font>
-                                                <Font name="Arial Black" size="18.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </Pane>
-                           </top>
-                           <left>
-                              <PieChart fx:id="pieChart" prefHeight="162.0" prefWidth="523.0" BorderPane.alignment="CENTER" />
-                           </left>
+                        <Label fx:id="userEmailLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0"
+                               layoutY="79.0" prefHeight="20.0" prefWidth="117.0" text="user@gmail.com"
+                               textFill="WHITE">
+                            <font>
+                                <Font size="8.0"/>
+                            </font>
+                        </Label>
+                        <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
+                                   layoutY="160.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage"
+                                   prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7"
+                                   style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
+                                    <image>
+                                        <Image url="@../../../assets/icons8-website_statistics.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="urlsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
+                                   layoutY="215.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToUrlsPage"
+                                   prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7"
+                                   style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
+                                    <image>
+                                        <Image url="@../../../assets/icons8-website.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
+                                   layoutY="270.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage"
+                                   prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7"
+                                   style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
+                                    <image>
+                                        <Image url="@../../../assets/icons8-package_settings.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
+                                   layoutY="406.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="45.0"
+                                   prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;"
+                                   textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
+                                    <image>
+                                        <Image url="@../../../assets/icons8-exit.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                    </children>
+                </Pane>
+            </left>
+            <center>
+                <StackPane maxWidth="-Infinity" prefHeight="480.0" prefWidth="426.0"
+                           style="-fx-background-color: #cedef7;" BorderPane.alignment="CENTER">
+                    <children>
+                        <BorderPane prefHeight="480.0" prefWidth="690.0">
+                            <top>
+                                <Pane fx:id="topPane" prefHeight="46.0" prefWidth="523.0"
+                                      style="-fx-background-color: #3bc967;" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <Label fx:id="idLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="-1.0"
+                                               prefHeight="43.0" prefWidth="523.0" text="Id:  1" textAlignment="CENTER"
+                                               textFill="WHITE" wrapText="true">
+                                            <font>
+                                                <Font name="Arial Black" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="14.0" layoutY="1.0"
+                                                   onMouseClicked="#goToUrlsPage">
+                                            <image>
+                                                <Image url="@../../../assets/icons8-go_back.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <JFXButton fx:id="refreshButton" alignment="CENTER" buttonType="RAISED"
+                                                   graphicTextGap="5.0" layoutX="387.0" layoutY="6.0"
+                                                   minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT"
+                                                   onAction="#refreshStatistics" prefHeight="30.0" prefWidth="120.0"
+                                                   ripplerFill="#cedef7" style="-fx-background-color: #4883db;"
+                                                   text="Refresh" textAlignment="CENTER" textFill="WHITE">
+                                            <font>
+                                                <Font size="14.0"/>
+                                            </font>
+                                            <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="25.0">
+                                                    <image>
+                                                        <Image url="@../../../assets/icons8-sync.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </JFXButton>
+                                    </children>
+                                </Pane>
+                            </top>
+                            <center>
+                                <BorderPane fx:id="mainWindow" prefHeight="367.0" prefWidth="608.0"
+                                            BorderPane.alignment="CENTER">
+                                    <top>
+                                        <Pane prefHeight="118.0" prefWidth="523.0" BorderPane.alignment="CENTER">
+                                            <children>
+                                                <Pane fx:id="totalCard" layoutY="10.0" prefHeight="100.0"
+                                                      prefWidth="130.0"
+                                                      style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
+                                                    <children>
+                                                        <Circle fx:id="circle1" layoutX="65.0" layoutY="33.0"
+                                                                radius="20.0" strokeType="INSIDE">
+                                                            <stroke>
+                                                                <LinearGradient endX="1.0" endY="1.0">
+                                                                    <stops>
+                                                                        <Stop color="BLACK"/>
+                                                                        <Stop color="WHITE" offset="1.0"/>
+                                                                    </stops>
+                                                                </LinearGradient>
+                                                            </stroke>
+                                                            <fill>
+                                                                <LinearGradient endX="1.0" endY="1.0"
+                                                                                startY="0.4952380952380952">
+                                                                    <stops>
+                                                                        <Stop color="#03b5fc"/>
+                                                                        <Stop color="WHITE" offset="1.0"/>
+                                                                    </stops>
+                                                                </LinearGradient>
+                                                            </fill>
+                                                        </Circle>
+                                                        <Label alignment="CENTER" layoutX="1.0" layoutY="53.0"
+                                                               prefHeight="17.0" prefWidth="128.0"
+                                                               text="Total number of requests" textFill="WHITE">
+                                                            <font>
+                                                                <Font name="System Bold" size="11.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="50.0"
+                                                                   layoutY="18.0">
+                                                            <image>
+                                                                <Image url="@../../../assets/icons8-numbers.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label fx:id="totalNumberOfRequestsLabel" alignment="CENTER"
+                                                               layoutX="-1.0" layoutY="72.0" prefHeight="27.0"
+                                                               prefWidth="130.0" text="100" textAlignment="CENTER"
+                                                               textFill="WHITE" wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Black" size="18.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </Pane>
+                                                <Pane fx:id="slowestCard" layoutX="131.0" layoutY="10.0"
+                                                      prefHeight="100.0" prefWidth="130.0"
+                                                      style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
+                                                    <children>
+                                                        <Circle fx:id="circle2" layoutX="64.0" layoutY="33.0"
+                                                                radius="20.0" strokeType="INSIDE">
+                                                            <stroke>
+                                                                <LinearGradient endX="1.0" endY="1.0">
+                                                                    <stops>
+                                                                        <Stop color="BLACK"/>
+                                                                        <Stop color="WHITE" offset="1.0"/>
+                                                                    </stops>
+                                                                </LinearGradient>
+                                                            </stroke>
+                                                            <fill>
+                                                                <LinearGradient endX="1.0" endY="1.0"
+                                                                                startY="0.4952380952380952">
+                                                                    <stops>
+                                                                        <Stop color="#03b5fc"/>
+                                                                        <Stop color="WHITE" offset="1.0"/>
+                                                                    </stops>
+                                                                </LinearGradient>
+                                                            </fill>
+                                                        </Circle>
+                                                        <Label alignment="CENTER" layoutY="53.0" prefHeight="17.0"
+                                                               prefWidth="129.0" text="Slowest response time"
+                                                               textFill="WHITE">
+                                                            <font>
+                                                                <Font name="System Bold" size="11.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="50.0"
+                                                                   layoutY="18.0">
+                                                            <image>
+                                                                <Image url="@../../../assets/icons8-slow_download.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label fx:id="slowestResponseTimeLabel" alignment="CENTER"
+                                                               layoutY="72.0" prefHeight="27.0" prefWidth="131.0"
+                                                               text="100s" textAlignment="CENTER" textFill="WHITE"
+                                                               wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Black" size="18.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </Pane>
+                                                <Pane fx:id="fastestCard" layoutX="263.0" layoutY="11.0"
+                                                      prefHeight="100.0" prefWidth="130.0"
+                                                      style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
+                                                    <children>
+                                                        <Circle fx:id="circle3" layoutX="66.0" layoutY="36.0"
+                                                                radius="20.0" strokeType="INSIDE">
+                                                            <stroke>
+                                                                <LinearGradient endX="1.0" endY="1.0">
+                                                                    <stops>
+                                                                        <Stop color="BLACK"/>
+                                                                        <Stop color="WHITE" offset="1.0"/>
+                                                                    </stops>
+                                                                </LinearGradient>
+                                                            </stroke>
+                                                            <fill>
+                                                                <LinearGradient endX="1.0" endY="1.0"
+                                                                                startY="0.4952380952380952">
+                                                                    <stops>
+                                                                        <Stop color="#03b5fc"/>
+                                                                        <Stop color="WHITE" offset="1.0"/>
+                                                                    </stops>
+                                                                </LinearGradient>
+                                                            </fill>
+                                                        </Circle>
+                                                        <Label alignment="CENTER" layoutY="53.0" prefHeight="17.0"
+                                                               prefWidth="130.0" text="Fastest response time"
+                                                               textFill="WHITE">
+                                                            <font>
+                                                                <Font name="System Bold" size="11.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="51.0"
+                                                                   layoutY="21.0">
+                                                            <image>
+                                                                <Image url="@../../../assets/icons8-fast_download.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label fx:id="fastestResponseTimeLabel" alignment="CENTER"
+                                                               layoutY="67.0" prefHeight="37.0" prefWidth="130.0"
+                                                               text="100s" textAlignment="CENTER" textFill="WHITE"
+                                                               wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Black" size="18.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </Pane>
+                                                <Pane fx:id="averageCard" layoutX="394.0" layoutY="12.0"
+                                                      prefHeight="100.0" prefWidth="130.0"
+                                                      style="-fx-background-color: #4883db; -fx-background-radius: 20px;">
+                                                    <children>
+                                                        <Circle fx:id="circle4" layoutX="66.0" layoutY="33.0"
+                                                                radius="20.0" strokeType="INSIDE">
+                                                            <stroke>
+                                                                <LinearGradient endX="1.0" endY="1.0">
+                                                                    <stops>
+                                                                        <Stop color="BLACK"/>
+                                                                        <Stop color="WHITE" offset="1.0"/>
+                                                                    </stops>
+                                                                </LinearGradient>
+                                                            </stroke>
+                                                            <fill>
+                                                                <LinearGradient endX="1.0" endY="1.0"
+                                                                                startY="0.4952380952380952">
+                                                                    <stops>
+                                                                        <Stop color="#03b5fc"/>
+                                                                        <Stop color="WHITE" offset="1.0"/>
+                                                                    </stops>
+                                                                </LinearGradient>
+                                                            </fill>
+                                                        </Circle>
+                                                        <Label alignment="CENTER" layoutY="53.0" prefHeight="17.0"
+                                                               prefWidth="130.0" text="Average response time"
+                                                               textFill="WHITE">
+                                                            <font>
+                                                                <Font name="System Bold" size="11.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="51.0"
+                                                                   layoutY="18.0">
+                                                            <image>
+                                                                <Image url="@../../../assets/icons8-bell_curve.png"/>
+                                                            </image>
+                                                        </ImageView>
+                                                        <Label fx:id="averageResponseTimeLabel" alignment="CENTER"
+                                                               layoutY="67.0" prefHeight="37.0" prefWidth="131.0"
+                                                               text="100s" textAlignment="CENTER" textFill="WHITE"
+                                                               wrapText="true">
+                                                            <font>
+                                                                <Font name="Arial Black" size="18.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </Pane>
+                                            </children>
+                                        </Pane>
+                                    </top>
+                                    <left>
+                                        <PieChart fx:id="pieChart" prefHeight="162.0" prefWidth="523.0"
+                                                  BorderPane.alignment="CENTER"/>
+                                    </left>
+                                </BorderPane>
+                            </center>
                         </BorderPane>
-                     </center>
-                  </BorderPane>
-               </children>
-            </StackPane>
-         </center>
-      </BorderPane>
-   </children>
+                    </children>
+                </StackPane>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>

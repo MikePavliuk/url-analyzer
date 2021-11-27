@@ -5,121 +5,165 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mykhailopavliuk.controller.user.urls.SmallUserUrlsController">
-   <children>
-      <BorderPane prefHeight="480.0" prefWidth="640.0">
-         <left>
-            <Pane fx:id="sidebarPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="117.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../assets/user.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="userEmailLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="79.0" prefHeight="20.0" prefWidth="117.0" text="user@gmail.com" textFill="WHITE">
-                     <font>
-                        <Font size="8.0" />
-                     </font>
-                  </Label>
-                  <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="160.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage" prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../../../assets/icons8-website_statistics.png" />
-                           </image>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/15.0.1"
+            fx:controller="com.mykhailopavliuk.controller.user.urls.SmallUserUrlsController">
+    <children>
+        <BorderPane prefHeight="480.0" prefWidth="640.0">
+            <left>
+                <Pane fx:id="sidebarPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0"
+                      prefWidth="117.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
+                    <children>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="28.0" layoutY="17.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../../../assets/user.png"/>
+                            </image>
                         </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="urlsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0" layoutY="215.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../../../assets/icons8-website.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="270.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage" prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../../../assets/icons8-package_settings.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0" layoutY="406.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
-                           <image>
-                              <Image url="@../../../assets/icons8-exit.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-               </children>
-            </Pane>
-         </left>
-         <center>
-            <StackPane fx:id="mainWindow" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #cedef7;" BorderPane.alignment="CENTER">
-               <children>
-                  <BorderPane prefHeight="608.0" prefWidth="744.0">
-                     <top>
-                        <Pane prefHeight="127.0" prefWidth="523.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <JFXTextField fx:id="inputPath" focusColor="#4883db" labelFloat="true" layoutX="14.0" layoutY="20.0" prefHeight="29.0" prefWidth="498.0" promptText="Url path">
-                                 <font>
-                                    <Font size="12.0" />
-                                 </font>
-                              </JFXTextField>
-                              <JFXButton fx:id="saveNewPathButton" buttonType="RAISED" layoutX="414.0" layoutY="54.0" onAction="#addPath" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #4883db;" text="Save new path" textFill="WHITE" />
-                              <Label fx:id="pathValidationLabel" layoutX="14.0" layoutY="52.0" prefHeight="17.0" prefWidth="201.0" text="Url is not valid" textFill="#fc5b5b" />
-                              <JFXButton fx:id="refreshTableButton" buttonType="RAISED" layoutX="361.0" layoutY="90.0" onAction="#refreshTable" prefHeight="30.0" prefWidth="156.0" style="-fx-background-color: #3bc967;" text="Refresh table" textFill="WHITE">
-                                 <graphic>
-                                    <ImageView fitHeight="20.0" fitWidth="20.0">
-                                       <image>
-                                          <Image url="@../../../assets/icons8-sync.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </JFXButton>
-                              <JFXButton fx:id="responseTimeButton" buttonType="RAISED" layoutX="12.0" layoutY="90.0" onAction="#onResponseTimeButtonClick" prefHeight="30.0" prefWidth="186.0" style="-fx-background-color: #4883db;" text="Start response time analysis" textFill="WHITE" />
-                           </children>
-                        </Pane>
-                     </top>
-                     <center>
-                        <JFXTreeTableView fx:id="urlsTableView" editable="true" prefHeight="545.0" prefWidth="744.0" showRoot="false" stylesheets="@../../../css/tree-table-view.css" BorderPane.alignment="CENTER">
-                           <columns>
-                              <TreeTableColumn fx:id="idColumn" editable="false" prefWidth="52.81831359863281" text="Id" />
-                              <TreeTableColumn fx:id="pathColumn" editable="false" prefWidth="314.2986297607422" text="Path" />
-                              <TreeTableColumn fx:id="detailsColumn" editable="false" prefWidth="62.837646484375" sortable="false" text="Details" />
-                              <TreeTableColumn fx:id="deleteColumn" editable="false" prefWidth="57.662353515625" sortable="false" text="Delete" />
-                           </columns>
-                        </JFXTreeTableView>
-                     </center>
-                     <bottom>
-                        <Pane prefHeight="50.0" prefWidth="523.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <JFXButton fx:id="saveEditChangesButton" buttonType="RAISED" layoutX="3.0" layoutY="10.0" onAction="#saveChanges" prefHeight="32.0" prefWidth="518.0" ripplerFill="#2e6b37" style="-fx-background-color: #3bc967;" text="Save Edit Changes" textFill="WHITE" />
-                           </children>
-                        </Pane>
-                     </bottom>
-                  </BorderPane>
-               </children>
-            </StackPane>
-         </center>
-      </BorderPane>
-   </children>
+                        <Label fx:id="userEmailLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0"
+                               layoutY="79.0" prefHeight="20.0" prefWidth="117.0" text="user@gmail.com"
+                               textFill="WHITE">
+                            <font>
+                                <Font size="8.0"/>
+                            </font>
+                        </Label>
+                        <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
+                                   layoutY="160.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage"
+                                   prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7"
+                                   style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
+                                    <image>
+                                        <Image url="@../../../assets/icons8-website_statistics.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="urlsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
+                                   layoutY="215.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="117.0"
+                                   ripplerFill="#cedef7" style="-fx-background-color: #4883db;" textAlignment="CENTER"
+                                   textFill="WHITE">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
+                                    <image>
+                                        <Image url="@../../../assets/icons8-website.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
+                                   layoutY="270.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage"
+                                   prefHeight="45.0" prefWidth="117.0" ripplerFill="#cedef7"
+                                   style="-fx-background-color: #4883db;" textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
+                                    <image>
+                                        <Image url="@../../../assets/icons8-package_settings.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
+                                   layoutY="406.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="45.0"
+                                   prefWidth="117.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;"
+                                   textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
+                                    <image>
+                                        <Image url="@../../../assets/icons8-exit.png"/>
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </JFXButton>
+                    </children>
+                </Pane>
+            </left>
+            <center>
+                <StackPane fx:id="mainWindow" prefHeight="150.0" prefWidth="200.0"
+                           style="-fx-background-color: #cedef7;" BorderPane.alignment="CENTER">
+                    <children>
+                        <BorderPane prefHeight="608.0" prefWidth="744.0">
+                            <top>
+                                <Pane prefHeight="127.0" prefWidth="523.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <JFXTextField fx:id="inputPath" focusColor="#4883db" labelFloat="true"
+                                                      layoutX="14.0" layoutY="20.0" prefHeight="29.0" prefWidth="498.0"
+                                                      promptText="Url path">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </JFXTextField>
+                                        <JFXButton fx:id="saveNewPathButton" buttonType="RAISED" layoutX="414.0"
+                                                   layoutY="54.0" onAction="#addPath" prefHeight="30.0"
+                                                   prefWidth="100.0" style="-fx-background-color: #4883db;"
+                                                   text="Save new path" textFill="WHITE"/>
+                                        <Label fx:id="pathValidationLabel" layoutX="14.0" layoutY="52.0"
+                                               prefHeight="17.0" prefWidth="201.0" text="Url is not valid"
+                                               textFill="#fc5b5b"/>
+                                        <JFXButton fx:id="refreshTableButton" buttonType="RAISED" layoutX="361.0"
+                                                   layoutY="90.0" onAction="#refreshTable" prefHeight="30.0"
+                                                   prefWidth="156.0" style="-fx-background-color: #3bc967;"
+                                                   text="Refresh table" textFill="WHITE">
+                                            <graphic>
+                                                <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                    <image>
+                                                        <Image url="@../../../assets/icons8-sync.png"/>
+                                                    </image>
+                                                </ImageView>
+                                            </graphic>
+                                        </JFXButton>
+                                        <JFXButton fx:id="responseTimeButton" buttonType="RAISED" layoutX="12.0"
+                                                   layoutY="90.0" onAction="#onResponseTimeButtonClick"
+                                                   prefHeight="30.0" prefWidth="186.0"
+                                                   style="-fx-background-color: #4883db;"
+                                                   text="Start response time analysis" textFill="WHITE"/>
+                                    </children>
+                                </Pane>
+                            </top>
+                            <center>
+                                <JFXTreeTableView fx:id="urlsTableView" editable="true" prefHeight="545.0"
+                                                  prefWidth="744.0" showRoot="false"
+                                                  stylesheets="@../../../css/tree-table-view.css"
+                                                  BorderPane.alignment="CENTER">
+                                    <columns>
+                                        <TreeTableColumn fx:id="idColumn" editable="false" prefWidth="52.81831359863281"
+                                                         text="Id"/>
+                                        <TreeTableColumn fx:id="pathColumn" editable="false"
+                                                         prefWidth="314.2986297607422" text="Path"/>
+                                        <TreeTableColumn fx:id="detailsColumn" editable="false"
+                                                         prefWidth="62.837646484375" sortable="false" text="Details"/>
+                                        <TreeTableColumn fx:id="deleteColumn" editable="false"
+                                                         prefWidth="57.662353515625" sortable="false" text="Delete"/>
+                                    </columns>
+                                </JFXTreeTableView>
+                            </center>
+                            <bottom>
+                                <Pane prefHeight="50.0" prefWidth="523.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <JFXButton fx:id="saveEditChangesButton" buttonType="RAISED" layoutX="3.0"
+                                                   layoutY="10.0" onAction="#saveChanges" prefHeight="32.0"
+                                                   prefWidth="518.0" ripplerFill="#2e6b37"
+                                                   style="-fx-background-color: #3bc967;" text="Save Edit Changes"
+                                                   textFill="WHITE"/>
+                                    </children>
+                                </Pane>
+                            </bottom>
+                        </BorderPane>
+                    </children>
+                </StackPane>
+            </center>
+        </BorderPane>
+    </children>
 </AnchorPane>

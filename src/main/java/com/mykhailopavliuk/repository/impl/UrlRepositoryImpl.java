@@ -157,7 +157,7 @@ public class UrlRepositoryImpl implements UrlRepository {
     public long count() {
         long count = 0;
 
-        try(var reader = Files.newBufferedReader(urlsDatabase)) {
+        try (var reader = Files.newBufferedReader(urlsDatabase)) {
             while (reader.readLine() != null) {
                 count++;
             }

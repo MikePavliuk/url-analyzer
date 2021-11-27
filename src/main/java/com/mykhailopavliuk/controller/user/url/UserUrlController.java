@@ -191,7 +191,7 @@ public abstract class UserUrlController implements Initializable {
         PieChart.Data slice2;
         if (!responses.isEmpty()) {
             slice1 = new PieChart.Data(
-                    "Correct responses"  ,
+                    "Correct responses",
                     pingStatistics.getTotalNumberOfRequests() - pingStatistics.getNumberOfNotTimeoutResponses());
             slice2 = new PieChart.Data(
                     "Timeout responses",

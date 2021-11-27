@@ -16,7 +16,7 @@ public class PathAdapter extends XmlAdapter<String, Path> {
 
     @Override
     public String marshal(Path v) {
-        if (v==null) return null;
+        if (v == null) return null;
         return v.toString();
     }
 }

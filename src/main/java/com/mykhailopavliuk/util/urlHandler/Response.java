@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Response {
+    public static final String SEPARATOR = ";";
     private final Url url;
     private LocalDateTime startTime;
     private Duration duration;
-    public static final String SEPARATOR = ";";
 
     public Response(Url url) {
         this.url = url;
@@ -69,7 +69,7 @@ public class Response {
 
     @Override
     public String toString() {
-        return  url.getId() + SEPARATOR +
+        return url.getId() + SEPARATOR +
                 url.getPath() + SEPARATOR +
                 startTime + SEPARATOR +
                 (duration == null ? "-" : duration.toString());

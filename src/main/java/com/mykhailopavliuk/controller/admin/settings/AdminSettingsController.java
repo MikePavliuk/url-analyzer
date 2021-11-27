@@ -89,7 +89,7 @@ public abstract class AdminSettingsController implements Initializable {
 
         isWasEdit = false;
 
-        for (Settings.DisplayMode displayMode: Settings.DisplayMode.values()) {
+        for (Settings.DisplayMode displayMode : Settings.DisplayMode.values()) {
             displayModeComboBox.getItems().add(displayMode);
         }
 
@@ -100,7 +100,7 @@ public abstract class AdminSettingsController implements Initializable {
         });
 
 
-        for (Settings.ScreenResolution screenResolution: Settings.ScreenResolution.values()) {
+        for (Settings.ScreenResolution screenResolution : Settings.ScreenResolution.values()) {
             screenResolutionComboBox.getItems().add(screenResolution);
         }
 
@@ -224,7 +224,7 @@ public abstract class AdminSettingsController implements Initializable {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setInitialDirectory(settingsService.read().getExportDirectory().toFile());
         File directory = directoryChooser.showDialog(exportDirectoryTextField.getScene().getWindow());
-        if (directory != null && !directory.getAbsolutePath().equals(oldValue)){
+        if (directory != null && !directory.getAbsolutePath().equals(oldValue)) {
             if (!directory.getAbsolutePath().equals(oldValue)) {
                 exportDirectoryTextField.setText(directory.getAbsolutePath());
                 isWasEdit = true;
@@ -271,7 +271,8 @@ public abstract class AdminSettingsController implements Initializable {
             default:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminSettingsController.class)));
                 break;
-        };
+        }
+        ;
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }
 }

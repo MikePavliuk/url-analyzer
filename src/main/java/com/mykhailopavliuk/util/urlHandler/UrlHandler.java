@@ -26,9 +26,9 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class UrlHandler {
+    private static final int timeoutInSeconds = 5;
     private static boolean isAnalysingResponseTimes = false;
     private static Path outputFilePath;
-    private static final int timeoutInSeconds = 5;
     private static ScheduledExecutorService scheduledExecutorService;
     private static SettingsService settingsService;
 
@@ -53,13 +53,13 @@ public class UrlHandler {
     public static void startUrlAnalysis(User user) throws IOException {
         isAnalysingResponseTimes = true;
 
-        if (scheduledExecutorService!=null && !scheduledExecutorService.isShutdown()){
+        if (scheduledExecutorService != null && !scheduledExecutorService.isShutdown()) {
             scheduledExecutorService.shutdown();
         }
 
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         TimeUnit unit;
-        switch (settingsService.read().getRequestsFrequency()){
+        switch (settingsService.read().getRequestsFrequency()) {
             case PER_DAY:
                 unit = TimeUnit.DAYS;
                 break;

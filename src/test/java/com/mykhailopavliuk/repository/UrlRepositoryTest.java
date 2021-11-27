@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @Import(TestConfig.class)
-@ActiveProfiles({ "test" })
+@ActiveProfiles({"test"})
 public class UrlRepositoryTest {
 
     @MockBean
@@ -234,7 +234,7 @@ public class UrlRepositoryTest {
     }
 
     @Test
-    public void testDeleteByIdAndUserWhileSomeoneElseUsesUrl () {
+    public void testDeleteByIdAndUserWhileSomeoneElseUsesUrl() {
         when(userUrlRepository.findAllUserIdsByUrlId(anyLong())).thenReturn(new ArrayList<>() {{
             add(1L);
             add(2L);
@@ -253,7 +253,7 @@ public class UrlRepositoryTest {
     }
 
     @Test
-    public void testDeleteByIdAndUserWhileNoOneElseUsesUrl () {
+    public void testDeleteByIdAndUserWhileNoOneElseUsesUrl() {
         when(userUrlRepository.findAllUserIdsByUrlId(anyLong())).thenReturn(new ArrayList<>() {{
             add(1L);
         }});

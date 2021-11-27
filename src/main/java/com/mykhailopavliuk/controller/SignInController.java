@@ -72,16 +72,16 @@ public class SignInController implements Initializable {
     @FXML
     private JFXButton signInButton;
 
-    public User getSignedInUser() {
-        return signedInUser;
-    }
-
     @Autowired
     public SignInController(UserService userService, FxWeaver fxWeaver, AdminProperties adminProperties, SettingsService settingsService) {
         this.userService = userService;
         this.fxWeaver = fxWeaver;
         this.adminProperties = adminProperties;
         this.settingsService = settingsService;
+    }
+
+    public User getSignedInUser() {
+        return signedInUser;
     }
 
     @Override
@@ -119,7 +119,7 @@ public class SignInController implements Initializable {
                     Duration.seconds(5)
             );
 
-            Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
 
             switch (settingsService.read().getScreenResolution()) {
@@ -158,7 +158,7 @@ public class SignInController implements Initializable {
                 );
                 signedInUser = user;
                 initializeUrlAnalysisOutputFile(signedInUser);
-                Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 switch (settingsService.read().getScreenResolution()) {
                     case SMALL:
                         stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserOverviewController.class)));
@@ -219,7 +219,7 @@ public class SignInController implements Initializable {
 
     @FXML
     void handleGoToSignUpButton(ActionEvent event) {
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignUpController.class)));
         stageTheEventSourceNodeBelongs.centerOnScreen();
     }

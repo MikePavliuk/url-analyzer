@@ -2,7 +2,7 @@
     -fx-text-alignment: center;
 }
 
-.tree-table-view{
+.tree-table-view {
     -fx-border-color: none;
 }
 
@@ -11,7 +11,7 @@
     -fx-table-cell-border-color: #fff;
 }
 
-.tree-table-view:focused .tree-table-row-cell:selected .tree-table-cell{
+.tree-table-view:focused .tree-table-row-cell:selected .tree-table-cell {
     -fx-text-fill: white;
 }
 

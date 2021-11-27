@@ -154,7 +154,7 @@ public abstract class AdminOverviewController implements Initializable {
 
         yAxis.setAutoRanging(false);
         yAxis.setLowerBound(0);
-        yAxis.setUpperBound(getMaxNumberOfUrlsFromUser(usersList)+1);
+        yAxis.setUpperBound(getMaxNumberOfUrlsFromUser(usersList) + 1);
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 

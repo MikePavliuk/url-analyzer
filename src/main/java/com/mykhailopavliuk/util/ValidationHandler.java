@@ -2,6 +2,18 @@ package com.mykhailopavliuk.util;
 
 public class ValidationHandler {
 
+    public static Validation getEmailRegex() {
+        return new Validation(
+                "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$",
+                "Email is not valid");
+    }
+
+    public static Validation getPasswordValidation() {
+        return new Validation(
+                "^(?=.*[0-9]).{8,}$",
+                "Must have at least 1 digit and min length of 8");
+    }
+
     public static class Validation {
         private String regex;
         private String message;
@@ -26,17 +38,5 @@ public class ValidationHandler {
         public void setMessage(String message) {
             this.message = message;
         }
-    }
-
-    public static Validation getEmailRegex() {
-        return new Validation(
-                "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$",
-                "Email is not valid");
-    }
-
-    public static Validation getPasswordValidation() {
-        return new Validation(
-                "^(?=.*[0-9]).{8,}$",
-                "Must have at least 1 digit and min length of 8");
     }
 }

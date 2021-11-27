@@ -142,9 +142,9 @@ public class UrlServiceTest {
 
     @Test
     public void testGetAvailableId() {
-        when(urlRepository.getAvailableId()).thenReturn(expected.getId()+1);
+        when(urlRepository.getAvailableId()).thenReturn(expected.getId() + 1);
 
-        assertEquals(expected.getId()+1, urlService.getAvailableId());
+        assertEquals(expected.getId() + 1, urlService.getAvailableId());
         verify(urlRepository, times(1)).getAvailableId();
     }
 

@@ -31,7 +31,7 @@
                 <xs:element name="DisplayMode" type="DisplayMode"/>
                 <xs:element name="ScreenResolution" type="ScreenResolution"/>
                 <xs:element name="RequestsFrequency" type="RequestsFrequency"/>
-                <xs:element name="ExportDirectory" type="xs:string" />
+                <xs:element name="ExportDirectory" type="xs:string"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

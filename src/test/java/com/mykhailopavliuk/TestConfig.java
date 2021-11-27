@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @TestConfiguration
-@Profile({ "test" })
+@Profile({"test"})
 public class TestConfig {
 
     @Bean

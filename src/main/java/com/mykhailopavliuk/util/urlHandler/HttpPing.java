@@ -35,7 +35,8 @@ public class HttpPing implements Callable<Response> {
             final LocalDateTime stop = LocalDateTime.now();
             duration = Duration.between(start, stop);
             response.setDuration(duration);
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
         return response;
     }
 }

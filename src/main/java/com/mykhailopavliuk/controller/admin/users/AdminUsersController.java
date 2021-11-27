@@ -214,7 +214,7 @@ public abstract class AdminUsersController implements Initializable {
                 usersTableView.refresh();
                 TrayNotificationHandler.notify(
                         "Validation error",
-                        ValidationHandler.getEmailRegex().getMessage()+ ". So old value was restored",
+                        ValidationHandler.getEmailRegex().getMessage() + ". So old value was restored",
                         Notifications.ERROR,
                         Animations.POPUP,
                         Paint.valueOf(currentDisplayMode.getPrimaryColor()),
@@ -278,7 +278,7 @@ public abstract class AdminUsersController implements Initializable {
                         return new TreeTableCell<>() {
 
                             final ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/icons8-delete.png"))));
-                            final JFXButton btn = new JFXButton("",imageView);
+                            final JFXButton btn = new JFXButton("", imageView);
 
                             @Override
                             public void updateItem(String item, boolean empty) {
@@ -431,7 +431,7 @@ public abstract class AdminUsersController implements Initializable {
 
         saveChangesButton.setDisable(true);
 
-        for (User user: usersToDelete) {
+        for (User user : usersToDelete) {
             userService.deleteById(user.getId());
         }
 

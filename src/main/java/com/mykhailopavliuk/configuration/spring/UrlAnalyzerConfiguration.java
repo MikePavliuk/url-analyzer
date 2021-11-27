@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 @Configuration
-@Profile({ "production" })
+@Profile({"production"})
 public class UrlAnalyzerConfiguration {
 
     private final ResourceLoader resourceLoader;

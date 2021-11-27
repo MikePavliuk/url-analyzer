@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Bean;
 @ConfigurationPropertiesScan()
 public class SpringApplication {
 
-	public static void main(String[] args) {
-		Application.launch(UrlAnalyzerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        Application.launch(UrlAnalyzerApplication.class, args);
+    }
 
-	@Bean
-	public FxWeaver fxWeaver(ConfigurableApplicationContext applicationContext) {
-		return new SpringFxWeaver(applicationContext);
-	}
+    @Bean
+    public FxWeaver fxWeaver(ConfigurableApplicationContext applicationContext) {
+        return new SpringFxWeaver(applicationContext);
+    }
 }
