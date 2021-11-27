@@ -2,23 +2,19 @@
     -fx-text-alignment: center;
 }
 
-/*noinspection CssUnusedSymbol*/
 .tree-table-view {
     -fx-border-color: none;
 }
 
-/*noinspection CssUnusedSymbol*/
 .tree-table-view:focused .tree-table-row-cell:selected {
     -fx-background-color: #4883db;
     -fx-table-cell-border-color: #fff;
 }
 
-/*noinspection CssUnusedSymbol*/
 .tree-table-view:focused .tree-table-row-cell:selected .tree-table-cell {
     -fx-text-fill: white;
 }
 
-/*noinspection CssUnusedSymbol*/
 .tree-table-cell {
     -fx-alignment: center;
 }
