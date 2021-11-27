@@ -9,154 +9,136 @@
             minWidth="-Infinity"
             prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1"
             fx:controller="com.mykhailopavliuk.controller.admin.settings.LargeAdminSettingsController">
-    <children>
-        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="901.0" prefWidth="1280.0">
-            <left>
-                <Pane fx:id="sidebarPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="901.0"
-                      prefWidth="356.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label fx:id="adminLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="175.0"
-                               prefHeight="20.0" prefWidth="356.0" text="Admin" textFill="WHITE">
-                            <font>
-                                <Font size="24.0"/>
-                            </font>
-                        </Label>
-                        <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
-                                   layoutY="288.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage"
-                                   prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7"
-                                   style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER"
-                                   textFill="WHITE">
-                            <font>
-                                <Font size="20.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                    <image>
-                                        <Image url="@../../../assets/icons8-website_statistics.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="usersButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
-                                   layoutY="368.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToUsersPage"
-                                   prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7"
-                                   style="-fx-background-color: #4883db;" text="Users" textAlignment="CENTER"
-                                   textFill="WHITE">
-                            <font>
-                                <Font size="20.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                    <image>
-                                        <Image url="@../../../assets/icons8-users.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
-                                   layoutY="448.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="356.0"
-                                   ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings"
-                                   textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font size="20.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                    <image>
-                                        <Image url="@../../../assets/icons8-package_settings.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
-                                   layoutY="807.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="60.0"
-                                   prefWidth="356.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;"
-                                   text="Sign Out" textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font size="18.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                    <image>
-                                        <Image url="@../../../assets/icons8-exit.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </JFXButton>
-                        <ImageView layoutX="130.0" layoutY="60.0">
-                            <image>
-                                <Image url="@../../../assets/icons8-admin_settings_male.png"/>
-                            </image>
+    <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="901.0" prefWidth="1280.0">
+        <left>
+            <Pane fx:id="sidebarPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="901.0"
+                  prefWidth="356.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
+                <Label fx:id="adminLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="175.0"
+                       prefHeight="20.0" prefWidth="356.0" text="Admin" textFill="WHITE">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Label>
+                <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
+                           layoutY="288.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToOverviewPage"
+                           prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7"
+                           style="-fx-background-color: #4883db;" text="Overview" textAlignment="CENTER"
+                           textFill="WHITE">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <Image url="@../../../assets/icons8-website_statistics.png"/>
                         </ImageView>
-                    </children>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="usersButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
+                           layoutY="368.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToUsersPage"
+                           prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7"
+                           style="-fx-background-color: #4883db;" text="Users" textAlignment="CENTER"
+                           textFill="WHITE">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <Image url="@../../../assets/icons8-users.png"/>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
+                           layoutY="448.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="356.0"
+                           ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Settings"
+                           textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <Image url="@../../../assets/icons8-package_settings.png"/>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
+                           layoutY="807.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="60.0"
+                           prefWidth="356.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;"
+                           text="Sign Out" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <Image url="@../../../assets/icons8-exit.png"/>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <ImageView layoutX="130.0" layoutY="60.0">
+                    <Image url="@../../../assets/icons8-admin_settings_male.png"/>
+                </ImageView>
+            </Pane>
+        </left>
+        <center>
+            <StackPane fx:id="mainWindow" prefHeight="150.0" prefWidth="200.0"
+                       style="-fx-background-color: #cedef7;" BorderPane.alignment="CENTER">
+                <Pane prefHeight="200.0" prefWidth="200.0">
+                    <Label fx:id="label1" layoutX="157.0" layoutY="350.0" text="Display Mode"
+                           wrapText="true">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="label2" layoutX="157.0" layoutY="420.0" text="Screen Resolution"
+                           wrapText="true">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Label>
+                    <Label fx:id="label3" layoutX="157.0" layoutY="488.0" text="Export Directory"
+                           wrapText="true">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Label>
+                    <JFXComboBox fx:id="displayModeComboBox" layoutX="346.0" layoutY="346.0"
+                                 prefHeight="27.0" prefWidth="450.0"/>
+                    <JFXComboBox fx:id="screenResolutionComboBox" layoutX="346.0" layoutY="416.0"
+                                 prefHeight="27.0" prefWidth="450.0"/>
+                    <JFXTextField fx:id="exportDirectoryTextField" editable="false" layoutX="346.0"
+                                  layoutY="486.0" prefHeight="27.0" prefWidth="450.0"/>
+                    <JFXButton fx:id="chooseDirectoryButton" buttonType="RAISED" layoutX="633.0"
+                               layoutY="560.0" onAction="#chooseExportDirectory" prefHeight="50.0"
+                               prefWidth="160.0" ripplerFill="#ceddf5"
+                               style="-fx-background-color: #4883db;" text="Choose" textFill="WHITE">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </JFXButton>
+                    <JFXButton fx:id="saveChangesButton" buttonType="RAISED" layoutX="9.0" layoutY="825.0"
+                               onAction="#saveChanges" prefHeight="50.0" prefWidth="900.0"
+                               ripplerFill="#2e6b37" style="-fx-background-color: #3bc967;"
+                               text="Save Edit Changes" textFill="WHITE">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </JFXButton>
+                    <JFXButton fx:id="refreshButton" buttonType="RAISED" layoutX="624.0" layoutY="258.0"
+                               onAction="#refreshSettings" prefHeight="50.0" prefWidth="160.0"
+                               ripplerFill="#2e6b37" style="-fx-background-color: #3bc967;" text="Refresh"
+                               textFill="WHITE">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </JFXButton>
+                    <Label fx:id="titleLabel" alignment="CENTER" layoutY="22.0" prefHeight="42.0"
+                           prefWidth="925.0" style="-fx-alignment: center;" text="Set up your application"
+                           textAlignment="CENTER" wrapText="true">
+                        <font>
+                            <Font name="Arial Black" size="36.0"/>
+                        </font>
+                    </Label>
                 </Pane>
-            </left>
-            <center>
-                <StackPane fx:id="mainWindow" prefHeight="150.0" prefWidth="200.0"
-                           style="-fx-background-color: #cedef7;" BorderPane.alignment="CENTER">
-                    <children>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                            <children>
-                                <Label fx:id="label1" layoutX="157.0" layoutY="350.0" text="Display Mode"
-                                       wrapText="true">
-                                    <font>
-                                        <Font size="18.0"/>
-                                    </font>
-                                </Label>
-                                <Label fx:id="label2" layoutX="157.0" layoutY="420.0" text="Screen Resolution"
-                                       wrapText="true">
-                                    <font>
-                                        <Font size="18.0"/>
-                                    </font>
-                                </Label>
-                                <Label fx:id="label3" layoutX="157.0" layoutY="488.0" text="Export Directory"
-                                       wrapText="true">
-                                    <font>
-                                        <Font size="18.0"/>
-                                    </font>
-                                </Label>
-                                <JFXComboBox fx:id="displayModeComboBox" layoutX="346.0" layoutY="346.0"
-                                             prefHeight="27.0" prefWidth="450.0"/>
-                                <JFXComboBox fx:id="screenResolutionComboBox" layoutX="346.0" layoutY="416.0"
-                                             prefHeight="27.0" prefWidth="450.0"/>
-                                <JFXTextField fx:id="exportDirectoryTextField" editable="false" layoutX="346.0"
-                                              layoutY="486.0" prefHeight="27.0" prefWidth="450.0"/>
-                                <JFXButton fx:id="chooseDirectoryButton" buttonType="RAISED" layoutX="633.0"
-                                           layoutY="560.0" onAction="#chooseExportDirectory" prefHeight="50.0"
-                                           prefWidth="160.0" ripplerFill="#ceddf5"
-                                           style="-fx-background-color: #4883db;" text="Choose" textFill="WHITE">
-                                    <font>
-                                        <Font size="16.0"/>
-                                    </font>
-                                </JFXButton>
-                                <JFXButton fx:id="saveChangesButton" buttonType="RAISED" layoutX="9.0" layoutY="825.0"
-                                           onAction="#saveChanges" prefHeight="50.0" prefWidth="900.0"
-                                           ripplerFill="#2e6b37" style="-fx-background-color: #3bc967;"
-                                           text="Save Edit Changes" textFill="WHITE">
-                                    <font>
-                                        <Font size="16.0"/>
-                                    </font>
-                                </JFXButton>
-                                <JFXButton fx:id="refreshButton" buttonType="RAISED" layoutX="624.0" layoutY="258.0"
-                                           onAction="#refreshSettings" prefHeight="50.0" prefWidth="160.0"
-                                           ripplerFill="#2e6b37" style="-fx-background-color: #3bc967;" text="Refresh"
-                                           textFill="WHITE">
-                                    <font>
-                                        <Font size="16.0"/>
-                                    </font>
-                                </JFXButton>
-                                <Label fx:id="titleLabel" alignment="CENTER" layoutY="22.0" prefHeight="42.0"
-                                       prefWidth="925.0" style="-fx-alignment: center;" text="Set up your application"
-                                       textAlignment="CENTER" wrapText="true">
-                                    <font>
-                                        <Font name="Arial Black" size="36.0"/>
-                                    </font>
-                                </Label>
-                            </children>
-                        </Pane>
-                    </children>
-                </StackPane>
-            </center>
-        </BorderPane>
-    </children>
+            </StackPane>
+        </center>
+    </BorderPane>
 </AnchorPane>

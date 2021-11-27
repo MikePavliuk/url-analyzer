@@ -14,211 +14,185 @@
             minWidth="-Infinity"
             prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/15.0.1"
             fx:controller="com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewController">
-    <children>
-        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="901.0" prefWidth="1280.0">
-            <left>
-                <Pane fx:id="sidebarPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="901.0"
-                      prefWidth="356.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label fx:id="adminLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="175.0"
-                               prefHeight="20.0" prefWidth="356.0" text="Admin" textFill="WHITE">
+    <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="901.0" prefWidth="1280.0">
+        <left>
+            <Pane fx:id="sidebarPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="901.0"
+                  prefWidth="356.0" style="-fx-background-color: #4883db;" BorderPane.alignment="CENTER">
+                <Label fx:id="adminLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="175.0"
+                       prefHeight="20.0" prefWidth="356.0" text="Admin" textFill="WHITE">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Label>
+                <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
+                           layoutY="288.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="356.0"
+                           ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview"
+                           textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <Image url="@../../../assets/icons8-website_statistics.png"/>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="usersButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
+                           layoutY="368.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToUsersPage"
+                           prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7"
+                           style="-fx-background-color: #4883db;" text="Users" textAlignment="CENTER"
+                           textFill="WHITE">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <Image url="@../../../assets/icons8-users.png"/>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
+                           layoutY="448.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage"
+                           prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7"
+                           style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER"
+                           textFill="WHITE">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <Image url="@../../../assets/icons8-package_settings.png"/>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
+                           layoutY="807.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="60.0"
+                           prefWidth="356.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;"
+                           text="Sign Out" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                            <Image url="@../../../assets/icons8-exit.png"/>
+                        </ImageView>
+                    </graphic>
+                </JFXButton>
+                <ImageView layoutX="130.0" layoutY="60.0">
+                    <Image url="@../../../assets/icons8-admin_settings_male.png"/>
+                </ImageView>
+            </Pane>
+        </left>
+        <center>
+            <BorderPane fx:id="mainWindow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <top>
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="222.0" prefWidth="924.0"
+                          BorderPane.alignment="CENTER">
+                        <Pane fx:id="usersCard" layoutX="73.0" layoutY="10.0" prefWidth="161.0"
+                              style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
+                            <Circle fx:id="circle1" layoutX="83.0" layoutY="66.0" radius="35.0"
+                                    strokeType="INSIDE">
+                                <stroke>
+                                    <LinearGradient>
+                                        <stops>
+                                            <Stop color="BLACK"/>
+                                            <Stop color="WHITE" offset="1.0"/>
+                                        </stops>
+                                    </LinearGradient>
+                                </stroke>
+                                <fill>
+                                    <LinearGradient startY="0.4952380952380952">
+                                        <stops>
+                                            <Stop color="#03b5fc"/>
+                                            <Stop color="WHITE" offset="1.0"/>
+                                        </stops>
+                                    </LinearGradient>
+                                </fill>
+                            </Circle>
+                            <Label alignment="CENTER" layoutX="-6.0" layoutY="115.0" prefHeight="17.0"
+                                   prefWidth="174.0" text="Users" textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+                            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="68.0" layoutY="51.0">
+                                <Image url="@../../../assets/icons8-users.png"/>
+                            </ImageView>
+                            <Label fx:id="usersNumberLabel" alignment="CENTER" layoutX="-6.0"
+                                   layoutY="144.0" prefHeight="37.0" prefWidth="174.0" text="100"
+                                   textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                                <font>
+                                    <Font name="Arial Black" size="36.0"/>
+                                </font>
+                            </Label>
+                        </Pane>
+                        <Pane fx:id="urlsCard" layoutX="301.0" layoutY="10.0" prefWidth="161.0"
+                              style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
+                            <Circle fx:id="circle2" layoutX="83.0" layoutY="66.0" radius="35.0"
+                                    strokeType="INSIDE">
+                                <stroke>
+                                    <LinearGradient>
+                                        <stops>
+                                            <Stop color="BLACK"/>
+                                            <Stop color="WHITE" offset="1.0"/>
+                                        </stops>
+                                    </LinearGradient>
+                                </stroke>
+                                <fill>
+                                    <LinearGradient startY="0.4952380952380952">
+                                        <stops>
+                                            <Stop color="#03b5fc"/>
+                                            <Stop color="WHITE" offset="1.0"/>
+                                        </stops>
+                                    </LinearGradient>
+                                </fill>
+                            </Circle>
+                            <Label alignment="CENTER" layoutX="-6.0" layoutY="115.0" prefHeight="17.0"
+                                   prefWidth="174.0" text="Urls" textFill="WHITE">
+                                <font>
+                                    <Font name="System Bold" size="18.0"/>
+                                </font>
+                            </Label>
+                            <Label fx:id="urlsNumberLabel" alignment="CENTER" layoutX="-6.0" layoutY="144.0"
+                                   prefHeight="37.0" prefWidth="174.0" text="100" textAlignment="CENTER"
+                                   textFill="WHITE" wrapText="true">
+                                <font>
+                                    <Font name="Arial Black" size="36.0"/>
+                                </font>
+                            </Label>
+                            <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="62.0" layoutY="45.0">
+                                <Image url="@../../../assets/icons8-website.png"/>
+                            </ImageView>
+                        </Pane>
+                    </Pane>
+                </top>
+                <center>
+                    <Pane prefHeight="568.0" prefWidth="713.0" BorderPane.alignment="CENTER">
+                        <AreaChart fx:id="areaChart" layoutX="37.0" legendVisible="false" maxHeight="-Infinity"
+                                   maxWidth="-Infinity" prefHeight="642.0" prefWidth="877.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxis" minorTickCount="1" minorTickLength="1.0" side="LEFT"
+                                            tickLabelGap="5.0" tickLength="0.0" tickUnit="1.0"/>
+                            </yAxis>
+                        </AreaChart>
+                        <Label fx:id="yAxisLabel" alignment="CENTER" layoutX="-46.0" layoutY="318.0"
+                               rotate="-90.0" text="Number of urls" textAlignment="CENTER">
                             <font>
-                                <Font size="24.0"/>
+                                <Font size="22.0"/>
                             </font>
                         </Label>
-                        <JFXButton fx:id="overviewButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
-                                   layoutY="288.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="356.0"
-                                   ripplerFill="#cedef7" style="-fx-background-color: #4883db;" text="Overview"
-                                   textAlignment="CENTER" textFill="WHITE">
+                        <Label alignment="CENTER" layoutX="457.0" layoutY="642.0" text="User"
+                               textAlignment="CENTER" fx:id="xAxisLabel">
                             <font>
                                 <Font size="20.0"/>
                             </font>
-                            <graphic>
-                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                    <image>
-                                        <Image url="@../../../assets/icons8-website_statistics.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="usersButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="5.0"
-                                   layoutY="368.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToUsersPage"
-                                   prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7"
-                                   style="-fx-background-color: #4883db;" text="Users" textAlignment="CENTER"
-                                   textFill="WHITE">
-                            <font>
-                                <Font size="20.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                    <image>
-                                        <Image url="@../../../assets/icons8-users.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="settingsButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
-                                   layoutY="448.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToSettingsPage"
-                                   prefHeight="70.0" prefWidth="356.0" ripplerFill="#cedef7"
-                                   style="-fx-background-color: #4883db;" text="Settings" textAlignment="CENTER"
-                                   textFill="WHITE">
-                            <font>
-                                <Font size="20.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                    <image>
-                                        <Image url="@../../../assets/icons8-package_settings.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="signOutButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="10.0"
-                                   layoutY="807.0" nodeOrientation="LEFT_TO_RIGHT" onAction="#signOut" prefHeight="60.0"
-                                   prefWidth="356.0" ripplerFill="#cedef7" style="-fx-background-color: #4883db;"
-                                   text="Sign Out" textAlignment="CENTER" textFill="WHITE">
-                            <font>
-                                <Font size="18.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="30.0" fitWidth="30.0">
-                                    <image>
-                                        <Image url="@../../../assets/icons8-exit.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </JFXButton>
-                        <ImageView layoutX="130.0" layoutY="60.0">
-                            <image>
-                                <Image url="@../../../assets/icons8-admin_settings_male.png"/>
-                            </image>
-                        </ImageView>
-                    </children>
-                </Pane>
-            </left>
-            <center>
-                <BorderPane fx:id="mainWindow" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <top>
-                        <Pane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="222.0" prefWidth="924.0"
-                              BorderPane.alignment="CENTER">
-                            <children>
-                                <Pane fx:id="usersCard" layoutX="73.0" layoutY="10.0" prefWidth="161.0"
-                                      style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
-                                    <children>
-                                        <Circle fx:id="circle1" layoutX="83.0" layoutY="66.0" radius="35.0"
-                                                strokeType="INSIDE">
-                                            <stroke>
-                                                <LinearGradient endX="1.0" endY="1.0">
-                                                    <stops>
-                                                        <Stop color="BLACK"/>
-                                                        <Stop color="WHITE" offset="1.0"/>
-                                                    </stops>
-                                                </LinearGradient>
-                                            </stroke>
-                                            <fill>
-                                                <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                                    <stops>
-                                                        <Stop color="#03b5fc"/>
-                                                        <Stop color="WHITE" offset="1.0"/>
-                                                    </stops>
-                                                </LinearGradient>
-                                            </fill>
-                                        </Circle>
-                                        <Label alignment="CENTER" layoutX="-6.0" layoutY="115.0" prefHeight="17.0"
-                                               prefWidth="174.0" text="Users" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="18.0"/>
-                                            </font>
-                                        </Label>
-                                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="68.0" layoutY="51.0">
-                                            <image>
-                                                <Image url="@../../../assets/icons8-users.png"/>
-                                            </image>
-                                        </ImageView>
-                                        <Label fx:id="usersNumberLabel" alignment="CENTER" layoutX="-6.0"
-                                               layoutY="144.0" prefHeight="37.0" prefWidth="174.0" text="100"
-                                               textAlignment="CENTER" textFill="WHITE" wrapText="true">
-                                            <font>
-                                                <Font name="Arial Black" size="36.0"/>
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </Pane>
-                                <Pane fx:id="urlsCard" layoutX="301.0" layoutY="10.0" prefWidth="161.0"
-                                      style="-fx-background-color: #3bc967; -fx-background-radius: 20px;">
-                                    <children>
-                                        <Circle fx:id="circle2" layoutX="83.0" layoutY="66.0" radius="35.0"
-                                                strokeType="INSIDE">
-                                            <stroke>
-                                                <LinearGradient endX="1.0" endY="1.0">
-                                                    <stops>
-                                                        <Stop color="BLACK"/>
-                                                        <Stop color="WHITE" offset="1.0"/>
-                                                    </stops>
-                                                </LinearGradient>
-                                            </stroke>
-                                            <fill>
-                                                <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
-                                                    <stops>
-                                                        <Stop color="#03b5fc"/>
-                                                        <Stop color="WHITE" offset="1.0"/>
-                                                    </stops>
-                                                </LinearGradient>
-                                            </fill>
-                                        </Circle>
-                                        <Label alignment="CENTER" layoutX="-6.0" layoutY="115.0" prefHeight="17.0"
-                                               prefWidth="174.0" text="Urls" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Bold" size="18.0"/>
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="urlsNumberLabel" alignment="CENTER" layoutX="-6.0" layoutY="144.0"
-                                               prefHeight="37.0" prefWidth="174.0" text="100" textAlignment="CENTER"
-                                               textFill="WHITE" wrapText="true">
-                                            <font>
-                                                <Font name="Arial Black" size="36.0"/>
-                                            </font>
-                                        </Label>
-                                        <ImageView fitHeight="43.0" fitWidth="43.0" layoutX="62.0" layoutY="45.0">
-                                            <image>
-                                                <Image url="@../../../assets/icons8-website.png"/>
-                                            </image>
-                                        </ImageView>
-                                    </children>
-                                </Pane>
-                            </children>
-                        </Pane>
-                    </top>
-                    <center>
-                        <Pane prefHeight="568.0" prefWidth="713.0" BorderPane.alignment="CENTER">
-                            <children>
-                                <AreaChart fx:id="areaChart" layoutX="37.0" legendVisible="false" maxHeight="-Infinity"
-                                           maxWidth="-Infinity" prefHeight="642.0" prefWidth="877.0">
-                                    <xAxis>
-                                        <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
-                                    </xAxis>
-                                    <yAxis>
-                                        <NumberAxis fx:id="yAxis" minorTickCount="1" minorTickLength="1.0" side="LEFT"
-                                                    tickLabelGap="5.0" tickLength="0.0" tickUnit="1.0"/>
-                                    </yAxis>
-                                </AreaChart>
-                                <Label fx:id="yAxisLabel" alignment="CENTER" layoutX="-46.0" layoutY="318.0"
-                                       rotate="-90.0" text="Number of urls" textAlignment="CENTER">
-                                    <font>
-                                        <Font size="22.0"/>
-                                    </font>
-                                </Label>
-                                <Label alignment="CENTER" layoutX="457.0" layoutY="642.0" text="User"
-                                       textAlignment="CENTER" fx:id="xAxisLabel">
-                                    <font>
-                                        <Font size="20.0"/>
-                                    </font>
-                                </Label>
-                            </children>
-                        </Pane>
-                    </center>
-                </BorderPane>
-            </center>
-        </BorderPane>
-    </children>
+                        </Label>
+                    </Pane>
+                </center>
+            </BorderPane>
+        </center>
+    </BorderPane>
 </AnchorPane>
