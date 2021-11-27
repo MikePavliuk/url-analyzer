@@ -6,11 +6,9 @@ import com.mykhailopavliuk.repository.SettingsRepository;
 import com.mykhailopavliuk.util.SettingsHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Repository;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;

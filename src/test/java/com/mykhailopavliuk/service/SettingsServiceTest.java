@@ -1,12 +1,9 @@
 package com.mykhailopavliuk.service;
 
-import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.exception.NullEntityReferenceException;
 import com.mykhailopavliuk.model.Settings;
-import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.repository.SettingsRepository;
 import com.mykhailopavliuk.service.impl.SettingsServiceImpl;
-import com.mykhailopavliuk.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,13 +12,10 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.nio.file.Path;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @SpringBootTest
 public class SettingsServiceTest {

@@ -1,7 +1,6 @@
 package com.mykhailopavliuk.repository;
 
 import com.mykhailopavliuk.model.Url;
-import com.mykhailopavliuk.model.User;
 
 import java.util.Optional;
 

@@ -3,11 +3,9 @@ package com.mykhailopavliuk.controller.admin.overview;
 
 import com.jfoenix.controls.JFXButton;
 import com.mykhailopavliuk.controller.SignInController;
-import com.mykhailopavliuk.controller.admin.settings.AdminSettingsController;
 import com.mykhailopavliuk.controller.admin.settings.LargeAdminSettingsController;
 import com.mykhailopavliuk.controller.admin.settings.MediumAdminSettingsController;
 import com.mykhailopavliuk.controller.admin.settings.SmallAdminSettingsController;
-import com.mykhailopavliuk.controller.admin.users.AdminUsersController;
 import com.mykhailopavliuk.controller.admin.users.LargeAdminUsersController;
 import com.mykhailopavliuk.controller.admin.users.MediumAdminUsersController;
 import com.mykhailopavliuk.controller.admin.users.SmallAdminUsersController;
@@ -32,9 +30,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
-import net.rgielen.fxweaver.core.FxmlView;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.List;

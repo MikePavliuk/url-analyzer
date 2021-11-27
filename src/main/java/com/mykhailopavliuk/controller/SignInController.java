@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
-import com.mykhailopavliuk.controller.admin.overview.AdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.MediumAdminOverviewController;
 import com.mykhailopavliuk.controller.admin.overview.SmallAdminOverviewController;

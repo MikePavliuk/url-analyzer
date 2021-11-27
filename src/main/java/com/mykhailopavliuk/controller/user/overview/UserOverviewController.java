@@ -10,7 +10,6 @@ import com.mykhailopavliuk.controller.user.settings.SmallUserSettingsController;
 import com.mykhailopavliuk.controller.user.urls.LargeUserUrlsController;
 import com.mykhailopavliuk.controller.user.urls.MediumUserUrlsController;
 import com.mykhailopavliuk.controller.user.urls.SmallUserUrlsController;
-import com.mykhailopavliuk.controller.user.urls.UserUrlsController;
 import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;

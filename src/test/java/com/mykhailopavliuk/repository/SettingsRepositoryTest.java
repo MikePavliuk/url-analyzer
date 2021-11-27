@@ -2,27 +2,21 @@ package com.mykhailopavliuk.repository;
 
 import com.mykhailopavliuk.TestConfig;
 import com.mykhailopavliuk.model.Settings;
-import com.mykhailopavliuk.model.Url;
-import com.mykhailopavliuk.model.User;
-import com.mykhailopavliuk.model.UserUrl;
 import com.mykhailopavliuk.repository.impl.SettingsRepositoryImpl;
-import com.mykhailopavliuk.repository.impl.UrlRepositoryImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @Import(TestConfig.class)

@@ -3,7 +3,6 @@ package com.mykhailopavliuk.service;
 import com.mykhailopavliuk.exception.EntityNotFoundException;
 import com.mykhailopavliuk.exception.NullEntityReferenceException;
 import com.mykhailopavliuk.model.Url;
-import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.repository.UrlRepository;
 import com.mykhailopavliuk.service.impl.UrlServiceImpl;
 import org.junit.jupiter.api.AfterEach;
@@ -21,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @SpringBootTest
 public class UrlServiceTest {

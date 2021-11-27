@@ -5,7 +5,6 @@ import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.model.UserUrl;
 import com.mykhailopavliuk.repository.impl.UrlRepositoryImpl;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
