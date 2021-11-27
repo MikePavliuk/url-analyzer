@@ -97,10 +97,6 @@ public abstract class AdminOverviewController implements Initializable {
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminUsersController.class)));
                 break;
 
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminUsersController.class)));
-                break;
-
             case LARGE:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminUsersController.class)));
                 break;
@@ -118,10 +114,6 @@ public abstract class AdminOverviewController implements Initializable {
         switch (settingsService.read().getScreenResolution()) {
             case SMALL:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminSettingsController.class)));
-                break;
-
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminSettingsController.class)));
                 break;
 
             case LARGE:

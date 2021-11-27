@@ -192,10 +192,6 @@ public abstract class UserSettingsController implements Initializable {
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserOverviewController.class)));
                 break;
 
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
-                break;
-
             case LARGE:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserOverviewController.class)));
                 break;
@@ -213,10 +209,6 @@ public abstract class UserSettingsController implements Initializable {
         switch (settingsService.read().getScreenResolution()) {
             case SMALL:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserUrlsController.class)));
-                break;
-
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlsController.class)));
                 break;
 
             case LARGE:
@@ -270,10 +262,6 @@ public abstract class UserSettingsController implements Initializable {
         switch (settingsService.read().getScreenResolution()) {
             case SMALL:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserSettingsController.class)));
-                break;
-
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserSettingsController.class)));
                 break;
 
             case LARGE:

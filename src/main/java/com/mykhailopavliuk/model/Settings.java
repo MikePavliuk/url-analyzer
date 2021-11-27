@@ -104,7 +104,12 @@ public class Settings implements Serializable {
                 "#000000",
                 "#4883db");
 
-        String primaryColor, secondaryColor, backgroundColor, fontColorOnPrimary, fontColorOnBackground, fontColorOnFormItems;
+        final String primaryColor;
+        final String secondaryColor;
+        final String backgroundColor;
+        final String fontColorOnPrimary;
+        final String fontColorOnBackground;
+        final String fontColorOnFormItems;
 
         DisplayMode(String primaryColor, String secondaryColor, String backgroundColor, String fontColorOnPrimary, String fontColorOnBackground, String fontColorOnFormItems) {
             this.primaryColor = primaryColor;

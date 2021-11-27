@@ -50,7 +50,7 @@ public class UrlHandler {
         return timeoutInSeconds;
     }
 
-    public static void startUrlAnalysis(User user) throws IOException {
+    public static void startUrlAnalysis(User user) {
         isAnalysingResponseTimes = true;
 
         if (scheduledExecutorService != null && !scheduledExecutorService.isShutdown()) {
@@ -66,10 +66,6 @@ public class UrlHandler {
 
             case PER_HOUR:
                 unit = TimeUnit.HOURS;
-                break;
-
-            case PER_MINUTE:
-                unit = TimeUnit.MINUTES;
                 break;
 
             default:

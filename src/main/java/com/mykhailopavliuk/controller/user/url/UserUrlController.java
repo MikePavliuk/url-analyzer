@@ -109,10 +109,6 @@ public abstract class UserUrlController implements Initializable {
                 urlForAnalysing = fxWeaver.loadController(SmallUserUrlsController.class).getSentUrlForViewingDetails();
                 break;
 
-            case MEDIUM:
-                urlForAnalysing = fxWeaver.loadController(MediumUserUrlsController.class).getSentUrlForViewingDetails();
-                break;
-
             case LARGE:
                 urlForAnalysing = fxWeaver.loadController(LargeUserUrlsController.class).getSentUrlForViewingDetails();
                 break;
@@ -237,10 +233,6 @@ public abstract class UserUrlController implements Initializable {
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserOverviewController.class)));
                 break;
 
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
-                break;
-
             case LARGE:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserOverviewController.class)));
                 break;
@@ -260,10 +252,6 @@ public abstract class UserUrlController implements Initializable {
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserUrlsController.class)));
                 break;
 
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlsController.class)));
-                break;
-
             case LARGE:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserUrlsController.class)));
                 break;
@@ -281,10 +269,6 @@ public abstract class UserUrlController implements Initializable {
         switch (settingsService.read().getScreenResolution()) {
             case SMALL:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserSettingsController.class)));
-                break;
-
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserSettingsController.class)));
                 break;
 
             case LARGE:

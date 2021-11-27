@@ -192,10 +192,6 @@ public abstract class UserUrlsController implements Initializable {
                                                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserUrlController.class)));
                                                 break;
 
-                                            case MEDIUM:
-                                                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlController.class)));
-                                                break;
-
                                             case LARGE:
                                                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserUrlController.class)));
                                                 break;
@@ -276,10 +272,6 @@ public abstract class UserUrlsController implements Initializable {
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserOverviewController.class)));
                 break;
 
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
-                break;
-
             case LARGE:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserOverviewController.class)));
                 break;
@@ -297,10 +289,6 @@ public abstract class UserUrlsController implements Initializable {
         switch (settingsService.read().getScreenResolution()) {
             case SMALL:
                 stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserSettingsController.class)));
-                break;
-
-            case MEDIUM:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserSettingsController.class)));
                 break;
 
             case LARGE:
@@ -437,19 +425,7 @@ public abstract class UserUrlsController implements Initializable {
             ((Button) event.getSource()).setStyle("-fx-background-color: #f44336;");
 
             setEditTableButtonsDisability(true);
-            try {
-                UrlHandler.startUrlAnalysis(user);
-            } catch (IOException e) {
-                UrlHandler.setIsAnalysingResponseTimes(false);
-                TrayNotificationHandler.notify(
-                        "Sorry, can't start analysis",
-                        e.getMessage(),
-                        Notifications.ERROR,
-                        Animations.POPUP,
-                        Paint.valueOf("#fc5b5b"),
-                        Duration.seconds(3)
-                );
-            }
+            UrlHandler.startUrlAnalysis(user);
         } else {
             ((Button) event.getSource()).setText("Start response time analysis");
             ((Button) event.getSource()).setStyle("-fx-background-color: " + currentDisplayMode.getPrimaryColor());
