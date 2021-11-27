@@ -12,6 +12,7 @@ import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.service.UserService;
+import com.mykhailopavliuk.util.SceneHandler;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
 import com.mykhailopavliuk.util.ValidationHandler;
 import javafx.event.ActionEvent;
@@ -129,9 +130,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     public void handleSignInButton(ActionEvent event) {
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToSignInScene(event, settingsService, fxWeaver);
     }
 
     @FXML

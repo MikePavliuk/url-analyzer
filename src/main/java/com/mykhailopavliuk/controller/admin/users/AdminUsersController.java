@@ -24,6 +24,7 @@ import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.service.UserService;
 import com.mykhailopavliuk.util.ExcelHandler;
+import com.mykhailopavliuk.util.SceneHandler;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
 import com.mykhailopavliuk.util.ValidationHandler;
 import com.mykhailopavliuk.util.urlHandler.UrlHandler;
@@ -119,21 +120,7 @@ public abstract class AdminUsersController implements Initializable {
             return;
         }
 
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        switch (settingsService.read().getScreenResolution()) {
-            case SMALL:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminOverviewController.class)));
-                break;
-
-            case LARGE:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminOverviewController.class)));
-                break;
-
-            default:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminOverviewController.class)));
-                break;
-        }
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToOverviewAdminScene(event, settingsService, fxWeaver);
     }
 
     @FXML
@@ -142,21 +129,7 @@ public abstract class AdminUsersController implements Initializable {
             return;
         }
 
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        switch (settingsService.read().getScreenResolution()) {
-            case SMALL:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminSettingsController.class)));
-                break;
-
-            case LARGE:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminSettingsController.class)));
-                break;
-
-            default:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminSettingsController.class)));
-                break;
-        }
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToSettingsAdminScene(event, settingsService, fxWeaver);
     }
 
     @FXML

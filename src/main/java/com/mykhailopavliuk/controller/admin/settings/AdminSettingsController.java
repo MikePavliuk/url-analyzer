@@ -14,6 +14,7 @@ import com.mykhailopavliuk.controller.admin.users.MediumAdminUsersController;
 import com.mykhailopavliuk.controller.admin.users.SmallAdminUsersController;
 import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.service.SettingsService;
+import com.mykhailopavliuk.util.SceneHandler;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -162,40 +163,12 @@ public abstract class AdminSettingsController implements Initializable {
 
     @FXML
     void goToOverviewPage(ActionEvent event) {
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        switch (settingsService.read().getScreenResolution()) {
-            case SMALL:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminOverviewController.class)));
-                break;
-
-            case LARGE:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminOverviewController.class)));
-                break;
-
-            default:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminOverviewController.class)));
-                break;
-        }
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToOverviewAdminScene(event, settingsService, fxWeaver);
     }
 
     @FXML
     void goToUsersPage(ActionEvent event) {
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        switch (settingsService.read().getScreenResolution()) {
-            case SMALL:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminUsersController.class)));
-                break;
-
-            case LARGE:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminUsersController.class)));
-                break;
-
-            default:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminUsersController.class)));
-                break;
-        }
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToUsersAdminScene(event, settingsService, fxWeaver);
     }
 
     @FXML
@@ -246,20 +219,6 @@ public abstract class AdminSettingsController implements Initializable {
         );
 
         isWasEdit = false;
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        switch (settingsService.read().getScreenResolution()) {
-            case SMALL:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminSettingsController.class)));
-                break;
-
-            case LARGE:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminSettingsController.class)));
-                break;
-
-            default:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminSettingsController.class)));
-                break;
-        }
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToSettingsAdminScene(event, settingsService, fxWeaver);
     }
 }

@@ -6,9 +6,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.mykhailopavliuk.configuration.application.AdminProperties;
-import com.mykhailopavliuk.controller.admin.overview.LargeAdminOverviewController;
-import com.mykhailopavliuk.controller.admin.overview.MediumAdminOverviewController;
-import com.mykhailopavliuk.controller.admin.overview.SmallAdminOverviewController;
 import com.mykhailopavliuk.controller.user.overview.LargeUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
 import com.mykhailopavliuk.controller.user.overview.SmallUserOverviewController;
@@ -18,6 +15,7 @@ import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.service.UserService;
+import com.mykhailopavliuk.util.SceneHandler;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
 import com.mykhailopavliuk.util.urlHandler.UrlHandler;
 import javafx.animation.KeyFrame;
@@ -119,24 +117,8 @@ public class SignInController implements Initializable {
                     Duration.seconds(5)
             );
 
-            Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            SceneHandler.goToOverviewAdminScene(event, settingsService, fxWeaver);
 
-
-            switch (settingsService.read().getScreenResolution()) {
-                case SMALL:
-                    stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallAdminOverviewController.class)));
-                    break;
-
-                case LARGE:
-                    stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeAdminOverviewController.class)));
-                    break;
-
-                default:
-                    stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumAdminOverviewController.class)));
-                    break;
-            }
-
-            stageTheEventSourceNodeBelongs.centerOnScreen();
             return;
         }
 
@@ -154,21 +136,7 @@ public class SignInController implements Initializable {
                 );
                 signedInUser = user;
                 initializeUrlAnalysisOutputFile(signedInUser);
-                Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                switch (settingsService.read().getScreenResolution()) {
-                    case SMALL:
-                        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserOverviewController.class)));
-                        break;
-
-                    case LARGE:
-                        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserOverviewController.class)));
-                        break;
-
-                    default:
-                        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
-                        break;
-                }
-                stageTheEventSourceNodeBelongs.centerOnScreen();
+                SceneHandler.goToOverviewUserScene(event, settingsService, fxWeaver);
             } else {
                 throw new EntityNotFoundException();
             }
@@ -211,8 +179,6 @@ public class SignInController implements Initializable {
 
     @FXML
     void handleGoToSignUpButton(ActionEvent event) {
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignUpController.class)));
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToSignUpScene(event, settingsService, fxWeaver);
     }
 }

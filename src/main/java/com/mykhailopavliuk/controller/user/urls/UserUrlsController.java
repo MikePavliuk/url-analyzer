@@ -26,6 +26,7 @@ import com.mykhailopavliuk.model.Url;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
 import com.mykhailopavliuk.service.UrlService;
+import com.mykhailopavliuk.util.SceneHandler;
 import com.mykhailopavliuk.util.TrayNotificationHandler;
 import com.mykhailopavliuk.util.urlHandler.UrlHandler;
 import javafx.collections.FXCollections;
@@ -186,21 +187,7 @@ public abstract class UserUrlsController implements Initializable {
                                     btn.setRipplerFill(Color.web(currentDisplayMode.getPrimaryColor()));
                                     btn.setOnAction(event -> {
                                         sentUrlForViewingDetails = UrlTransformer.convertToEntity(getTableRow().getItem(), user);
-                                        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                        switch (settingsService.read().getScreenResolution()) {
-                                            case SMALL:
-                                                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserUrlController.class)));
-                                                break;
-
-                                            case LARGE:
-                                                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserUrlController.class)));
-                                                break;
-
-                                            default:
-                                                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserUrlController.class)));
-                                                break;
-                                        }
-                                        stageTheEventSourceNodeBelongs.centerOnScreen();
+                                        SceneHandler.goToUrlUserScene(event, settingsService, fxWeaver);
                                     });
                                     setGraphic(btn);
                                 }
@@ -266,48 +253,18 @@ public abstract class UserUrlsController implements Initializable {
 
     @FXML
     void goToOverviewPage(ActionEvent event) {
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        switch (settingsService.read().getScreenResolution()) {
-            case SMALL:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserOverviewController.class)));
-                break;
-
-            case LARGE:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserOverviewController.class)));
-                break;
-
-            default:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserOverviewController.class)));
-                break;
-        }
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToOverviewUserScene(event, settingsService, fxWeaver);
     }
 
     @FXML
     void goToSettingsPage(ActionEvent event) {
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        switch (settingsService.read().getScreenResolution()) {
-            case SMALL:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SmallUserSettingsController.class)));
-                break;
-
-            case LARGE:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(LargeUserSettingsController.class)));
-                break;
-
-            default:
-                stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(MediumUserSettingsController.class)));
-                break;
-        }
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToSettingsUserScene(event, settingsService, fxWeaver);
     }
 
     @FXML
     void signOut(ActionEvent event) {
         UrlHandler.stopUrlAnalysis();
-        Stage stageTheEventSourceNodeBelongs = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageTheEventSourceNodeBelongs.setScene(new Scene(fxWeaver.loadView(SignInController.class)));
-        stageTheEventSourceNodeBelongs.centerOnScreen();
+        SceneHandler.goToSignInScene(event, settingsService, fxWeaver);
     }
 
     @FXML
