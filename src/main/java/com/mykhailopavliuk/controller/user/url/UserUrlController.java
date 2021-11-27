@@ -1,13 +1,6 @@
 package com.mykhailopavliuk.controller.user.url;
 
 import com.jfoenix.controls.JFXButton;
-import com.mykhailopavliuk.controller.SignInController;
-import com.mykhailopavliuk.controller.user.overview.LargeUserOverviewController;
-import com.mykhailopavliuk.controller.user.overview.MediumUserOverviewController;
-import com.mykhailopavliuk.controller.user.overview.SmallUserOverviewController;
-import com.mykhailopavliuk.controller.user.settings.LargeUserSettingsController;
-import com.mykhailopavliuk.controller.user.settings.MediumUserSettingsController;
-import com.mykhailopavliuk.controller.user.settings.SmallUserSettingsController;
 import com.mykhailopavliuk.controller.user.urls.LargeUserUrlsController;
 import com.mykhailopavliuk.controller.user.urls.MediumUserUrlsController;
 import com.mykhailopavliuk.controller.user.urls.SmallUserUrlsController;
@@ -22,18 +15,14 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.rgielen.fxweaver.core.FxWeaver;
 

@@ -6,12 +6,12 @@ import java.time.Duration;
 import java.util.List;
 
 public class PingStatistics {
+    private final Duration averageResponseTime;
     private Url url;
     private int totalNumberOfRequests;
     private int numberOfNotTimeoutResponses;
     private Duration fastestResponseTime = Duration.ofSeconds(5);
     private Duration slowestResponseTime = Duration.ofSeconds(0);
-    private final Duration averageResponseTime;
 
     public PingStatistics(List<Response> responses) {
         double sumOfDurations = 0;

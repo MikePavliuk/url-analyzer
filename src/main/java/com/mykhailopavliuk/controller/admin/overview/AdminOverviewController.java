@@ -3,12 +3,6 @@ package com.mykhailopavliuk.controller.admin.overview;
 
 import com.jfoenix.controls.JFXButton;
 import com.mykhailopavliuk.controller.SignInController;
-import com.mykhailopavliuk.controller.admin.settings.LargeAdminSettingsController;
-import com.mykhailopavliuk.controller.admin.settings.MediumAdminSettingsController;
-import com.mykhailopavliuk.controller.admin.settings.SmallAdminSettingsController;
-import com.mykhailopavliuk.controller.admin.users.LargeAdminUsersController;
-import com.mykhailopavliuk.controller.admin.users.MediumAdminUsersController;
-import com.mykhailopavliuk.controller.admin.users.SmallAdminUsersController;
 import com.mykhailopavliuk.model.Settings;
 import com.mykhailopavliuk.model.User;
 import com.mykhailopavliuk.service.SettingsService;
